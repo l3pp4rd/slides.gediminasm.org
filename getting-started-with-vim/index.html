@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>Getting started with ViM</title>
+
+    <meta name="description" content="A tutorial for ViM beginners">
+    <meta name="author" content="Gediminas Morkevicius">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="css/reveal.min.css">
+    <link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+    <script>
+      document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="reveal">
+
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+
+        <section>
+          <h1>Getting started with ViM</h1>
+
+          <img src="img/vimkeycap.png" alt="vim keyboard key cap" />
+
+          <h3>By your geek friend:</h3>
+          <p>
+            <small><a href="http://gediminasm.org">Gediminas Morkevičius</a> / <a href="http://twitter.com/l3pp4rd">@l3pp4rd</a></small>
+          </p>
+        </section>
+
+        <section>
+          <h2>Who is this dude?</h2>
+          <ul>
+            <li>PHP, C, Go - programming language fanatic</li>
+            <li>open-source geek, Arch linux, DWM, ViM user</li>
+            <li>Author of <a href="https://github.com/l3pp4rd/DoctrineExtensions">Doctrine2 Extensions</a></li>
+          </ul>
+
+          <img src="img/me.jpeg" alt="Me">
+        </section>
+
+        <section>
+          <h2>What is ViM?</h2>
+
+          <blockquote cite="http://www.vim.org/about.php">
+            &ldquo;Vim is a highly configurable text editor built to enable efficient text editing.
+            It is an improved version of the vi editor distributed with most UNIX systems.&rdquo;
+          </blockquote>
+
+          <h2>What Vim Is Not?</h2>
+
+          <blockquote cite="http://www.vim.org/about.php">
+            &ldquo;Vim isn't an editor designed to hold its users' hands. It is a tool, the use of which must be learned.&rdquo;
+          </blockquote>
+        </section>
+
+        <section>
+
+          <section>
+            <h2>Why I should use ViM?</h2>
+
+            <p>Mainly, because you would join the geek force!</p>
+
+            <img src="img/geek_force.jpg" alt="Join the geek force">
+          </section>
+
+          <section>
+            <h2>That was not so convincing, was it?</h2>
+
+            <ul>
+              <li>Because it is efficient, extensible and fun!</li>
+              <li>Pair programming with tmux</li>
+              <li>Any programming language support</li>
+              <li>Modal editing - insert, visual, command modes</li>
+              <li>Vim is free and has huge community and it was there for decades, while other editors were forgotten or changed</li>
+              <li>You can hack Vim to behave like IDE and in any other way you wish</li>
+              <li>You can run hundreds of ViM instances for separate projects with minimal OS resources</li>
+              <li>You can have the same <strong>vim</strong> configuration on separate machines, no difference through ssh</li>
+            </ul>
+          </section>
+
+          <section data-markdown>
+            <script type="text/template">
+              ## Read why people choose Vim
+
+              Try entering `Why vim` in google search:
+
+              - [Simply why vim?](http://www.terminally-incoherent.com/blog/2012/03/21/why-vim/)
+              - [10 reasons to learn Vim](http://usevim.com/2012/10/26/why-vim/)
+              - [Build an IDE with Vim and Tmux](http://alexyoung.org/2011/12/19/build-an-ide-with-tmux-and-vim/)
+              - [top 10 pitfalls when switching to Vim](http://net.tutsplus.com/articles/general/top-10-pitfalls-when-switching-to-vim/)
+
+            </script>
+          </section>
+
+          <section>
+            <h2>Keyboard in command mode</h2>
+
+            <img src="img/vi-vim-cheat-sheet.gif" alt="Vim command mode keys" />
+          </section>
+
+        </section>
+
+        <section>
+          <section>
+            <h2>How can it replace my favourite IDE?</h2>
+
+            <img src="img/virginity.jpg" alt="try to take my virginity" />
+          </section>
+
+          <section>
+            <h4>Autocompletion</h4>
+
+            <p>Supported through plugins, <a href="http://ctags.sourceforge.net/">ctags</a>. It will not be as feature rich as
+            in IDE out of the box. But it can be configured to be. Here is a list of common plugins for autocompletion:</p>
+
+            <ul>
+              <li><a href="http://github.com/ervandew/supertab">Supertab</a> - use <strong>Tab</strong> for autocompletion</li>
+              <li><a href="http://github.com/shawncplus/phpcomplete.vim">php completion</a> - autocompletion plugin for php.
+              Can switch to this plugin based on file extension currently edited.</li>
+              <li><a href="https://github.com/Valloric/YouCompleteMe">YCM</a> a complete engine for autocompletion</li>
+            </ul>
+
+            <p>Generally speaking, autocompletion can be as feature rich as in IDE. Depends on your needs, how far you want it
+            to be</p>
+          </section>
+          <section data-markdown>
+            <script type="text/template">
+              #### File tree navigation
+
+              ViM takes file navigation further than any IDE.
+
+              - [Command-T](https://github.com/wincent/Command-T) - an ultimate tool to find files with minimal number of keystrokes
+              - [Nerd-tree](https://github.com/scrooloose/nerdtree) - a familiar directory/file tree.
+              - [Lusty](https://github.com/sjbach/lusty) - another file explorer, useful for fast access to current directory files
+
+            </script>
+          </section>
+
+          <section data-markdown>
+            <script type="text/template">
+              #### Syntastic
+
+              [Syntastic](https://github.com/scrooloose/syntastic) checks and displays syntax errors. IDEs usually
+              have more feature rich syntax checkers.
+
+              #### Snipmate
+
+              [Snipmate](https://github.com/garbas/vim-snipmate) is a snippet organizer, very similar to TextMate on Mac.
+              [Ultisnips](https://github.com/SirVer/ultisnips) is gaining more attraction now.
+
+              #### Zencoding
+
+              [Zencoding](http://github.com/mattn/zencoding-vim) - uses xpath to generate html. As an example transforms
+              **ul.help>li*3>a.link** to:
+
+              ```
+              <ul class="help">
+                <li><a class="link" href=""></a></li>
+                <li><a class="link" href=""></a></li>
+                <li><a class="link" href=""></a></li>
+              </ul>
+              ```
+            </script>
+          </section>
+
+          <section data-markdown>
+            <script type="text/template">
+              #### There are more
+
+              There are a lot more plugins which may increase efficiency. It is up to you, how to configure the environment
+              you will work with.
+
+              My point is, that it is possible to have an IDE like functionality in ViM and much more. It will not be out of
+              the box. You will have to invest a lot of time, as an estimate:
+
+              - **4** weeks to configure and pick up the coding speed.
+              - **2** months to see that you do things faster than in IDE
+              - **3-6** months to become a ViM addict
+              - next is growth of experience, toolkit, picking up more shortcuts to improve navigation and editing.
+
+            </script>
+          </section>
+        </section>
+
+        <section>
+          <section data-markdown>
+            <script type="text/template">
+              ## It will not be easy
+
+              During the first two weeks, you will most likely switch back to an IDE. It depends on your level
+              of interest and stubbornness.
+
+              ![Easy or hard way](img/easy_way.jpg)
+
+              I have tried to make a configuration tutorial, but it just cannot be that common. I will note the
+              most important aspects and give you some references.
+            </script>
+          </section>
+
+          <section data-markdown>
+            <script type="text/template">
+              ## ViM should be compiled
+
+              If you will not be able to find vim with **ruby**, **python** and **perl** support, you will need
+              to compile it on your own. Because useful plugins are depending usually on python or ruby.
+
+              I have tried to make a configuration tutorial, but it just cannot be that common. I will note the
+              most important aspects and give you some references.
+
+              For example [ubuntu](https://github.com/Valloric/YouCompleteMe/wiki/Building-Vim-from-source) build guide
+            </script>
+          </section>
+
+          <section data-markdown>
+            <script type="text/template">
+              ## Terminal client
+
+              A very important part is your terminal client, it should support **256** colors, otherwise using **xterm**
+              will look quite ugly. I recommend trying:
+
+              - [rxvt-unicode](http://software.schmorp.de/pkg/rxvt-unicode.html) it should be compiled as well with an option
+              to enable 256 colors, xft font support. It as well can support virtual transparency.
+              - [st](http://st.suckless.org/) should be more simple to install.
+
+              Afterwards, check **zsh** and **oh-my-zsh** and **tmux**. These should help to make your terminal feel nice
+              and feature rich.
+
+              You can look at someones **dotfiles** to grab some useful configuration which might suit you as well.
+              [Here are mine](https://github.com/l3pp4rd/dotfiles) it also has a screensot. I use **inconsolata** for
+              terminal font.
+
+            </script>
+          </section>
+
+          <section data-markdown>
+            <script type="text/template">
+              ## Where to begin configuring ViM
+
+              ```
+                touch ~/.vimrc # vim configuration files
+                mkdir ~/.vim   # plugins and extensions for vim
+              ```
+
+              - Choose a [theme](http://www.vimninjas.com/2012/08/26/10-vim-color-schemes-you-need-to-own/) for syntax coloring
+              - Choose a plugin loader [pathogen](https://github.com/tpope/vim-pathogen) or [vundle](https://github.com/gmarik/vundle)
+              - Investigate vim configuration options and set ones you wish to have, you can look at someones dotfiles for that
+              - Choose plugins which fits for you
+
+              **NOTE:** do not copy someone`s configuration without understanding it, everyone has different tastes.
+
+            </script>
+          </section>
+
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## Why I have learned ViM
+
+            I actually was forced to do so in some sense. I have worked in a company where everyone was using vim and
+            it was a shame for me to open my IDE. Seeing how these guys effectively used it and being afraid to open **nano**
+            during a presentation where I might need to edit some system configuration file and get laughed at.
+
+            It was a pain in the ass, I do not remember how many times I wished going back during the first week. Now I
+            am glad I did not and there are no more thoughts about using any IDE in the future.
+
+            It is your choice whether you are willing to invest a bunch of time learning it, what can I say - from my
+            point of view, its definetely worth it!
+
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## Thank You
+
+            [Gediminas Morkevičius](http://gediminasm.org) [@l3pp4rd](http://twitter.com/l3pp4rd)
+
+
+            powered by: [RevealJs](http://lab.hakim.se/reveal-js/)
+          </script>
+        </section>
+      </div>
+
+    </div>
+
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.min.js"></script>
+
+    <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        mouseWheel: false,
+        rollingLinks: false,
+        history: true,
+        center: true,
+
+        theme: 'solarized', // available themes are in /css/theme
+        transition: 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          //{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+          // { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+          // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+        ]
+      });
+
+    </script>
+
+  </body>
+</html>
