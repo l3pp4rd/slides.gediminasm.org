@@ -1,431 +1,0 @@
-let SessionLoad = 1
-if &cp | set nocp | endif
-let s:cpo_save=&cpo
-set cpo&vim
-inoremap <Plug>ZenCodingAnchorizeSummary :call zencoding#anchorizeURL(1)a
-inoremap <Plug>ZenCodingAnchorizeURL :call zencoding#anchorizeURL(0)a
-inoremap <Plug>ZenCodingRemoveTag :call zencoding#removeTag()a
-inoremap <Plug>ZenCodingSplitJoinTagInsert :call zencoding#splitJoinTag()
-inoremap <Plug>ZenCodingToggleComment :call zencoding#toggleComment()a
-inoremap <Plug>ZenCodingImageSize :call zencoding#imageSize()a
-inoremap <Plug>ZenCodingPrev :call zencoding#moveNextPrev(1)
-inoremap <Plug>ZenCodingNext :call zencoding#moveNextPrev(0)
-inoremap <Plug>ZenCodingBalanceTagOutwardInsert :call zencoding#balanceTag(-1)
-inoremap <Plug>ZenCodingBalanceTagInwardInsert :call zencoding#balanceTag(1)
-inoremap <Plug>ZenCodingExpandWord u:call zencoding#expandAbbr(1,"")a
-inoremap <Plug>ZenCodingExpandAbbr u:call zencoding#expandAbbr(0,"")a
-inoremap <silent> <S-Tab> =UltiSnips_JumpBackwards()
-inoremap <silent> <C-Tab> =UltiSnips_ListSnippets()
-inoremap <silent> <Plug>delimitMateMRightMouse =delimitMate#Finish(1)<RightMouse>
-inoremap <silent> <Plug>delimitMateMLeftMouse =delimitMate#Finish(1)<LeftMouse>
-inoremap <silent> <Plug>delimitMateDel =delimitMate#Del()
-inoremap <silent> <Plug>delimitMateS-Tab =delimitMate#JumpAny("\<S-Tab>")
-inoremap <silent> <Plug>delimitMateSpace =delimitMate#ExpandSpace()
-inoremap <silent> <Plug>delimitMateCR =delimitMate#ExpandReturn()
-inoremap <silent> <expr> <Plug>delimitMateS-BS delimitMate#WithinEmptyPair() ? "\=delimitMate#Del()\" : "\<S-BS>"
-inoremap <silent> <expr> <Plug>delimitMateBS delimitMate#WithinEmptyPair() ? "\=delimitMate#BS()\" : "\<BS>"
-inoremap <silent> <Plug>delimitMate` =delimitMate#QuoteDelim("\`")
-inoremap <silent> <Plug>delimitMate' =delimitMate#QuoteDelim("\'")
-inoremap <silent> <Plug>delimitMate" =delimitMate#QuoteDelim("\"")
-inoremap <silent> <Plug>delimitMate} =delimitMate#JumpOut("\}")
-inoremap <silent> <Plug>delimitMate] =delimitMate#JumpOut("\]")
-inoremap <silent> <Plug>delimitMate) =delimitMate#JumpOut("\)")
-inoremap <silent> <Plug>delimitMate{ {=delimitMate#ParenDelim("}")
-inoremap <silent> <Plug>delimitMate[ [=delimitMate#ParenDelim("]")
-inoremap <silent> <Plug>delimitMate( (=delimitMate#ParenDelim(")")
-nmap  ggVG$
-snoremap <silent>  c
-xnoremap 	 :call UltiSnips_SaveLastVisualSelection()gvs
-snoremap <silent> 	 :call UltiSnips_ExpandSnippetOrJump()
-vmap c <Plug>ZenCodingCodePretty
-vmap m <Plug>ZenCodingMergeLines
-vmap D <Plug>ZenCodingBalanceTagOutwardVisual
-vmap d <Plug>ZenCodingBalanceTagInwardVisual
-vmap , <Plug>ZenCodingExpandVisual
-nmap A <Plug>ZenCodingAnchorizeSummary
-nmap a <Plug>ZenCodingAnchorizeURL
-nmap k <Plug>ZenCodingRemoveTag
-nmap j <Plug>ZenCodingSplitJoinTagNormal
-nmap / <Plug>ZenCodingToggleComment
-nmap i <Plug>ZenCodingImageSize
-nmap N <Plug>ZenCodingPrev
-nmap n <Plug>ZenCodingNext
-nmap D <Plug>ZenCodingBalanceTagOutwardNormal
-nmap d <Plug>ZenCodingBalanceTagInwardNormal
-nmap , <Plug>ZenCodingExpandNormal
-nmap <silent> ,lj :LustyJuggler
-nmap <silent> ,lg :LustyBufferGrep
-nmap <silent> ,lb :LustyBufferExplorer
-nmap <silent> ,lr :LustyFilesystemExplorerFromHere
-nmap <silent> ,lf :LustyFilesystemExplorer
-vnoremap <silent> ,,w :call EasyMotion#WB(1, 0)
-onoremap <silent> ,,w :call EasyMotion#WB(0, 0)
-nnoremap <silent> ,,w :call EasyMotion#WB(0, 0)
-vnoremap <silent> ,,t :call EasyMotion#T(1, 0)
-onoremap <silent> ,,t :call EasyMotion#T(0, 0)
-nnoremap <silent> ,,t :call EasyMotion#T(0, 0)
-vnoremap <silent> ,,n :call EasyMotion#Search(1, 0)
-onoremap <silent> ,,n :call EasyMotion#Search(0, 0)
-nnoremap <silent> ,,n :call EasyMotion#Search(0, 0)
-vnoremap <silent> ,,k :call EasyMotion#JK(1, 1)
-onoremap <silent> ,,k :call EasyMotion#JK(0, 1)
-nnoremap <silent> ,,k :call EasyMotion#JK(0, 1)
-vnoremap <silent> ,,j :call EasyMotion#JK(1, 0)
-onoremap <silent> ,,j :call EasyMotion#JK(0, 0)
-nnoremap <silent> ,,j :call EasyMotion#JK(0, 0)
-vnoremap <silent> ,,gE :call EasyMotion#EW(1, 1)
-onoremap <silent> ,,gE :call EasyMotion#EW(0, 1)
-nnoremap <silent> ,,gE :call EasyMotion#EW(0, 1)
-vnoremap <silent> ,,e :call EasyMotion#E(1, 0)
-onoremap <silent> ,,e :call EasyMotion#E(0, 0)
-nnoremap <silent> ,,e :call EasyMotion#E(0, 0)
-vnoremap <silent> ,,b :call EasyMotion#WB(1, 1)
-onoremap <silent> ,,b :call EasyMotion#WB(0, 1)
-nnoremap <silent> ,,b :call EasyMotion#WB(0, 1)
-vnoremap <silent> ,,W :call EasyMotion#WBW(1, 0)
-onoremap <silent> ,,W :call EasyMotion#WBW(0, 0)
-nnoremap <silent> ,,W :call EasyMotion#WBW(0, 0)
-vnoremap <silent> ,,T :call EasyMotion#T(1, 1)
-onoremap <silent> ,,T :call EasyMotion#T(0, 1)
-nnoremap <silent> ,,T :call EasyMotion#T(0, 1)
-vnoremap <silent> ,,N :call EasyMotion#Search(1, 1)
-onoremap <silent> ,,N :call EasyMotion#Search(0, 1)
-nnoremap <silent> ,,N :call EasyMotion#Search(0, 1)
-vnoremap <silent> ,,ge :call EasyMotion#E(1, 1)
-onoremap <silent> ,,ge :call EasyMotion#E(0, 1)
-nnoremap <silent> ,,ge :call EasyMotion#E(0, 1)
-vnoremap <silent> ,,E :call EasyMotion#EW(1, 0)
-onoremap <silent> ,,E :call EasyMotion#EW(0, 0)
-nnoremap <silent> ,,E :call EasyMotion#EW(0, 0)
-vnoremap <silent> ,,B :call EasyMotion#WBW(1, 1)
-onoremap <silent> ,,B :call EasyMotion#WBW(0, 1)
-nnoremap <silent> ,,B :call EasyMotion#WBW(0, 1)
-nnoremap <silent> ,b :CommandTBuffer
-nnoremap <silent> ,t :CommandT
-nmap ,ihn :IHN
-nmap ,is :IHS:A
-nmap ,ih :IHS
-nmap ,C :call CleanCode()
-nnoremap ,h :A
-map ,u :call PhpInsertUse()
-nmap ,a :Ack
-nmap ,ld :let NERDTreeQuitOnOpen = 0|NERDTreeToggle
-nmap ,lt :let NERDTreeQuitOnOpen = 1|NERDTreeToggle
-nmap ,ct :!ctags&
-vnoremap ,p "+dP
-vnoremap ,d "+d
-nnoremap ,d "+d
-nmap ,iv :se wig-=*/vendor:CommandTFlush
-nmap ,ev :se wig+=*/vendor:CommandTFlush
-nmap ,sr :!ack -l =expand("<cword>") | xargs perl -pi -E 's/=expand("<cword>")//g'<Left><Left><Left>
-nmap ,ss :%s#=expand("<cword>")#
-nmap <silent> ,/ :let @/=""
-nmap <silent> ,nw :set nowrap!
-nmap ,r :Rename
-nmap <silent> ,nn :set nonumber!
-nmap ,4 :setlocal tabstop=4:setlocal shiftwidth=4:setlocal softtabstop=4
-nmap ,2 :setlocal tabstop=2:setlocal shiftwidth=2:setlocal softtabstop=2
-vnoremap / /\v
-nnoremap / /\v
-vnoremap ? ?\v
-nnoremap ? ?\v
-xmap S <Plug>VSurround
-nmap \\u <Plug>CommentaryUndo
-nmap \\\ <Plug>CommentaryLine
-nmap \\ <Plug>Commentary
-xmap \\ <Plug>Commentary
-nmap cs <Plug>Csurround
-nmap ds <Plug>Dsurround
-vnoremap d "_d
-nnoremap d "_d
-nmap gx <Plug>NetrwBrowseX
-xmap gS <Plug>VgSurround
-nmap gcu <Plug>CommentaryUndo
-nmap gcc <Plug>CommentaryLine
-nmap gc <Plug>Commentary
-xmap gc <Plug>Commentary
-vnoremap p "_dP
-nmap ySS <Plug>YSsurround
-nmap ySs <Plug>YSsurround
-nmap yss <Plug>Yssurround
-nmap yS <Plug>YSurround
-nmap ys <Plug>Ysurround
-vnoremap <silent> { :call EasyMotion#F(1, 1)
-onoremap <silent> { :call EasyMotion#F(0, 1)
-nnoremap <silent> { :call EasyMotion#F(0, 1)
-vnoremap <silent> } :call EasyMotion#F(1, 0)
-onoremap <silent> } :call EasyMotion#F(0, 0)
-nnoremap <silent> } :call EasyMotion#F(0, 0)
-nnoremap <silent> <Plug>NetrwBrowseX :call netrw#NetrwBrowseX(expand("<cWORD>"),0)
-vnoremap <Plug>ZenCodingCodePretty :call zencoding#codePretty()
-vnoremap <Plug>ZenCodingMergeLines :call zencoding#mergeLines()
-vnoremap <Plug>ZenCodingBalanceTagOutwardVisual :call zencoding#balanceTag(-2)
-vnoremap <Plug>ZenCodingBalanceTagInwardVisual :call zencoding#balanceTag(2)
-vnoremap <Plug>ZenCodingExpandVisual :call zencoding#expandAbbr(2,"")
-nnoremap <Plug>ZenCodingAnchorizeSummary :call zencoding#anchorizeURL(1)
-nnoremap <Plug>ZenCodingAnchorizeURL :call zencoding#anchorizeURL(0)
-nnoremap <Plug>ZenCodingRemoveTag :call zencoding#removeTag()
-nnoremap <Plug>ZenCodingSplitJoinTagNormal :call zencoding#splitJoinTag()
-nnoremap <Plug>ZenCodingToggleComment :call zencoding#toggleComment()
-nnoremap <Plug>ZenCodingImageSize :call zencoding#imageSize()
-nnoremap <Plug>ZenCodingPrev :call zencoding#moveNextPrev(1)
-nnoremap <Plug>ZenCodingNext :call zencoding#moveNextPrev(0)
-nnoremap <Plug>ZenCodingBalanceTagOutwardNormal :call zencoding#balanceTag(-1)
-nnoremap <Plug>ZenCodingBalanceTagInwardNormal :call zencoding#balanceTag(1)
-nnoremap <Plug>ZenCodingExpandWord :call zencoding#expandAbbr(1,"")
-nnoremap <Plug>ZenCodingExpandNormal :call zencoding#expandAbbr(3,"")
-snoremap <silent> <Del> c
-snoremap <silent> <BS> c
-snoremap <silent> <C-Tab> :call UltiSnips_ListSnippets()
-snoremap <silent> <S-Tab> :call UltiSnips_JumpBackwards()
-nnoremap <silent> <Plug>SurroundRepeat .
-imap S <Plug>ISurround
-imap s <Plug>Isurround
-inoremap <silent> 	 =UltiSnips_ExpandSnippetOrJump()
-imap A <Plug>ZenCodingAnchorizeSummary
-imap a <Plug>ZenCodingAnchorizeURL
-imap k <Plug>ZenCodingRemoveTag
-imap j <Plug>ZenCodingSplitJoinTagInsert
-imap / <Plug>ZenCodingToggleComment
-imap i <Plug>ZenCodingImageSize
-imap N <Plug>ZenCodingPrev
-imap n <Plug>ZenCodingNext
-imap D <Plug>ZenCodingBalanceTagOutwardInsert
-imap d <Plug>ZenCodingBalanceTagInwardInsert
-imap ; <Plug>ZenCodingExpandWord
-imap , <Plug>ZenCodingExpandAbbr
-imap  <Plug>Isurround
-imap ,ihn :IHN
-imap ,is :IHS:A
-imap ,ih :IHS
-cmap w!! w !sudo tee % >/dev/null:e!
-let &cpo=s:cpo_save
-unlet s:cpo_save
-set autoindent
-set autoread
-set background=dark
-set backspace=indent,eol,start
-set clipboard=unnamedplus
-set cmdheight=2
-set completeopt=menu,menuone,longest
-set expandtab
-set fileencodings=ucs-bom,utf-8,default,latin1
-set formatoptions=qrn1
-set gdefault
-set helplang=en
-set hidden
-set history=200
-set hlsearch
-set ignorecase
-set incsearch
-set laststatus=2
-set lazyredraw
-set listchars=tab:»·,trail:·,extends:>,precedes:<,nbsp:·
-set pumheight=15
-set ruler
-set runtimepath=~/.vim,~/.vim/bundle/ack,~/.vim/bundle/alternate,~/.vim/bundle/command-t,~/.vim/bundle/commentary,~/.vim/bundle/delimit-mate,~/.vim/bundle/easymotion,~/.vim/bundle/fugitive,~/.vim/bundle/git.wincent.com,~/.vim/bundle/go,~/.vim/bundle/lusty,~/.vim/bundle/markdown,~/.vim/bundle/nerdtree,~/.vim/bundle/pathogen,~/.vim/bundle/php-namespace,~/.vim/bundle/phpcomplete,~/.vim/bundle/rename,~/.vim/bundle/solarized,~/.vim/bundle/super-tab,~/.vim/bundle/surround,~/.vim/bundle/syntastic,~/.vim/bundle/ultisnips,~/.vim/bundle/vim-powerline,~/.vim/bundle/zencoding,/usr/share/vim/vimfiles,/usr/share/vim/vim73,/usr/share/vim/vimfiles/after,~/.vim/bundle/ultisnips/after,~/.vim/after
-set scrolljump=3
-set scrolloff=3
-set shiftwidth=4
-set showmatch
-set smartcase
-set smartindent
-set softtabstop=4
-set statusline=%{SyntasticStatuslineFlag()}%*
-set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc
-set noswapfile
-set tabstop=4
-set tags=./tags,./TAGS,tags,TAGS,vendor.tags
-set textwidth=120
-set tildeop
-set wildignore=*.o,*/.git/*,*/.hg/*,*/.svn/*,*/*cache,*/logs,*/tmp,*.swp,*.jpg,*.png,*.xpm,*.gif,*.ico,*/vendor,web/css,web/js,web/bundles,*/target/*,*/tags,*/vendor.tags,*.phar
-set wildmenu
-set wildmode=list:longest,full
-set nowritebackup
-let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
-let v:this_session=expand("<sfile>:p")
-silent only
-cd ~/presentations/getting-started-with-vim
-if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
-  let s:wipebuf = bufnr('%')
-endif
-set shortmess=aoO
-badd +102 index.html
-badd +6 Gruntfile.js
-silent! argdel *
-edit index.html
-set splitbelow splitright
-set nosplitbelow
-set nosplitright
-wincmd t
-set winheight=1 winwidth=1
-argglobal
-let s:cpo_save=&cpo
-set cpo&vim
-imap <buffer> <RightMouse> <Plug>delimitMateMRightMouse
-imap <buffer> <LeftMouse> <Plug>delimitMateMLeftMouse
-imap <buffer> <S-Up> <Plug>delimitMateS-Up
-imap <buffer> <S-Down> <Plug>delimitMateS-Down
-imap <buffer> <PageDown> <Plug>delimitMatePageDown
-imap <buffer> <PageUp> <Plug>delimitMatePageUp
-imap <buffer> <Down> <Plug>delimitMateDown
-imap <buffer> <Up> <Plug>delimitMateUp
-imap <buffer> <C-Right> <Plug>delimitMateC-Right
-imap <buffer> <C-Left> <Plug>delimitMateC-Left
-imap <buffer> <End> <Plug>delimitMateEnd
-imap <buffer> <Home> <Plug>delimitMateHome
-imap <buffer> <Right> <Plug>delimitMateRight
-imap <buffer> <Left> <Plug>delimitMateLeft
-imap <buffer> <Del> <Plug>delimitMateDel
-imap <buffer> <S-BS> <Plug>delimitMateS-BS
-imap <buffer> <BS> <Plug>delimitMateBS
-inoremap <buffer> <Plug>delimitMateJumpMany =len(b:_l_delimitMate_buffer) ? delimitMate#Finish(0) : delimitMate#JumpMany()
-imap <buffer> <C-ScrollWheelRight> <Plug>delimitMateC-ScrollWheelRight
-imap <buffer> <S-ScrollWheelRight> <Plug>delimitMateS-ScrollWheelRight
-imap <buffer> <ScrollWheelRight> <Plug>delimitMateScrollWheelRight
-imap <buffer> <C-ScrollWheelLeft> <Plug>delimitMateC-ScrollWheelLeft
-imap <buffer> <S-ScrollWheelLeft> <Plug>delimitMateS-ScrollWheelLeft
-imap <buffer> <ScrollWheelLeft> <Plug>delimitMateScrollWheelLeft
-imap <buffer> <C-ScrollWheelDown> <Plug>delimitMateC-ScrollWheelDown
-imap <buffer> <S-ScrollWheelDown> <Plug>delimitMateS-ScrollWheelDown
-imap <buffer> <ScrollWheelDown> <Plug>delimitMateScrollWheelDown
-imap <buffer> <C-ScrollWheelUp> <Plug>delimitMateC-ScrollWheelUp
-imap <buffer> <S-ScrollWheelUp> <Plug>delimitMateS-ScrollWheelUp
-imap <buffer> <ScrollWheelUp> <Plug>delimitMateScrollWheelUp
-imap <buffer> <silent> g <Plug>delimitMateJumpMany
-imap <buffer> " <Plug>delimitMate"
-imap <buffer> ' <Plug>delimitMate'
-imap <buffer> ( <Plug>delimitMate(
-imap <buffer> ) <Plug>delimitMate)
-imap <buffer> [ <Plug>delimitMate[
-imap <buffer> ] <Plug>delimitMate]
-imap <buffer> ` <Plug>delimitMate`
-imap <buffer> { <Plug>delimitMate{
-imap <buffer> } <Plug>delimitMate}
-let &cpo=s:cpo_save
-unlet s:cpo_save
-setlocal keymap=
-setlocal noarabic
-setlocal autoindent
-setlocal balloonexpr=
-setlocal nobinary
-setlocal bufhidden=
-setlocal buflisted
-setlocal buftype=
-setlocal nocindent
-setlocal cinkeys=0{,0},0),:,0#,!^F,o,O,e
-setlocal cinoptions=
-setlocal cinwords=if,else,while,do,for,switch
-set colorcolumn=120
-setlocal colorcolumn=120
-setlocal comments=s:<!--,m:\ \ \ \ ,e:-->
-setlocal commentstring=<!--%s-->
-setlocal complete=.,w,b,u,t,i
-setlocal concealcursor=
-setlocal conceallevel=0
-setlocal completefunc=
-setlocal nocopyindent
-setlocal cryptmethod=
-setlocal nocursorbind
-setlocal nocursorcolumn
-setlocal nocursorline
-setlocal define=
-setlocal dictionary=
-setlocal nodiff
-setlocal equalprg=
-setlocal errorformat=
-setlocal expandtab
-if &filetype != 'htmldjango'
-setlocal filetype=htmldjango
-endif
-setlocal foldcolumn=0
-setlocal foldenable
-setlocal foldexpr=0
-setlocal foldignore=#
-setlocal foldlevel=0
-setlocal foldmarker={{{,}}}
-setlocal foldmethod=manual
-setlocal foldminlines=1
-setlocal foldnestmax=20
-setlocal foldtext=foldtext()
-setlocal formatexpr=
-setlocal formatoptions=qrn1
-setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
-setlocal grepprg=
-setlocal iminsert=2
-setlocal imsearch=2
-setlocal include=
-setlocal includeexpr=
-setlocal indentexpr=HtmlIndentGet(v:lnum)
-setlocal indentkeys=o,O,*<Return>,<>>,{,}
-setlocal noinfercase
-setlocal iskeyword=@,48-57,_,192-255
-setlocal keywordprg=
-set linebreak
-setlocal linebreak
-setlocal nolisp
-set list
-setlocal list
-setlocal makeprg=
-setlocal matchpairs=(:),{:},[:],<:>
-setlocal modeline
-setlocal modifiable
-setlocal nrformats=octal,hex
-set number
-setlocal number
-setlocal numberwidth=4
-setlocal omnifunc=htmlcomplete#CompleteTags
-setlocal path=
-setlocal nopreserveindent
-setlocal nopreviewwindow
-setlocal quoteescape=\\
-setlocal noreadonly
-setlocal norelativenumber
-setlocal norightleft
-setlocal rightleftcmd=search
-setlocal noscrollbind
-setlocal shiftwidth=2
-setlocal noshortname
-setlocal smartindent
-setlocal softtabstop=2
-setlocal nospell
-setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
-setlocal spellfile=
-setlocal spelllang=en
-setlocal statusline=%!Pl#Statusline(0,1)
-setlocal suffixesadd=
-setlocal noswapfile
-setlocal synmaxcol=3000
-if &syntax != 'htmldjango'
-setlocal syntax=htmldjango
-endif
-setlocal tabstop=2
-setlocal tags=
-setlocal textwidth=120
-setlocal thesaurus=
-setlocal noundofile
-setlocal nowinfixheight
-setlocal nowinfixwidth
-setlocal wrap
-setlocal wrapmargin=0
-silent! normal! zE
-let s:l = 104 - ((27 * winheight(0) + 18) / 37)
-if s:l < 1 | let s:l = 1 | endif
-exe s:l
-normal! zt
-104
-normal! 019|
-tabnext 1
-if exists('s:wipebuf')
-  silent exe 'bwipe ' . s:wipebuf
-endif
-unlet! s:wipebuf
-set winheight=1 winwidth=20 shortmess=filnxtToO
-let s:sx = expand("<sfile>:p:r")."x.vim"
-if file_readable(s:sx)
-  exe "source " . fnameescape(s:sx)
-endif
-let &so = s:so_save | let &siso = s:siso_save
-doautoall SessionLoadPost
-unlet SessionLoad
-" vim: set ft=vim :

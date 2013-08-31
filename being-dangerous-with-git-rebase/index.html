@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>Being dangerous with git rebase</title>
+
+    <meta name="description" content="A tutorial for ViM beginners">
+    <meta name="author" content="Gediminas Morkevicius">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <meta name="robots" content="noindex, nofollow" />
+
+    <link rel="stylesheet" href="../revealjs/css/reveal.min.css">
+    <link rel="stylesheet" href="../revealjs/css/theme/default.css" id="theme">
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="../revealjs/lib/css/zenburn.css">
+
+    <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+    <script>
+      document.write( '<link rel="stylesheet" href="../revealjs/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="../revealjs/lib/js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+
+    <div class="reveal">
+
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+
+        <section>
+          <h1>Being dangerous with git</h1>
+
+          <img src="img/keep-calm-and-git-rebase.png" alt="keep calm and git rebase" height="280px" />
+
+          <h3>By your geek friend:</h3>
+          <p>
+            <small><a href="http://gediminasm.org">Gediminas Morkevičius</a> / <a href="http://twitter.com/l3pp4rd">@l3pp4rd</a></small>
+          </p>
+        </section>
+
+        <section>
+          <h2>Who is this dude?</h2>
+          <ul>
+            <li>PHP, C, Go - programming language fanatic</li>
+            <li>open-source geek, Arch linux, DWM, ViM user</li>
+            <li>Author of <a href="https://github.com/l3pp4rd/DoctrineExtensions">Doctrine2 Extensions</a></li>
+            <li>And I share my stuff <a href="https://github.com/l3pp4rd">in github</a></li>
+          </ul>
+
+          <img src="img/me.jpeg" alt="Me">
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## Why I should consider using git
+
+            - git is decentralized
+            - git is small and fast
+            - git does not store changes - it stores snapshots
+            - git has a staging area
+            - git is a new standard?
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## Workflow
+
+            Git does not force any workflow, use what works best for your team, even
+            if you are working alone, git is a perfect match.
+          </script>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ### What may be useful to know about git repository
+
+            Here is a fresh repository **repo/.git** guts:
+
+            ![Repository guts](img/guts.png)
+
+          </script>
+        </section>
+
+
+        <section data-markdown>
+          <script type="text/template">
+            ### So what did I meant by "Being Dangerous with git"?
+
+            - experiment
+            - create topic branches
+            - merge and rebase
+
+            The most advantagous feature in git - **it does not cost you anything to experiment**.
+
+            But **don't** do it on production branch! Thats it.
+          </script>
+        </section>
+
+        <section>
+          <h3>Lets say we have a new git repository</h3>
+          <p class="fragment roll-in">
+            <pre><code data-trim>
+                mkdir ~/git-demo && cd ~/git-demo
+            </code></pre>
+          </p>
+            <p class="fragment grow">grow</p>
+            <p class="fragment shrink">shrink</p>
+            <p class="fragment roll-in">roll-in</p>
+            <p class="fragment fade-out">fade-out</p>
+            <p class="fragment highlight-red">highlight-red</p>
+            <p class="fragment highlight-green">highlight-green</p>
+            <p class="fragment highlight-blue">highlight-blue</p>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## Thank You
+
+            [Gediminas Morkevičius](http://gediminasm.org) [@l3pp4rd](http://twitter.com/l3pp4rd)
+
+
+            powered by: [RevealJs](http://lab.hakim.se/reveal-js/)
+          </script>
+        </section>
+      </div>
+
+    </div>
+
+    <script src="../revealjs/lib/js/head.min.js"></script>
+    <script src="../revealjs/js/reveal.min.js"></script>
+
+    <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        mouseWheel: false,
+        rollingLinks: false,
+        history: true,
+        center: true,
+
+        theme: 'solarized', // available themes are in /css/theme
+        transition: 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: '../revealjs/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../revealjs/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../revealjs/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../revealjs/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          //{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: '../revealjs/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+          // { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+          // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+        ]
+      });
+
+    </script>
+
+  </body>
+</html>
