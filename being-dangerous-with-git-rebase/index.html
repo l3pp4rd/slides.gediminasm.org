@@ -63,7 +63,7 @@
 
         <section data-markdown>
           <script type="text/template">
-            ## Why I should consider using git
+            ## Why You should consider using git
 
             - git is decentralized
             - git is small and fast
@@ -109,19 +109,120 @@
         </section>
 
         <section>
-          <h3>Lets say we have a new git repository</h3>
-          <p class="fragment roll-in">
-            <pre><code data-trim>
-                mkdir ~/git-demo && cd ~/git-demo
-            </code></pre>
-          </p>
-            <p class="fragment grow">grow</p>
-            <p class="fragment shrink">shrink</p>
-            <p class="fragment roll-in">roll-in</p>
-            <p class="fragment fade-out">fade-out</p>
-            <p class="fragment highlight-red">highlight-red</p>
-            <p class="fragment highlight-green">highlight-green</p>
-            <p class="fragment highlight-blue">highlight-blue</p>
+          <h3>Example</h3>
+
+          <p>Lets say our team gets a task:</p>
+
+          <p>Write a PHP function which would calcalute when to pay salaries for next 12 months.
+          They should be paid on the last day of the month, unless that day is a Saturday or Sunday. In that case,
+          salaries are paid before the weekend.</p>
+
+          <p>We all like salaries, don't we? So the team starts doing a job right away.
+          They do not want to make a mistake here. Its their salaries on the stake!</p>
+
+        </section>
+
+        <section>
+          <p>Ben starts the project</p>
+
+          <pre><code class="fragment roll-in">
+              mkdir ~/salaries && cd ~/salaries
+              git init
+              git remote add origin https://github.com/ben/salaries.git
+          </code></pre>
+
+          <p><strong>NOTE:</strong> git may have any number of remotes since it is decentralized. Ben in this
+          case uses his own guthub account.</p>
+
+          <p>Since Ben knows, how badly he wants his salary on time, he thinks about backing it up. But hey it is git,
+          when team kicks in, it all will be backed up, because every git repository clone is the same as a backup.</p>
+
+        </section>
+
+        <section>
+          <p>Ben writes his version of salary day calculator function</p>
+
+          <pre><code class="fragment roll-in">vim montly_salary_day.php</code></pre>
+
+          <pre><code class="fragment roll-in" data-noescpape="" style="font-size: 15px;max-height:600px;">&lt;?php
+define('DAY', 3600 * 24);
+
+function monthly_salary_day($fromTimestamp, $forNumMonths = 12) {
+    $payDays = array();
+    do {
+        $ndays = intval(date('t', $fromTimestamp));
+        $weekday = intval(date('w', $fromTimestamp));
+        $day = intval(date('j', $fromTimestamp));
+        $payDay = null;
+        for ($next = $day; $next &lt;= $ndays; $next++, $fromTimestamp += DAY) {
+            if (!in_array($weekday, array(0, 6))) {
+                $payDay = $fromTimestamp;
+            }
+            $weekday = $weekday === 6 ? 0 : $weekday + 1;
+        }
+        if (null !== $payDay) {
+            $payDays[] = date('Y:m:d', $payDay);
+        }
+    } while($forNumMonths--);
+    return $payDays;
+}</code></pre>
+        </section>
+
+        <section>
+          <p>Stage, commit and push to <strong>master</strong></p>
+          <pre><code class="fragment roll-in">git add monthly_salary_day.php</code></pre>
+          <pre><code class="fragment roll-in">git commit -m 'create initial salary day calculator'</code></pre>
+          <pre><code class="fragment roll-in">git push origin master</code></pre>
+        </section>
+
+        <section>
+          <p>Tom reviews Ben's code</p>
+          <p>He notices that in case if current day is the last weekend day of the month,
+          there would be one month skipped. So he clones repository and updates:</p>
+
+          <pre><code class="fragment roll-in">git clone https://github.com/ben/salaries.git ~/salaries</code></pre>
+          <pre><code class="fragment roll-in">cd ~/salaries</code></pre>
+          <pre><code class="fragment roll-in">git checkout -b feature/improvements</code></pre>
+          <pre><code class="fragment roll-in">vim monthly_salary_day.php</code></pre>
+
+        </section>
+
+        <section>
+          <p>Tom makes some code improvements</p>
+
+          <pre><code class="fragment roll-in">git clone https://github.com/ben/salaries.git ~/salaries</code></pre>
+          <pre><code class="fragment roll-in">cd ~/salaries</code></pre>
+          <pre><code class="fragment roll-in">git checkout -b feature/improvements</code></pre>
+          <pre><code class="fragment roll-in">vim monthly_salary_day.php</code></pre>
+
+        </section>
+
+        <section>
+          <pre><code class="fragment roll-in" data-noescpape="" style="font-size: 15px;max-height:600px;">&lt;?php
+define('DAY', 3600 * 24);
+
+function monthly_salary_day($fromTimestamp, $forNumMonths = 12) {
+    $payDays = array();
+    do {
+        // get num days in month, weekday and day of the month
+        list($ndays, $weekday, $day) = array_map('intval', explode(':', date('t:N:j', $fromTimestamp)));
+        for (; $day &lt;= $ndays; $day++, $fromTimestamp += DAY) {
+            if ($weekday &lt; 6) {
+                $payDay = $fromTimestamp;
+            }
+            $weekday = $weekday === 7 ? 1 : $weekday + 1;
+        }
+        if (null !== $payDay) {
+            $payDays[] = date('Y:m:d', $payDay);
+            $forNumMonths--; // decrement only if payday is available for curr month
+        }
+    } while($forNumMonths);
+    return $payDays;
+}</code></pre>
+          <pre><code class="fragment roll-in">cd ~/salaries</code></pre>
+          <pre><code class="fragment roll-in">git checkout -b feature/improvements</code></pre>
+          <pre><code class="fragment roll-in">vim monthly_salary_day.php</code></pre>
+
         </section>
 
         <section data-markdown>
