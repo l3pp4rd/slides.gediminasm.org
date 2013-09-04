@@ -77,8 +77,8 @@
           <script type="text/template">
             ## Workflow
 
-            Git does not force any workflow, use what works best for your team, even
-            if you are working alone, git is a perfect match.
+            Git does not force any workflow, use what works best for your team and project, even
+            if you are working alone, git will fit perfectly well.
           </script>
         </section>
 
@@ -96,133 +96,110 @@
 
         <section data-markdown>
           <script type="text/template">
-            ### So what did I meant by "Being Dangerous with git"?
+            ### When to use rebase or merge
 
-            - experiment
-            - create topic branches
-            - merge and rebase
+            The only way you can screw things up in git - is using **rebase** on branches which are used
+            in production or in active development.
 
-            The most advantagous feature in git - **it does not cost you anything to experiment**.
+            Use **rebase** to cleanup and prepare your topic branches for merge.
 
-            But **don't** do it on production branch! Thats it.
+            Use **merge** for up to date, clean branches or changes like hotfixes back to development branch, when it
+            is active and cannot be rebased.
           </script>
         </section>
 
         <section>
-          <h3>Example</h3>
+          <h3>How to prevent THIS from happening?</h3>
 
-          <p>Lets say our team gets a task:</p>
+          <pre><code>git log --pretty=oneline --abbrev-commit</code></pre>
 
-          <p>Write a PHP function which would calcalute when to pay salaries for next 12 months.
-          They should be paid on the last day of the month, unless that day is a Saturday or Sunday. In that case,
-          salaries are paid before the weekend.</p>
+          <img src="img/ugly_commits.png" alt="ugly commits" />
 
-          <p>We all like salaries, don't we? So the team starts doing a job right away.
-          They do not want to make a mistake here. Its their salaries on the stake!</p>
-
+          <p>rebase your feature branches</p>
         </section>
 
         <section>
-          <p>Ben starts the project</p>
+          <h3>Example:</h3>
 
-          <pre><code class="fragment roll-in">
-              mkdir ~/salaries && cd ~/salaries
-              git init
-              git remote add origin https://github.com/ben/salaries.git
-          </code></pre>
+          <pre><code>mkdir ~/project && cd ~/project
+git init
+touch LICENSE
+git add LICENSE
+git commit -am 'initial commit - set license'
+git remote add origin https://github.com/user/project.git
+git checkout -b feature/project-bootstrap</code></pre>
 
-          <p><strong>NOTE:</strong> git may have any number of remotes since it is decentralized. Ben in this
-          case uses his own guthub account.</p>
+          <p>After a while...</p>
 
-          <p>Since Ben knows, how badly he wants his salary on time, he thinks about backing it up. But hey it is git,
-          when team kicks in, it all will be backed up, because every git repository clone is the same as a backup.</p>
+          <img src="img/usual_commits.png" alt="usual commits" />
 
+          <p>Do you want this to go into <strong>master</strong> production stream?</p>
         </section>
 
         <section>
-          <p>Ben writes his version of salary day calculator function</p>
+          <h3>Lets rebase</h3>
 
-          <pre><code class="fragment roll-in">vim montly_salary_day.php</code></pre>
+          <p>Interactively rebase 5 commits from HEAD</p>
 
-          <pre><code class="fragment roll-in" data-noescpape="" style="font-size: 15px;max-height:600px;">&lt;?php
-define('DAY', 3600 * 24);
+          <pre><code>git rebase --interactive HEAD~5</code></pre>
 
-function monthly_salary_day($fromTimestamp, $forNumMonths = 12) {
-    $payDays = array();
-    do {
-        $ndays = intval(date('t', $fromTimestamp));
-        $weekday = intval(date('w', $fromTimestamp));
-        $day = intval(date('j', $fromTimestamp));
-        $payDay = null;
-        for ($next = $day; $next &lt;= $ndays; $next++, $fromTimestamp += DAY) {
-            if (!in_array($weekday, array(0, 6))) {
-                $payDay = $fromTimestamp;
-            }
-            $weekday = $weekday === 6 ? 0 : $weekday + 1;
-        }
-        if (null !== $payDay) {
-            $payDays[] = date('Y:m:d', $payDay);
-        }
-    } while($forNumMonths--);
-    return $payDays;
-}</code></pre>
+          <img src="img/rebase.png" alt="rebase" />
         </section>
 
         <section>
-          <p>Stage, commit and push to <strong>master</strong></p>
-          <pre><code class="fragment roll-in">git add monthly_salary_day.php</code></pre>
-          <pre><code class="fragment roll-in">git commit -m 'create initial salary day calculator'</code></pre>
-          <pre><code class="fragment roll-in">git push origin master</code></pre>
+          <img src="img/manage_commits_in_rebase.png" alt="manage commits in rebase" />
+
+          <p>At this point we can choose what to do with commits. Rebase will rewind
+          the chosen number of commits and modify them accordingly to prefered changes.</p>
         </section>
 
         <section>
-          <p>Tom reviews Ben's code</p>
-          <p>He notices that in case if current day is the last weekend day of the month,
-          there would be one month skipped. So he clones repository and updates:</p>
+          <p>Initially rebase will stop to rename the first commit, we rename it properly:</p>
 
-          <pre><code class="fragment roll-in">git clone https://github.com/ben/salaries.git ~/salaries</code></pre>
-          <pre><code class="fragment roll-in">cd ~/salaries</code></pre>
-          <pre><code class="fragment roll-in">git checkout -b feature/improvements</code></pre>
-          <pre><code class="fragment roll-in">vim monthly_salary_day.php</code></pre>
+          <img src="img/rename_first.png" alt="rename first commit" />
 
+          <p>Next, rebase will stop on "boostrap project" wich will have two commits squashed</p>
+
+          <img src="img/squash.png" alt="squashed commits" />
         </section>
 
         <section>
-          <p>Tom makes some code improvements</p>
+          <p>Now if we had pushed our commits to git repository in any branch name, we could reference
+          these commits with their hashes. This way it could look like:</p>
 
-          <pre><code class="fragment roll-in">git clone https://github.com/ben/salaries.git ~/salaries</code></pre>
-          <pre><code class="fragment roll-in">cd ~/salaries</code></pre>
-          <pre><code class="fragment roll-in">git checkout -b feature/improvements</code></pre>
-          <pre><code class="fragment roll-in">vim monthly_salary_day.php</code></pre>
+          <img src="img/squash_sample_with_refs.png" alt="Squash sample with references" />
 
+          <p>Since we haven't, we can just leave those as extra commit messages</p>
+
+          <img src="img/squashed.png" alt="squashed commit message" />
         </section>
 
         <section>
-          <pre><code class="fragment roll-in" data-noescpape="" style="font-size: 15px;max-height:600px;">&lt;?php
-define('DAY', 3600 * 24);
+          <p>Finally, it will stop to rename "add feature x" commit,
+          it is not clear what feature we have added, lets fix it as well:</p>
 
-function monthly_salary_day($fromTimestamp, $forNumMonths = 12) {
-    $payDays = array();
-    do {
-        // get num days in month, weekday and day of the month
-        list($ndays, $weekday, $day) = array_map('intval', explode(':', date('t:N:j', $fromTimestamp)));
-        for (; $day &lt;= $ndays; $day++, $fromTimestamp += DAY) {
-            if ($weekday &lt; 6) {
-                $payDay = $fromTimestamp;
-            }
-            $weekday = $weekday === 7 ? 1 : $weekday + 1;
-        }
-        if (null !== $payDay) {
-            $payDays[] = date('Y:m:d', $payDay);
-            $forNumMonths--; // decrement only if payday is available for curr month
-        }
-    } while($forNumMonths);
-    return $payDays;
-}</code></pre>
-          <pre><code class="fragment roll-in">cd ~/salaries</code></pre>
-          <pre><code class="fragment roll-in">git checkout -b feature/improvements</code></pre>
-          <pre><code class="fragment roll-in">vim monthly_salary_day.php</code></pre>
+          <img src="img/rename_feature_commit.png" alt="Rename add feature commit" />
 
+          <p>When we save and close it, rebase will finish</p>
+        </section>
+
+        <section>
+          <p>And instead of...</p>
+
+          <img src="img/usual_commits.png" alt="usual commits" />
+
+          <p>We have:</p>
+
+          <img src="img/nice_commits.png" alt="nice looking commits" />
+
+          <p>Which history log do you choose to see in production?</p>
+        </section>
+
+        <section>
+          <p>Before merging it back to master - make sure you are up to date</p>
+
+          <pre><code>git fetch
+git rebase feature/project-bootstrap origin/master</code></pre>
         </section>
 
         <section data-markdown>
@@ -230,7 +207,6 @@ function monthly_salary_day($fromTimestamp, $forNumMonths = 12) {
             ## Thank You
 
             [Gediminas Morkevičius](http://gediminasm.org) [@l3pp4rd](http://twitter.com/l3pp4rd)
-
 
             powered by: [RevealJs](http://lab.hakim.se/reveal-js/)
           </script>
