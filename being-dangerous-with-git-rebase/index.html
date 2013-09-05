@@ -199,7 +199,108 @@ git checkout -b feature/project-bootstrap</code></pre>
           <p>Before merging it back to master - make sure you are up to date</p>
 
           <pre><code>git fetch
-git rebase feature/project-bootstrap origin/master</code></pre>
+git rebase origin/master</code></pre>
+        </section>
+
+        <section>
+          <p>There are cases, when you may want to split a commit,
+          consider a situation:</p>
+
+          <img src="img/split_this.png" alt="Need to split" />
+
+          <p>So what we should do ? - <strong>rebase!</strong></p>
+
+          <pre><code>git rebase -i HEAD~4</code></pre>
+        </section>
+
+        <section>
+          <p>Set <strong>edit</strong> for commit, which we want to split</p>
+
+          <img src="img/split_rebase.png" alt="Edit commit to split during rebase" />
+
+          <p>Rebase will rewind, pick the commit for edit and pause.
+          Now lets reset one commit from the current HEAD</p>
+
+          <img src="img/stop_to_edit.png" alt="Rebase stops to edit" />
+
+          <pre><code>git reset HEAD~</code></pre>
+        </section>
+
+        <section>
+          <p>Lets see what we have in <strong>staging area</strong>:</p>
+
+          <pre><code>git status</code></pre>
+
+          <img src="img/split_status.png" alt="Staging area status" />
+
+        </section>
+
+        <section>
+          <p>Add the first commit, which includes doctrine2 orm.
+          We will use <strong>git add --patch</strong> so we stage only a specific change.</p>
+
+          <pre><code>git add --patch composer.json</code></pre>
+
+          <img src="img/add_patch.png" alt="Add using patch" />
+
+        </section>
+
+        <section>
+          <p>Hit <strong>e</strong> to edit hunk</p>
+
+          <img src="img/add_hunk.png" alt="Add hunk" />
+
+          <p>Now save and close it. We should have only needed changes staged.</p>
+
+          <pre><code>git commit -m 'include doctrine2 orm into project'</code></pre>
+        </section>
+
+        <section>
+          <p>Next, we have a front controller integration:</p>
+
+          <pre><code>git add src/MyApp/FrontController.php public/*
+git commit -m 'create front controller'</code></pre>
+
+          <p>Further more, lets commit phpunit</p>
+
+          <pre><code>git add phpunit.xml.dist tests</code></pre>
+
+          <p>And again patch a composer.json change:</p>
+
+          <pre><code>git add -p composer.json</code></pre>
+
+        </section>
+
+        <section>
+          <p>Hit <strong>e</strong> to edit hunk</p>
+
+          <img src="img/add_hunk_phpunit.png" alt="Add hunk for phpunit" />
+
+          <p>Now save and close it. We should have only needed changes staged.</p>
+
+          <pre><code>git commit -m 'bootstrap phpunit tests'</code></pre>
+        </section>
+
+        <section>
+          <p>And finally we have only behat stuff left.</p>
+
+          <pre><code>git add features composer.json
+git commit -m 'bootstrap behat mink functional tests'
+git rebase --continue</code></pre>
+
+          <p>Thats it! Now we have:</p>
+
+          <img src="img/after_split.png" alt="Commits after split rebase" />
+
+        </section>
+
+        <section>
+
+          <p>Have fun and be hardcore! And ...</p>
+
+          <img src="img/keep-calm-and-git-rebase.png" alt="keep calm and git rebase" height="280px" />
+
+          <p>Do not be afraid of rebase, experiment on your branches, keep branch backups if needed.</p>
         </section>
 
         <section data-markdown>
