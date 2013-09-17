@@ -39,7 +39,7 @@
       <div class="slides">
 
         <section>
-          <h1>Being dangerous with git</h1>
+          <h2>Being dangerous with git</h2>
 
           <img src="img/keep-calm-and-git-rebase.png" alt="keep calm and git rebase" height="280px" />
 
@@ -61,16 +61,16 @@
           <img src="img/me.jpeg" alt="Me">
         </section>
 
-        <section data-markdown>
-          <script type="text/template">
-            ## Why You should consider using git
+        <section>
+          <h3>Why You should consider using git</h3>
 
-            - git is decentralized
-            - git is small and fast
-            - git does not store changes - it stores snapshots
-            - git has a staging area
-            - git is a new standard?
-          </script>
+          <ul>
+            <li class="fragment">git is decentralized</li>
+            <li class="fragment">git is small and fast</li>
+            <li class="fragment">git does not store changes - it stores snapshots</li>
+            <li class="fragment">git has a staging area</li>
+            <li class="fragment">git is a new standard?</li>
+          </ul>
         </section>
 
         <section data-markdown>
@@ -88,24 +88,26 @@
 
             Here is a fresh repository **repo/.git** guts:
 
-            ![Repository guts](img/guts.png)
+                $ ls
+                HEAD
+                branches
+                config
+                description
+                hooks
+                index
+                info
+                objects
+                refs
 
           </script>
         </section>
 
 
-        <section data-markdown>
-          <script type="text/template">
-            ### When to use rebase or merge
+        <section>
+          <h3>When to use rebase or merge</h3>
 
-            The only way you can screw things up in git - is using **rebase** on branches which are used
-            in production or in active development.
-
-            Use **rebase** to cleanup and prepare your topic branches for merge.
-
-            Use **merge** for up to date, clean branches or changes like hotfixes back to development branch, when it
-            is active and cannot be rebased.
-          </script>
+          <p class="fragment">Use <strong>rebase</strong> to cleanup,  prepare and keep up to date your topic branches.</p>
+          <p class="fragment"><strong>merge</strong> rebased topic branches or hotfixes</p>
         </section>
 
         <section>
@@ -331,7 +333,7 @@ git rebase --continue</code></pre>
         history: true,
         center: true,
 
-        theme: 'solarized', // available themes are in /css/theme
+        theme: 'sky', // available themes are in /css/theme
         transition: 'linear', // default/cube/page/concave/zoom/linear/fade/none
 
         // Optional libraries used to extend on reveal.js
@@ -340,7 +342,7 @@ git rebase --continue</code></pre>
           { src: '../revealjs/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
           { src: '../revealjs/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
           { src: '../revealjs/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-          //{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: '../revealjs/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
           { src: '../revealjs/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
           // { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
           // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
