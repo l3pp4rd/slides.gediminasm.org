@@ -101,8 +101,8 @@
             <li class="fragment">The initial commit <strong>2010-09-03</strong> MIT licensed</li>
             <li class="fragment">Maintained ever since</li>
             <li class="fragment">Purpose - provide common model behaviors</li>
-            <li class="fragment">Use common metadata mapping and caching technics</li>
-            <li class="fragment">Be a framework independant library</li>
+            <li class="fragment">Derive metadata mapping and caching technics</li>
+            <li class="fragment">Be a framework independent library</li>
           </ul>
         </section>
 
@@ -192,12 +192,12 @@ private $title;
 private $description;</code></pre>
 
           <p>Can link to a specific entity for translations. That would allow to use a direct foreign key
-          constraint and optimize for faster performance</p>
+          constraint and optimize for better performance</p>
         </section>
 
         <section>
           <p>By default, puts all translations into a single translation table. It is not performance wise.
-          Uses locale set in listener.</p>
+          Uses locale from listener.</p>
 
           <img src="img/translations.png" alt="Database result for translations" />
         </section>
@@ -464,7 +464,7 @@ try {
             <li class="fragment">Simplify integration without any preconfiguration using sensible defaults.</li>
             <li class="fragment">Improve extensions based on the issues learned.</li>
             <li class="fragment">Make them less feature rich, but more customizable.</li>
-            <li class="fragment">Improve documentation and provide stability maintenance FAQ.</li>
+            <li class="fragment">Improve documentation, add helper commands to review active listeners and watched entities.</li>
             <li class="fragment">Maintain compatibility without changes to public interface.</li>
             <li class="fragment">Progress can be followed on <a href="https://github.com/l3pp4rd/DoctrineExtensions/pull/764">pull request</a></li>
           </ol>
