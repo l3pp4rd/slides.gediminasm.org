@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>Testing by example</title>
+
+    <meta name="description" content="Practical examples with phpspec and phpunit" />
+    <meta name="author" content="Gediminas Morkevicius" />
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <meta name="robots" content="noindex, nofollow" />
+
+    <link rel="stylesheet" href="../revealjs/css/reveal.min.css" />
+    <link rel="stylesheet" href="../revealjs/css/theme/default.css" id="theme" />
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="../revealjs/lib/css/zenburn.css" />
+
+    <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+    <script>
+      document.write( '<link rel="stylesheet" href="../revealjs/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print" />' );
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="../revealjs/lib/js/html5shiv.js"></script>
+    <![endif]-->
+    <style>
+    #work-at {
+      border: 0;
+      -webkit-box-shadow: none;
+      box-shadow: none !important;
+      background:none;
+      margin: 0;
+      padding-top: 15px;
+    }
+    .reveal pre code.full {
+      max-height: 500px;
+    }
+    .reveal img.no-border {
+      border: 0;
+      -webkit-box-shadow: none;
+      box-shadow: none !important;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <h3>Who's talking?</h3>
+
+          <p>
+            <small><a href="http://gediminasm.org">Gediminas Morkevičius</a> aka <a href="http://twitter.com/l3pp4rd">@l3pp4rd</a></small>
+          </p>
+
+          <img src="img/me2-small.jpg" alt="Me" />
+
+          <ul>
+            <li>I code with - <strong>PHP, Go, JavaScript, C</strong></li>
+            <li>And I'm hardcore - <strong>ViM, Arch Linux, DWM</strong> user</li>
+            <li>I share my stuff at<a href="https://github.com/l3pp4rd">github.com/l3pp4rd</a></li>
+          </ul>
+
+          <a href="http://datadog.lt" target="_blank">
+            <img id="work-at" src="img/datadog.png" height="70px" alt="Data-Dog" />
+          </a>
+        </section>
+
+        <section>
+          <h3>Testing by example</h3>
+
+          <p>In other words - I wanted to share some practical cases on how I approach <strong>TDD</strong>
+          in projects I work with.</p>
+        </section>
+
+        <section>
+          <h3>My point is</h3>
+
+          <p><strong>Whomever higher in the hierarchy:</strong></p>
+
+          <p class="fragment">We want this feature done ASP!</p>
+
+          <p class="fragment">Yeah right.. doesn't it sound like?</p>
+
+          <img class="fragment" src="img/just_do_it.jpg" height="500px" alt="Just do it"/>
+        </section>
+
+        <section>
+          <p><strong>OR</strong></p>
+
+          <p class="fragment">First thing, lets do this, we will write tests later..</p>
+
+          <p class="fragment">Yeah right.. we know how it ends, don't we?</p>
+
+          <img class="fragment" src="img/legacy-code.jpg" height="500px" alt="Just do it"/>
+        </section>
+
+        <section>
+          <h3>Where to start?</h3>
+
+          <ul>
+            <li class="fragment"><strong>Define features</strong> - BDD Behat</li>
+            <li class="fragment">Make a proof of concept for components - <strong>design the behavior</strong></li>
+            <li class="fragment"><strong>Unit test</strong> the components of feature - Phpunit phpspec</li>
+            <li class="fragment"><strong>Loop around</strong> until it is solid and most important - <strong>until you are proud of it</strong></li>
+          </ul>
+
+          <p class="fragment">Well, and write the actual code at some point.</p>
+        </section>
+
+        <section>
+          <h3>Feature</h3>
+
+          <pre><code class="full">Feature: EgoPay deposits
+  In order to have some money in my balance
+  As a confirmed user
+  I need to be able to deposit with EgoPay
+
+  Background:
+    Given the site has the following users:
+      | username       | password | role           |
+      | gedi@gmail.com | secret   | ROLE_CONFIRMED |
+    And I'm logged in as "gedi@gmail.com" with password "secret"
+
+  Scenario: Deposit with EgoPay
+    Given I am on page "EgoPay deposit"
+    When I fill in "Amount" with "200"
+    And I press "Deposit"
+    Then I should see "$200.00" amount to confirm on EgoPay page
+    When I press "Next"
+    And I press "Confirm"
+    Then I should see a success notification "You have deposited $200.00 into your wallet"</code></pre>
+        </section>
+
+        <section>
+          <h3>Design the behavior</h3>
+
+          <pre><code class="php" data-noescape>&lt;?php // imaginable depositAction in controller
+
+$transfer = new Transfer
+
+$form = $this->createForm(new TransferType, $transfer);
+$form->handleRequest($request);
+
+// bind amount and currency - request to form, validate
+if ($form->isValid()) {
+    $transfer->setStatus(Transfer::PENDING);
+    // link to an user and his wallet
+    // persist $transfer and redirect to egopay
+    $this->get('egopay')->create($transfer);
+}</code></pre>
+        </section>
+
+        <section>
+          <h3>Thank you</h3>
+
+          <img src="img/question_everything.jpg" height="400px" alt="Questions?" />
+
+          <p>Powered by: <a href="http://lab.hakim.se/reveal-js/">Revealjs</a>
+        </section>
+
+      </div>
+
+    </div>
+
+    <script src="../revealjs/lib/js/head.min.js"></script>
+    <script src="../revealjs/js/reveal.min.js"></script>
+
+    <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        mouseWheel: false,
+        rollingLinks: false,
+        history: true,
+        center: true,
+
+        theme: 'sky', // available themes are in /css/theme
+        transition: 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: '../revealjs/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          // { src: '../revealjs/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          // { src: '../revealjs/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../revealjs/plugin/highlight/highlight.js', async: false, callback: function() {
+            hljs.initHighlightingOnLoad();
+          }},
+          { src: '../revealjs/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: '../revealjs/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+          // { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+          // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+        ]
+      });
+
+    </script>
+
+  </body>
+</html>
