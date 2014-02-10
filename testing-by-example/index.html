@@ -40,7 +40,7 @@
       padding-top: 15px;
     }
     .reveal pre code.full {
-      max-height: 600px;
+      max-height: 700px;
       max-width: 1000px;
     }
     .reveal img.no-border {
@@ -116,47 +116,7 @@
         </section>
 
         <section>
-          <h3>Feature</h3>
-
-          <pre><code class="full">Feature: EgoPay deposits
-  In order to have some money in my balance
-  As a confirmed user
-  I need to be able to deposit with EgoPay
-
-  Background:
-    Given the site has the following users:
-      | username       | password | role           |
-      | gedi@gmail.com | secret   | ROLE_CONFIRMED |
-    And I'm logged in as "gedi@gmail.com" with password "secret"
-
-  Scenario: Deposit with EgoPay
-    Given I am on page "EgoPay deposit"
-    When I fill in "Amount" with "200"
-    And I press "Deposit"
-    Then I should see "$200.00" amount to confirm on EgoPay page
-    When I press "Next"
-    And I press "Confirm"
-    Then I should see a success notification "You have deposited $200.00 into your wallet"</code></pre>
-        </section>
-
-        <section>
-          <h3>Design the behavior</h3>
-
-          <pre><code class="php" data-noescape>&lt;?php // imaginable depositAction in controller
-
-$transfer = new Transfer
-// create form, bind request, validate
-$transfer->setStatus(Transfer::PENDING);
-// link to an user and his wallet
-// persist $transfer and redirect to egopay
-$this->get('egopay')->create($transfer);</code></pre>
-
-          <p class="fragment">When you are happy with how it should work, continue with PhpSpecs or PhpUnit tests</p>
-          <p class="fragment">Finally, implement the code, loop around and refactor till it is done.</p>
-        </section>
-
-        <section>
-          <h3>Now a real use case</h3>
+          <h3>Example</h3>
 
           <p class="fragment">Given: we do not like Doctrine ORM, the complexity and limitations to database.</p>
 
@@ -468,10 +428,200 @@ class User
         </section>
 
         <section>
-          <h3>Lets try the same on PhpUnit??</h3>
+          <h3>Lets see how it looks with PhpUnit</h3>
 
-          <p>code and demo can be <a href="http://slides.gediminasm.org/testing-by-example/files/quirky.tar.gz">downloaded here</a></p>
-          <p>TODO</p>
+          <pre class="fragment"><code class="php full">&lt;?php
+
+namespace Quirky;
+
+class MapperTest extends \PHPUnit_Framework_TestCase
+{
+    private $metadata;
+
+    private $mapper;
+
+    private $userMapping = [
+        'id' => ['id', 'integer'],
+        'firstName' => ['first_name', 'string'],
+        'username' => ['username', 'string'],
+    ];
+
+    function setUp()
+    {
+        $this->metadata = $this
+            ->getMockBuilder('Quirky\Metadata')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->metadata
+            ->expects($this->any())
+            ->method('mapping')
+            ->with('Quirky\User')
+            ->will($this->returnValue($this->userMapping));
+
+        $this->mapper = new Mapper($this->metadata);
+    }
+}</code></pre>
+        </section>
+
+        <section>
+          <pre class="fragment"><code class="php full">&lt;?php
+/**
+ * @test
+ */
+function it_should_be_able_to_generate_selectable_columns()
+{
+    $expected = 'id, first_name, username';
+    $this->assertSame(
+        $expected,
+        $this->mapper->select('Quirky\User'),
+        "Select for User columns does not match expected"
+    );
+
+    $expected = 'u.id AS u_id, u.first_name AS u_first_name, u.username AS u_username';
+    $this->assertSame(
+        $expected,
+        $this->mapper->select('Quirky\User', 'u'),
+        "Select for aliased User columns does not match expected"
+    );
+}</code></pre>
+        </section>
+
+        <section>
+          <pre class="fragment"><code class="php full">&lt;?php
+/**
+ * @test
+ */
+function it_should_be_able_to_list_types_of_columns()
+{
+    $this->assertSame($this->mapper->types('Quirky\User'), [
+        'id' => 'integer',
+        'first_name' => 'string',
+        'username' => 'string'
+    ]);
+
+    $this->assertSame('integer', $this->mapper->type('Quirky\User', 'id'));
+    $this->assertSame('string', $this->mapper->type('Quirky\User', 'username'));
+}</code></pre>
+        </section>
+
+        <section>
+          <p>And it starts to get ugly..</p>
+          <pre class="fragment"><code class="php full">&lt;?php
+/**
+ * @test
+ */
+function it_should_be_able_to_read_data_from_model()
+{
+    $user = new User;
+
+    $this->metadata
+        ->expects($this->exactly(3))
+        ->method('get')
+        ->with($user, $this->logicalOr(
+            $this->equalTo('id'),
+            $this->equalTo('firstName'),
+            $this->equalTo('username')
+        ))
+        ->will($this->returnCallback(function($user, $field) {
+            $data = ['id' => 5, 'firstName' => 'Tom', 'username' => 'tom'];
+            return $data[$field];
+        }));
+
+    $this->assertSame([
+        'id' => 5,
+        'first_name' => 'Tom',
+        'username' => 'tom',
+    ], $this->mapper->data($user));
+}</code></pre>
+        </section>
+
+        <section>
+          <p>Who would understand this?</p>
+          <pre class="fragment"><code class="php full">&lt;?php
+/**
+ * @test
+ */
+function it_should_be_able_to_scan_data()
+{
+    $user = new User;
+    $data = [
+        'username' => 'tom',
+        'first_name' => 'Tom',
+        'id' => 4,
+    ];
+
+    $this->metadata
+        ->expects($this->exactly(3))
+        ->method('set')
+        ->with($user, $this->logicalOr(
+            $this->equalTo('id'),
+            $this->equalTo('firstName'),
+            $this->equalTo('username')
+        ), $this->logicalOr(
+            $this->equalTo(4),
+            $this->equalTo('Tom'),
+            $this->equalTo('tom')
+        ));
+
+    $this->mapper->scan($data, $user);
+}</code></pre>
+        </section>
+
+        <section>
+          <p>Lucky for us.. Sabastian Bergmann says its <span style="color:green">green</span></p>
+
+          <img src="img/phpunit.png" class="fragment" alt="phpunit" />
+
+          <p class="fragment">But isn't it a..</p>
+
+          <img src="img/mindfuck.jpg" height="400px" class="fragment" alt="Mindfuck" />
+        </section>
+
+        <section>
+          <h3>And our best friend..</h3>
+
+          <img src="img/my-best-friend.jpg" height="300px" alt="my best friend" />
+
+          <div style="clear:both" />
+
+          <img src="img/behat.png" class="fragment" alt="Behat" />
+        </section>
+
+        <section>
+          <h3>Might be not so friendly when..</h3>
+
+          <pre><code class="full">Feature: User registration
+  Bla bla
+  As an user
+  I need to register
+
+  Scenario: Register
+    Given I visit "/account-area/registration/step/1"
+    When I sleep for 3 seconds
+    Then I should see "Fill the registration form" in the "h2" element
+    When I set "value" attribute to "john@doe.com" for input with id "email"
+    And I press "Register"
+    And I sleep for 4 seconds
+    Then I should see "You have created an account!"</code></pre>
+        </section>
+
+        <section>
+          <h3>Because it at least should be..</h3>
+
+          <pre><code class="full">Feature: User registration
+  In order to buy goods
+  As an anonymous user
+  I need to be able to signup
+
+  Scenario: Register an account
+    Given I am on homepage
+    When I follow Signup link
+    Then I should see "Fill the registration form" on page headline
+    When I fill in "Email" with "john@doe.com"
+    And I press "Register"
+    Then I should see "Shortly, you will receive an email to confirm your account!"
+    And there should be a confirmation email sent to "john@doe.com"</code></pre>
         </section>
 
         <section>
@@ -480,6 +630,7 @@ class User
           <img src="img/question_everything.jpg" height="400px" alt="Questions?" />
 
           <p>Slides are available at: <a href="slides.gediminasm.org">slides.gediminasm.org</a></p>
+          <p>code and demo can be <a href="http://slides.gediminasm.org/testing-by-example/files/quirky.tar.gz">downloaded here</a></p>
           <p>Powered by: <a href="http://lab.hakim.se/reveal-js/">Revealjs</a>
         </section>
 
