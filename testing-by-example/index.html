@@ -43,6 +43,9 @@
       max-height: 700px;
       max-width: 1000px;
     }
+    .reveal pre code.wide {
+      width: 1200px;
+    }
     .reveal img.no-border {
       border: 0;
       -webkit-box-shadow: none;
@@ -186,9 +189,9 @@ class User
 
           <p class="fragment">When we are happy with our initial behavior design.</p>
 
-          <p class="fragment">We start writting specs, lets name our pet project - <strong>Quirky</strong></p>
+          <p class="fragment">We start writing specs, lets name our pet project - <strong>Quirky</strong></p>
 
-          <p class="fragment"><strong>Note:</strong> we should concentrate on our behavior of design, not on details
+          <p class="fragment"><strong>Note:</strong> we should concentrate on our behavior design, not on details
           which are just details, I will try to denote this with examples.</p>
 
           <img src="img/describe_mapper.png" class="fragment" alt="Describe spec" />
@@ -312,16 +315,11 @@ class MapperSpec extends ObjectBehavior
 
         $this->beConstructedWith($metadata);
     }
-
-    function it_is_initializable()
-    {
-        $this->shouldHaveType('Quirky\Mapper');
-    }
 }</code></pre>
         </section>
 
         <section>
-          <p>Now lets update read and scan data functions, so it makes more sense..</p>
+          <p>Now lets update read data function, so it makes more sense..</p>
 
           <pre class="fragment"><code class="php full">&lt;?php // spec/Quirky/MapperSpec.php;
 
@@ -354,6 +352,7 @@ function it_should_be_able_to_read_data_from_model($metadata)
         </section>
 
         <section>
+          <p>And finally, scanning spec</p>
           <pre class="fragment"><code class="php full">&lt;?php // spec/Quirky/MapperSpec.php;
 
 function it_should_be_able_to_scan_data($metadata)
@@ -403,7 +402,7 @@ class User
     protected $username;
     public $unmapped;
 }</code></pre>
-
+          <p class="fragment">Note: we do not have any implementation of metadata yet, it is a detail.</p>
         </section>
 
         <section>
@@ -428,10 +427,9 @@ class User
         </section>
 
         <section>
-          <h3>Lets see how it looks with PhpUnit</h3>
+          <p>Lets see how it looks with <strong>PhpUnit</strong></p>
 
           <pre class="fragment"><code class="php full">&lt;?php
-
 namespace Quirky;
 
 class MapperTest extends \PHPUnit_Framework_TestCase
@@ -465,30 +463,24 @@ class MapperTest extends \PHPUnit_Framework_TestCase
         </section>
 
         <section>
-          <pre class="fragment"><code class="php full">&lt;?php
+          <p>Select column string test</p>
+          <pre class="fragment"><code class="php full wide">&lt;?php
 /**
  * @test
  */
 function it_should_be_able_to_generate_selectable_columns()
 {
     $expected = 'id, first_name, username';
-    $this->assertSame(
-        $expected,
-        $this->mapper->select('Quirky\User'),
-        "Select for User columns does not match expected"
-    );
+    $this->assertSame($expected, $this->mapper->select('Quirky\User'));
 
     $expected = 'u.id AS u_id, u.first_name AS u_first_name, u.username AS u_username';
-    $this->assertSame(
-        $expected,
-        $this->mapper->select('Quirky\User', 'u'),
-        "Select for aliased User columns does not match expected"
-    );
+    $this->assertSame($expected, $this->mapper->select('Quirky\User', 'u'));
 }</code></pre>
         </section>
 
         <section>
-          <pre class="fragment"><code class="php full">&lt;?php
+          <p>Get types of columns test</p>
+          <pre class="fragment"><code class="php full wide">&lt;?php
 /**
  * @test
  */
@@ -506,7 +498,7 @@ function it_should_be_able_to_list_types_of_columns()
         </section>
 
         <section>
-          <p>And it starts to get ugly..</p>
+          <p>And it starts to get ugly.. read data test</p>
           <pre class="fragment"><code class="php full">&lt;?php
 /**
  * @test
@@ -569,13 +561,13 @@ function it_should_be_able_to_scan_data()
         </section>
 
         <section>
-          <p>Lucky for us.. Sabastian Bergmann says its <span style="color:green">green</span></p>
+          <p>But isn't it a..</p>
+
+          <img src="img/mindfuck.jpg" height="350px" class="fragment" alt="Mindfuck" />
+
+          <p class="fragment">Unfortunately.. Sabastian Bergmann does not think so..</p>
 
           <img src="img/phpunit.png" class="fragment" alt="phpunit" />
-
-          <p class="fragment">But isn't it a..</p>
-
-          <img src="img/mindfuck.jpg" height="400px" class="fragment" alt="Mindfuck" />
         </section>
 
         <section>
@@ -591,7 +583,7 @@ function it_should_be_able_to_scan_data()
         <section>
           <h3>Might be not so friendly when..</h3>
 
-          <pre><code class="full">Feature: User registration
+          <pre><code class="full wide">Feature: User registration
   Bla bla
   As an user
   I need to register
@@ -607,9 +599,9 @@ function it_should_be_able_to_scan_data()
         </section>
 
         <section>
-          <h3>Because it at least should be..</h3>
+          <h3>Because at least it should be..</h3>
 
-          <pre><code class="full">Feature: User registration
+          <pre><code class="full wide">Feature: User registration
   In order to buy goods
   As an anonymous user
   I need to be able to signup
@@ -620,7 +612,7 @@ function it_should_be_able_to_scan_data()
     Then I should see "Fill the registration form" on page headline
     When I fill in "Email" with "john@doe.com"
     And I press "Register"
-    Then I should see "Shortly, you will receive an email to confirm your account!"
+    Then I should see notification "Shortly, you will receive an email to confirm your account!"
     And there should be a confirmation email sent to "john@doe.com"</code></pre>
         </section>
 
