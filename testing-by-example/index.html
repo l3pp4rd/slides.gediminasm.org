@@ -40,7 +40,7 @@
       padding-top: 15px;
     }
     .reveal pre code.full {
-      max-height: 700px;
+      max-height: 500px;
       max-width: 1000px;
     }
     .reveal pre code.wide {
@@ -610,6 +610,22 @@ function it_should_be_able_to_scan_data()
     Given I am on homepage
     When I follow Signup link
     Then I should see "Fill the registration form" on page headline
+    When I fill in "Email" with "john@doe.com"
+    And I press "Register"
+    Then I should see notification "Shortly, you will receive an email to confirm your account!"
+    And there should be a confirmation email sent to "john@doe.com"</code></pre>
+        </section>
+
+        <section>
+          <h3>And even better..</h3>
+
+          <pre><code class="full wide">Feature: User registration
+  In order to buy goods
+  As an anonymous user
+  I need to be able to signup
+
+  Scenario: Register an account
+    Given I visit "Signup" page
     When I fill in "Email" with "john@doe.com"
     And I press "Register"
     Then I should see notification "Shortly, you will receive an email to confirm your account!"
