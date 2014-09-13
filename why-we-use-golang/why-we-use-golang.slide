@@ -1,0 +1,175 @@
+Why we use golang
+Introduction to golang
+10 Sep 2014
+Tags: golang, go, datadog, intro
+
+Gediminas Morkevicius
+Senior *Gopher* at, DATA-DOG
+gediminas.morkevicius@gmail.com
+http://gediminasm.org
+@l3pp4rd
+
+* You will see a lot of this guy.. sorry if it hurts your feelings
+
+.image img/plush.jpg
+
+* So why
+
+.image img/datadog.png
+
+has started to use **GO* as a secondary language
+
+- First of all, simplicity.
+- Concurrency primitives.
+- Statically typed, fast compilation, multiplatform, GC
+- Composition instead of inheritance
+- Implicit interfaces
+- Exceptionless, error handling is a first class citizen
+- And the main feature is a lack of features
+
+* And squint-eyed gopher friend of course
+
+.image img/honey.jpg
+
+* What is it good for?
+
+- Microservices and intercommunication
+- Systems and tooling
+- Safe, simple and efficient parallelism
+- Stable and maintainable long running services
+
+* We all know about long running PHP processes
+
+Don't we?
+
+.image img/omg.jpg 300 _
+
+Why not just use *GO* for all daemons. Its lighter than Java or C++
+
+* Lets see some code
+
+.image img/kittens.jpg
+
+* Daemon using HTTP API to listen for jobs
+
+.play daemon.go
+
+* Concurrent result producers through channel
+
+.play concurrency1.go
+
+* Build your application for any platform
+
+    export GOOS=linux && export GOARCH=386 && go build
+    export GOOS=darwin && export GOARCH=amd64 && go build
+
+**Deployment*
+
+The executable is compiled to machine code. It does not
+need anything else to run. Deployment is a simple upload.
+
+**Supervisor*
+
+For convinience, supervisord utility can be used to watch applications.
+
+* Handling multiple channels
+
+.play channels.go
+
+* Interfaces
+
+In golang interfaces are **implicit* meaning - to satisfy an interface struct
+must implement all required methods with the same signature. But it does not need
+to know that such interface exists.
+
+    type Stringer interface {
+        String() string
+    }
+
+**Stringer* interface from **fmt* package.
+
+* Stringer example
+
+.play stringer.go
+
+* An interface can be returned by functions
+
+.play iface.go
+
+* Composition
+
+In **GO* there is no inheritance - there is **composition*
+
+Given, we have a package which exports a **Car*
+
+    package car
+
+    import "fmt"
+
+    type Car struct {
+        Doors         int
+        Vendor, Model string
+        millage       int // private member
+    }
+
+    func (c *Car) String() string {
+        return fmt.Sprintf("Car %s model %s with %d doors, millage %d",
+            c.Vendor, c.Model, c.Doors, c.millage)
+    }
+
+    func (c *Car) Drive(km int) *Car {
+        c.millage += km
+        return c
+    }
+
+* Composition
+
+.play composition.go
+
+* Marshalers
+
+In *GO* standard library provides a well structured json library, which implements *Marshaler* interfaces
+to allow reading from and writing to structures.
+
+Given we have some structures defined in our package:
+
+    package talks
+
+    type Product struct {
+        Price float64 `json:"price"`
+        Name  string  `json:"name"`
+    }
+
+    type Buyer struct {
+        Name string `json:"name"`
+    }
+
+    type Message struct {
+        Order    int64      `json:"order_id"`
+        Buyer    *Buyer     `json:"buyer"`
+        Products []*Product `json:"products"`
+    }
+
+* Marshalers
+
+.play json.go
+
+* Trust me
+
+.image img/trustme.jpg 300 _
+
+It is a great deal to use *GO*
+
+* Actually it drives people nuts
+
+.image img/datadog-gophers.jpg 500 _
+
+* Lithuanian gopher user group
+
+We have the official *GO* to create a golang user group in lithuania!
+Wait for the news from:
+
+.link http://gophers.lt gophers.lt
+
+The site is being created. Of course, using golang :)
+
