@@ -29,8 +29,8 @@
     <script src="../revealjs/lib/js/html5shiv.js"></script>
     <![endif]-->
     <style>
-    #work-at {
-      border: 0;
+    .work-at {
+      border: 0 !important;
       -webkit-box-shadow: none;
       box-shadow: none !important;
       background:none;
@@ -49,6 +49,13 @@
       -webkit-box-shadow: none;
       box-shadow: none !important;
     }
+    .my-logo {
+      border: 0 !important;
+      -webkit-box-shadow: none;
+      box-shadow: none !important;
+      background:none;
+      margin: 0;
+    }
     </style>
   </head>
   <body>
@@ -61,602 +68,98 @@
 
           <img src="img/utility-belt.jpg" alt="Utility belt" />
 
-          <a href="http://datadog.lt" target="_blank">
-            <img id="work-at" src="img/datadog.png" height="70" alt="Data-Dog" />
-          </a>
+          <p><a href="http://datadog.lt" target="_blank">
+            <img class="work-at" src="img/datadog.png" height="70" alt="Data-Dog" />
+          </a></p>
         </section>
 
         <section>
-          <h3>About the dude talking..</h3>
-
-          <p>
-            <small><a href="http://gediminasm.org">Gediminas Morkevičius</a> aka <a href="http://twitter.com/l3pp4rd">@l3pp4rd</a></small>
-          </p>
+          <h3>Who is this dude?</h3>
 
           <img src="img/me2-small.jpg" alt="Me" />
 
+          <p><small>
+            <a href="http://gediminasm.org">Gediminas Morkevičius</a> aka
+            <a href="http://twitter.com/l3pp4rd">@l3pp4rd</a>
+          </small></p>
+
           <ul>
-            <li>I code with - <strong>PHP, GO, C</strong></li>
-            <li>And I'm hardcore - <strong>ViM, Arch Linux, DWM</strong> user</li>
-            <li>I share my stuff at<a href="https://github.com/l3pp4rd">github.com/l3pp4rd</a></li>
+            <li>A hardcore - <strong>ViM, Arch Linux, dwm</strong> user</li>
+            <li><strong>PHP, GO, C</strong> - coder</li>
+            <li>And I share my stuff - <a href="https://github.com/l3pp4rd">github.com/l3pp4rd</a></li>
           </ul>
 
           <a href="http://datadog.lt" target="_blank">
-            <img id="work-at" src="img/datadog.png" height="70px" alt="Data-Dog" />
+            <img class="work-at" src="img/datadog.png" height="70" alt="Data-Dog" />
           </a>
         </section>
 
         <section>
-          <h3>My point is</h3>
-
-          <p><strong>Whomever higher in the hierarchy:</strong></p>
-
-          <p class="fragment">We want this feature done ASP!</p>
-
-          <p class="fragment">Yeah right.. doesn't it sound like?</p>
-
-          <img class="fragment" src="img/just_do_it.jpg" height="500px" alt="Just do it"/>
+          <img src="img/kick-ass-hero.jpg" alt="Kickass hero" />
         </section>
 
         <section>
-          <p><strong>OR</strong></p>
+          <p>So what do we need to <strong>fight the crime</strong> in software development process?</p>
 
-          <p class="fragment">First thing, lets do this, we will write tests later..</p>
+          <img src="img/bat-pack.jpg" alt="Batman crime fighting tools" />
 
-          <p class="fragment">Yeah right.. we know how it ends, don't we?</p>
-
-          <img class="fragment" src="img/legacy-code.jpg" height="500px" alt="Legacy Code"/>
+          <p class="fragment">Lets start with:</p>
         </section>
 
         <section>
-          <p><strong>So the lesson here is:</strong></p>
+          <h3>Bat throwers</h3>
 
-          <img class="fragment" src="img/legacy_code.png" height="300px" alt="Do testing"/>
-
-          <p class="fragment">Why? Because you cannot refactor that:</p>
-
-          <img class="fragment" src="img/spaghetti.jpg" height="250px" alt="spaghetti"/>
-        </section>
-
-        <section>
-          <p><strong>Lets estimate how long it will take to add new feature to legacy app:</strong></p>
+          <img src="img/bat-throwers.jpg" height="200" alt="Bat throwers" />
 
           <div class="fragment">
-            <p><strong>3 packs of..</strong></p>
-            <img src="img/prozac.jpg" height="200px" alt="Prozac pills"/>
-          </div>
-
-          <div class="fragment">
-            <p><strong>2 more employees.. because I'm writing</strong></p>
-            <img src="img/medleave.jpg" height="200px" alt="Medical leave request"/>
+            <p>In other words - <strong>testing tools</strong></p>
           </div>
         </section>
 
         <section>
-          <h3>Where to start?</h3>
+          <p><img class="my-logo" src="img/phpspec.png" height="120" alt="phpspec"/></p>
 
-          <ul>
-            <li class="fragment"><strong>Define features</strong> - BDD Behat</li>
-            <li class="fragment">Make a proof of concept for components - <strong>design the behavior</strong></li>
-            <li class="fragment"><strong>Unit test</strong> the components of feature - Phpunit phpspec</li>
-            <li class="fragment"><strong>Loop around</strong> until it is solid and most important - <strong>until you are proud of it</strong></li>
-          </ul>
-
-          <p class="fragment">Well, and write the actual code at some point.</p>
+          <img src="img/phpspec-sample.png" height="500" alt="phpspec"/>
         </section>
 
         <section>
-          <h3>Example</h3>
+          <p><img class="my-logo" src="img/behat_logo.png" height="90" alt="behat"/></p>
 
-          <p class="fragment">Given: we do not like Doctrine ORM, the complexity and limitations to database.</p>
-
-          <img src="img/invent.jpg" class="fragment" />
-
-          <p class="fragment">I want something light, mainly to map query results to an object.</p>
+          <img src="img/behat-sample.png" height="500" alt="behat"/>
         </section>
 
         <section>
-          <h3>Lets design the behavior in README</h3>
+          <h3>Bat mines</h3>
 
-          <pre><code class="php full" data-noescape>&lt;?php
-$sql = "SELECT * FROM users WHERE u.username = ?";
-if ($data = $db->fetchAssoc($sql, ["tom"])) {
-    $user = new User;
-    $mapper->scan($data, $user);
-}</code></pre>
+          <img src="img/bat-mine.jpg" height="200" alt="Bat mine" />
+
+          <div class="fragment">
+            <p>In other words - <strong>build tools</strong></p>
+            <img class="my-logo fragment" src="img/gulp-js.jpg" height="120" alt="gulpjs"/>
+            <img class="my-logo fragment" src="img/bower.jpg" height="120" alt="behat"/>
+          </div>
         </section>
 
         <section>
-          <h3>Something more sophisticated</h3>
+          <h3>Bat gun</h3>
 
-          <pre><code class="php full" data-noescape>&lt;?php
-$sql = &lt;&lt;&lt;SQL
-SELECT %s, %s FROM users AS u
-INNER JOIN address AS a ON u.home_address_id = a.id
-WHERE u.username = ?
-SQL;
+          <img src="img/bat-gun.jpg" height="200" alt="Bat mine" />
 
-$sql = sprintf(
-    $sql,
-    $scanner->select('Model\User', 'u'),
-    $scanner->select('Model\Address', 'a')
-);
-if ($data = $db->fetchAssoc($sql, ["tom"])) {
-    $user = new User;
-    $user->homeAddress = new Address;
-
-    $scanner->scan($data, $user, 'u');
-    $scanner->scan($data, $user->homeAddress, 'a');
-}</code></pre>
+          <div class="fragment">
+            <p>In other words - <strong>deployment tools</strong></p>
+            <img class="my-logo fragment" src="img/ansible.png" height="200" alt="ansible"/>
+          </div>
         </section>
 
         <section>
-          <h3>Models</h3>
+          <h3>Batmobile</h3>
 
-          <p class="fragment">Our models should have some mapping</p>
+          <img src="img/batmobile.jpg" height="200" alt="Batmobile" />
 
-          <pre class="fragment"><code class="php full" data-noescape>&lt;?php
-class User
-{
-    /** @Column(type="integer") */
-    private $id;
-
-    /** @Column(type="string", name="first_name") */
-    private $firstName;
-
-    /** @Column(type="string") */
-    private $username;
-
-    private $unmapped;
-}</code></pre>
-        </section>
-
-        <section>
-          <h3>Write some specs</h3>
-
-          <p class="fragment">When we are happy with our initial behavior design.</p>
-
-          <p class="fragment">We start writing specs, lets name our pet project - <strong>Quirky</strong></p>
-
-          <p class="fragment"><strong>Note:</strong> we should concentrate on our behavior design, not on details
-          which are just details, I will try to denote this with examples.</p>
-
-          <img src="img/describe_mapper.png" class="fragment" alt="Describe spec" />
-
-          <pre class="fragment"><code class="php">&lt;?php
-
-namespace spec\Quirky;
-
-use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
-
-class MapperSpec extends ObjectBehavior
-{
-    function it_is_initializable()
-    {
-        $this->shouldHaveType('Quirky\Mapper');
-    }
-}</code></pre>
-        </section>
-
-        <section>
-          <p>We need to be able to get selectable columns from a model object..</p>
-
-          <pre class="fragment"><code class="php full">&lt;?php // spec/Quirky/MapperSpec.php;
-
-function it_should_be_able_to_generate_selectable_columns()
-{
-    $expected = 'id, first_name, username';
-    $this->select('spec\Quirky\User')->shouldBe($expected);
-
-    $expected = 'u.id AS u_id, u.first_name AS u_first_name, u.username AS u_username';
-    $this->select('spec\Quirky\User', 'u')->shouldBe($expected);
-}</code></pre>
-        </section>
-
-        <section>
-          <p>We should be able to get column types for a model object..</p>
-
-          <pre class="fragment"><code class="php full">&lt;?php // spec/Quirky/MapperSpec.php;
-
-function it_should_be_able_to_list_types_of_columns()
-{
-    $this->types('spec\Quirky\User')->shouldBe([
-        'id' => 'integer',
-        'first_name' => 'string',
-        'username' => 'string'
-    ]);
-
-    $this->type('spec\Quirky\User', 'id')->shouldBe('integer');
-    $this->type('spec\Quirky\User', 'username')->shouldBe('string');
-}</code></pre>
-        </section>
-
-        <section>
-          <p>We should be able to read column data from model..</p>
-
-          <pre class="fragment"><code class="php full">&lt;?php // spec/Quirky/MapperSpec.php;
-
-function it_should_be_able_to_read_data_from_model()
-{
-    $user = new User;
-    $this->data($user)->shouldBe([
-        'id' => 5,
-        'first_name' => 'Tom',
-        'username' => 'tom',
-    ]);
-}</code></pre>
-        </section>
-
-        <section>
-          <p>We should be able to scan data into model object..</p>
-
-          <pre class="fragment"><code class="php full">&lt;?php // spec/Quirky/MapperSpec.php;
-
-function it_should_be_able_to_scan_data()
-{
-    $user = new User;
-    $data = [
-        'username' => 'tom',
-        'first_name' => 'Tom',
-        'id' => 4,
-    ];
-
-    $this->scan($data, $user);
-}</code></pre>
-        </section>
-
-        <section>
-          <p>And here are some kittens so you won't fall a sleep</p>
-
-          <img class="fragment" src="img/kittens.jpg" alt="Kittens" />
-        </section>
-
-        <section>
-          <p>We will mock metadata so we can concentrate on behavior</p>
-
-          <pre class="fragment"><code class="php full">&lt;?php
-
-namespace spec\Quirky;
-
-use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
-
-class MapperSpec extends ObjectBehavior
-{
-    private $userMapping = [
-        'id' => ['id', 'integer'],
-        'firstName' => ['first_name', 'string'],
-        'username' => ['username', 'string'],
-    ];
-
-    /**
-     * @param Quirky\Metadata $metadata
-     */
-    function let($metadata)
-    {
-        $metadata
-            ->mapping('spec\Quirky\User')
-            ->shouldBeCalled()
-            ->willReturn($this->userMapping);
-
-        $this->beConstructedWith($metadata);
-    }
-}</code></pre>
-        </section>
-
-        <section>
-          <p>Now lets update read data function, so it makes more sense..</p>
-
-          <pre class="fragment"><code class="php full">&lt;?php // spec/Quirky/MapperSpec.php;
-
-function it_should_be_able_to_read_data_from_model($metadata)
-{
-    $user = new User;
-
-    $metadata
-        ->get($user, 'id')
-        ->shouldBeCalled()
-        ->willReturn(5);
-
-    $metadata
-        ->get($user, 'firstName')
-        ->shouldBeCalled()
-        ->willReturn('Tom');
-
-    $metadata
-        ->get($user, 'username')
-        ->shouldBeCalled()
-        ->willReturn('tom');
-
-
-    $this->data($user)->shouldBe([
-        'id' => 5,
-        'first_name' => 'Tom',
-        'username' => 'tom',
-    ]);
-}</code></pre>
-        </section>
-
-        <section>
-          <p>And finally, scanning spec</p>
-          <pre class="fragment"><code class="php full">&lt;?php // spec/Quirky/MapperSpec.php;
-
-function it_should_be_able_to_scan_data($metadata)
-{
-    $user = new User;
-    $data = [
-        'username' => 'tom',
-        'first_name' => 'Tom',
-        'id' => 4,
-    ];
-
-    $metadata
-        ->set($user, 'id', 4)
-        ->shouldBeCalled();
-
-    $metadata
-        ->set($user, 'firstName', 'Tom')
-        ->shouldBeCalled();
-
-    $metadata
-        ->set($user, 'username', 'tom')
-        ->shouldBeCalled();
-
-    $this->scan($data, $user);
-}</code></pre>
-        </section>
-
-        <section>
-          <p>And lets add our User class in the same spec</p>
-
-          <pre class="fragment"><code class="php full">&lt;?php
-
-namespace spec\Quirky;
-
-use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
-
-class MapperSpec extends ObjectBehavior
-{
-    //...
-}
-
-class User
-{
-    public $id;
-    private $firstName;
-    protected $username;
-    public $unmapped;
-}</code></pre>
-          <p class="fragment">Note: we do not have any implementation of metadata yet, it is a detail.</p>
-        </section>
-
-        <section>
-          <p>Lets describe our Metadata, so we can use it as a mock</p>
-
-          <img src="img/describe_metadata.png" class="fragment" alt="Describe spec" />
-
-          <p class="fragment">Finally, write some code and see if we are missing something.</p>
-
-          <p class="fragment">After coding, we do specs again and cover missing parts, to satisfy our design.
-          And the last step, is annotation mapping support and such.</p>
-        </section>
-
-        <section>
-          <p>Some unrelated concerning questions in Lithuania, while compressing my video</p>
-
-          <img src="img/kaip.png" class="fragment" alt="Google search suggestions - kaip" />
-          <img src="img/kodel_jis.png" class="fragment" alt="Google search suggestions - kodel jis" />
-          <img src="img/kodel_jis_ma.png" class="fragment" alt="Google search suggestions - kodel jis ma" />
-          <img src="img/kodel_jam.png" class="fragment" alt="Google search suggestions - kodel jam" />
-          <img src="img/kodel_jai.png" class="fragment" alt="Google search suggestions - kodel jai" />
-        </section>
-
-        <section>
-          <p>Lets see how it looks with <strong>PhpUnit</strong></p>
-
-          <pre class="fragment"><code class="php full">&lt;?php
-namespace Quirky;
-
-class MapperTest extends \PHPUnit_Framework_TestCase
-{
-    private $metadata;
-
-    private $mapper;
-
-    private $userMapping = [
-        'id' => ['id', 'integer'],
-        'firstName' => ['first_name', 'string'],
-        'username' => ['username', 'string'],
-    ];
-
-    function setUp()
-    {
-        $this->metadata = $this
-            ->getMockBuilder('Quirky\Metadata')
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->metadata
-            ->expects($this->any())
-            ->method('mapping')
-            ->with('Quirky\User')
-            ->will($this->returnValue($this->userMapping));
-
-        $this->mapper = new Mapper($this->metadata);
-    }
-}</code></pre>
-        </section>
-
-        <section>
-          <p>Select column string test</p>
-          <pre class="fragment"><code class="php full wide">&lt;?php
-/**
- * @test
- */
-function it_should_be_able_to_generate_selectable_columns()
-{
-    $expected = 'id, first_name, username';
-    $this->assertSame($expected, $this->mapper->select('Quirky\User'));
-
-    $expected = 'u.id AS u_id, u.first_name AS u_first_name, u.username AS u_username';
-    $this->assertSame($expected, $this->mapper->select('Quirky\User', 'u'));
-}</code></pre>
-        </section>
-
-        <section>
-          <p>Get types of columns test</p>
-          <pre class="fragment"><code class="php full wide">&lt;?php
-/**
- * @test
- */
-function it_should_be_able_to_list_types_of_columns()
-{
-    $this->assertSame($this->mapper->types('Quirky\User'), [
-        'id' => 'integer',
-        'first_name' => 'string',
-        'username' => 'string'
-    ]);
-
-    $this->assertSame('integer', $this->mapper->type('Quirky\User', 'id'));
-    $this->assertSame('string', $this->mapper->type('Quirky\User', 'username'));
-}</code></pre>
-        </section>
-
-        <section>
-          <p>And it starts to get ugly.. read data test</p>
-          <pre class="fragment"><code class="php full">&lt;?php
-/**
- * @test
- */
-function it_should_be_able_to_read_data_from_model()
-{
-    $user = new User;
-
-    $this->metadata
-        ->expects($this->exactly(3))
-        ->method('get')
-        ->with($user, $this->logicalOr(
-            $this->equalTo('id'),
-            $this->equalTo('firstName'),
-            $this->equalTo('username')
-        ))
-        ->will($this->returnCallback(function($user, $field) {
-            $data = ['id' => 5, 'firstName' => 'Tom', 'username' => 'tom'];
-            return $data[$field];
-        }));
-
-    $this->assertSame([
-        'id' => 5,
-        'first_name' => 'Tom',
-        'username' => 'tom',
-    ], $this->mapper->data($user));
-}</code></pre>
-        </section>
-
-        <section>
-          <p>Who would understand this?</p>
-          <pre class="fragment"><code class="php full">&lt;?php
-/**
- * @test
- */
-function it_should_be_able_to_scan_data()
-{
-    $user = new User;
-    $data = [
-        'username' => 'tom',
-        'first_name' => 'Tom',
-        'id' => 4,
-    ];
-
-    $this->metadata
-        ->expects($this->exactly(3))
-        ->method('set')
-        ->with($user, $this->logicalOr(
-            $this->equalTo('id'),
-            $this->equalTo('firstName'),
-            $this->equalTo('username')
-        ), $this->logicalOr(
-            $this->equalTo(4),
-            $this->equalTo('Tom'),
-            $this->equalTo('tom')
-        ));
-
-    $this->mapper->scan($data, $user);
-}</code></pre>
-        </section>
-
-        <section>
-          <p>But isn't it a..</p>
-
-          <img src="img/mindfuck.jpg" height="350px" class="fragment" alt="Mindfuck" />
-
-          <p class="fragment">Unfortunately.. Sabastian Bergmann does not think so..</p>
-
-          <img src="img/phpunit.png" class="fragment" alt="phpunit" />
-        </section>
-
-        <section>
-          <h3>And our best friend..</h3>
-
-          <img src="img/my-best-friend.jpg" height="300px" alt="my best friend" />
-
-          <div style="clear:both" />
-
-          <img src="img/behat.png" class="fragment" alt="Behat" />
-        </section>
-
-        <section>
-          <h3>Might be not so friendly when..</h3>
-
-          <pre><code class="full wide">Feature: User registration
-  Bla bla
-  As an user
-  I need to register
-
-  Scenario: Register
-    Given I visit "/account-area/registration/step/1"
-    When I sleep for 3 seconds
-    Then I should see "Fill the registration form" in the "h2" element
-    When I set "value" attribute to "john@doe.com" for input with id "email"
-    And I press "Register"
-    And I sleep for 4 seconds
-    Then I should see "You have created an account!"</code></pre>
-        </section>
-
-        <section>
-          <h3>Because at least it should be..</h3>
-
-          <pre><code class="full wide">Feature: User registration
-  In order to buy goods
-  As an anonymous user
-  I need to be able to signup
-
-  Scenario: Register an account
-    Given I am on homepage
-    When I follow Signup link
-    Then I should see "Fill the registration form" on page headline
-    When I fill in "Email" with "john@doe.com"
-    And I press "Register"
-    Then I should see notification "Shortly, you will receive an email to confirm your account!"
-    And there should be a confirmation email sent to "john@doe.com"</code></pre>
-        </section>
-
-        <section>
-          <h3>And even better..</h3>
-
-          <pre><code class="full wide">Feature: User registration
-  In order to buy goods
-  As an anonymous user
-  I need to be able to signup
-
-  Scenario: Register an account
-    Given I visit "Signup" page
-    When I fill in "Email" with "john@doe.com"
-    And I press "Register"
-    Then I should see notification "Shortly, you will receive an email to confirm your account!"
-    And there should be a confirmation email sent to "john@doe.com"</code></pre>
+          <div class="fragment">
+            <p>In other words - <strong>continous integration</strong></p>
+            <img class="my-logo fragment" src="img/drone.io.jpg" height="200" alt="drone"/>
+          </div>
         </section>
 
         <section>
@@ -665,7 +168,6 @@ function it_should_be_able_to_scan_data()
           <img src="img/gopher.png" class="no-border" height="300" alt="Questions?" />
 
           <p>Slides are available at: <a href="http://slides.gediminasm.org">slides.gediminasm.org</a></p>
-          <p>Code and demo <a href="http://gediminasm.org/files/quirky.tar.gz">gediminasm.org/files/quirky.tar.gz</a></p>
           <p>Powered by: <a href="http://lab.hakim.se/reveal-js/">Revealjs</a>
         </section>
 
@@ -696,9 +198,9 @@ function it_should_be_able_to_scan_data()
           { src: '../revealjs/lib/js/classList.js', condition: function() { return !document.body.classList; } },
           // { src: '../revealjs/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
           // { src: '../revealjs/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-          { src: '../revealjs/plugin/highlight/highlight.js', async: false, callback: function() {
-            hljs.initHighlightingOnLoad();
-          }},
+          // { src: '../revealjs/plugin/highlight/highlight.js', async: false, callback: function() {
+          //  hljs.initHighlightingOnLoad();
+          // }},
           { src: '../revealjs/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
           { src: '../revealjs/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
           // { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
