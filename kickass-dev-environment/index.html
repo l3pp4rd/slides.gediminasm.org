@@ -68,13 +68,11 @@
 
           <img src="img/utility-belt.jpg" alt="Utility belt" />
 
-          <p><a href="http://datadog.lt" target="_blank">
-            <img class="work-at" src="img/datadog.png" height="70" alt="Data-Dog" />
-          </a></p>
+          <p>To fight the crime in software development process</p>
         </section>
 
         <section>
-          <h3>Who is this dude?</h3>
+          <h3>Whos talkin?</h3>
 
           <img src="img/me2-small.jpg" alt="Me" />
 
@@ -99,7 +97,7 @@
         </section>
 
         <section>
-          <p>So what do we need to <strong>fight the crime</strong> in software development process?</p>
+          <p>So what tools we need to <strong>fight the crime</strong> in software development process?</p>
 
           <img src="img/bat-pack.jpg" alt="Batman crime fighting tools" />
 
@@ -121,13 +119,13 @@
         <section>
           <p><img class="my-logo" src="img/phpspec.png" height="120" alt="phpspec"/></p>
 
-          <img src="img/phpspec-sample.png" height="600" alt="phpspec"/>
+          <img src="img/phpspec-sample.png" height="500" alt="phpspec"/>
         </section>
 
         <section>
           <p><img class="my-logo" src="img/behat_logo.png" height="90" alt="behat"/></p>
 
-          <img src="img/behat-sample.png" height="600" alt="behat"/>
+          <img src="img/behat-sample.png" height="500" alt="behat"/>
         </section>
 
         <section>
@@ -139,20 +137,21 @@
             <p>In other words - <strong>build tools</strong></p>
             <img class="my-logo fragment" src="img/gulp-js.jpg" height="120" alt="gulpjs"/>
             <img class="my-logo fragment" src="img/bower.jpg" height="120" alt="bower"/>
+            <img class="my-logo fragment" src="img/makefile.png" height="120" alt="makefile"/>
           </div>
         </section>
 
         <section>
-          <p><img class="my-logo" src="img/gulp-js.jpg" height="90" alt="gulpjs"/></p>
+          <h3>Gulp</h3>
 
-          <img src="img/gulp-screen.png" height="600" alt="gulp"/>
+          <img src="img/gulp-screen.png" height="500" alt="gulp"/>
         </section>
 
 
         <section>
-          <p><img class="my-logo" src="img/bower.jpg" height="90" alt="bower"/></p>
+          <h3>Bower</h3>
 
-          <img src="img/bower-sample.png" height="600" alt="bower screenshot"/>
+          <img src="img/bower-sample.png" height="500" alt="bower screenshot"/>
         </section>
 
         <section>
@@ -163,13 +162,14 @@
           <div class="fragment">
             <p>In other words - <strong>deployment tools</strong></p>
             <img class="my-logo fragment" src="img/ansible.png" height="200" alt="ansible"/>
+            <img class="my-logo fragment" src="img/docker.png" height="200" alt="docker"/>
           </div>
         </section>
 
         <section>
           <h3>Be Ansible Hero</h3>
 
-          <img src="img/automate-it.jpg" height="600" alt="Ansible hero" />
+          <img src="img/automate-it.jpg" height="500" alt="Ansible hero" />
 
           <p>Automate your deployment process</p>
         </section>
@@ -183,7 +183,7 @@
             <li>Production</li>
           </ul>
 
-          <p>Different <strong>inventory</strong> files for separate environment</p>
+          <p>Different <strong>inventory</strong> files for separate environments</p>
 
           <img src="img/ansible-screen.png" height="500" alt="Ansible run" />
         </section>
@@ -191,13 +191,42 @@
         <section>
           <p>All configurations are in <strong>yaml</strong></p>
 
-          <img src="img/ansible-file.png" height="600" alt="Ansible configuration file" />
+          <img src="img/ansible-file.png" height="500" alt="Ansible configuration file" />
         </section>
 
         <section>
           <p>Convenient access to servers:</p>
 
-          <img src="img/ansible-screen2.png" height="600" alt="Ansible servers" />
+          <img src="img/ansible-screen2.png" height="500" alt="Ansible servers" />
+        </section>
+
+        <section>
+          <h3>Bat Shield</h3>
+
+          <img src="img/bat-shield.jpg" height="200" alt="Batshield" />
+
+          <div class="fragment">
+            <p>In other words - <strong>service supervision</strong></p>
+            <p class="fragment"><strong>supervisord.org</strong></p>
+          </div>
+        </section>
+
+        <section>
+          <pre><code class="bash">vim /etc/supervisor.d/syncthing.ini</code></pre>
+          <pre><code class="ini">[program:syncthing]
+command=/home/gedi/bin/syncthing
+process_name=%(program_name)s
+user=gedi
+numprocs=1
+autostart=true
+environment=HOME=/home/gedi
+stdout_logfile=/var/log/supervisor/%(program_name)s.log
+stderr_logfile=/var/log/supervisor/%(program_name)s.log
+stdout_logfile_maxbytes=50MB
+stdout_logfile_backups=5
+sredirect_stderr=true</code></pre>
+
+          <img src="img/supervisorctl.png" height="150" alt="Supervisorctl status" />
         </section>
 
         <section>
@@ -232,6 +261,7 @@
         <section>
           <h3>Thank you</h3>
 
+          <p>Any Questions?</p>
           <img src="img/gopher.png" class="no-border" height="300" alt="Questions?" />
 
           <p>Slides are available at: <a href="http://slides.gediminasm.org">slides.gediminasm.org</a></p>
@@ -265,9 +295,9 @@
           { src: '../revealjs/lib/js/classList.js', condition: function() { return !document.body.classList; } },
           // { src: '../revealjs/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
           // { src: '../revealjs/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-          // { src: '../revealjs/plugin/highlight/highlight.js', async: false, callback: function() {
-          //  hljs.initHighlightingOnLoad();
-          // }},
+          { src: '../revealjs/plugin/highlight/highlight.js', async: false, callback: function() {
+            hljs.initHighlightingOnLoad();
+          }},
           { src: '../revealjs/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
           { src: '../revealjs/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
           // { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
