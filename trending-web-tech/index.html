@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="en" ng-app="app">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>Trending Web Technologies</title>
+
+    <meta name="description" content="An insight to Angular and React" />
+    <meta name="author" content="Gediminas Morkevicius" />
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <link rel="stylesheet" href="../revealjs/css/reveal.min.css" />
+    <link rel="stylesheet" href="../revealjs/css/theme/default.css" id="theme" />
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="../revealjs/lib/css/zenburn.css" />
+    <link rel="stylesheet" href="css/hover.css" />
+
+    <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+    <script>
+      document.write( '<link rel="stylesheet" href="../revealjs/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print" />' );
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="../revealjs/lib/js/html5shiv.js"></script>
+    <![endif]-->
+    <style>
+    .work-at {
+      border: 0 !important;
+      -webkit-box-shadow: none;
+      box-shadow: none !important;
+      background:none;
+      margin: 0;
+      padding-top: 15px;
+    }
+    .reveal pre code.full {
+      max-height: 500px;
+      max-width: 1000px;
+    }
+    .reveal pre code.wide {
+      width: 1200px;
+    }
+    .reveal img.no-border {
+      border: 0;
+      -webkit-box-shadow: none;
+      box-shadow: none !important;
+    }
+    .intro {
+      display: inline-block;
+    }
+    .intro > img.intro-item {
+      width: 200px;
+    }
+    .intro > img.intro-vs {
+      width: 150px;
+      margin: 25px;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <h3>Trending web technologies</h3>
+
+          <p>Or we can cut this down to <strong>Angular</strong> and <strong>React</strong></p>
+
+          <div>
+            <span class="intro">
+              <img class="intro-item no-border" src="img/angular.png" alt="angular"/>
+              <img class="intro-vs no-border" src="img/vs.png" alt="vs"/>
+              <img class="intro-item no-border" src="img/react.png" alt="react"/>
+            </span>
+          </div>
+
+          <ul>
+            <li>Angularjs</li>
+            <li>React</li>
+            <li>React native</li>
+            <li>Material design</li>
+          </ul>
+
+          <p>You may not use it today, but tommorow you will..</p>
+        </section>
+
+        <section>
+          <h3>Whos the dude talking?</h3>
+
+          <img class="no-border" width="200px" src="img/gopher.png" alt="Me" />
+
+          <p><small>
+            <a href="http://gediminasm.org">Gediminas Morkevičius</a> aka
+            <a href="http://twitter.com/l3pp4rd">@l3pp4rd</a>
+          </small></p>
+
+          <ul>
+            <li>A hardcore - <strong>ViM, Arch Linux, dwm</strong> user</li>
+            <li><strong>PHP, GO, C</strong> - coder</li>
+            <li>And I share my stuff - <a href="https://github.com/l3pp4rd">github.com/l3pp4rd</a></li>
+          </ul>
+
+          <a href="http://datadog.lt" target="_blank">
+            <img class="work-at" src="img/datadog.png" height="70" alt="Data-Dog" />
+          </a>
+        </section>
+
+        <section>
+          <h3>The point of the presentation</h3>
+
+          <div>
+            <img src="img/whatsthepoint.gif" style="float:left" height="250px" alt="whats the point of the presentation?"/>
+            <p>In order for you to know that such tools exist.</p>
+            <p>And to make a little introduction</p>
+          </div>
+        </section>
+
+        <section>
+          <p>Both, would be quite hard to migrate from one to eachother</p>
+
+          <img src="img/white_kids.jpg" height="400px" alt="white kids" />
+
+          <p class="fragment">It seems these guys had much fun anyways :)</p>
+        </section>
+
+        <section ng-controller="Colorizer">
+          <h3>Lets start with Angular</h3>
+
+          <img class="no-border" width="150px" src="img/angular.png" alt="angular"/>
+
+          <p>Superheroic JavaScript <strong style="color: {{ color }}">MVW</strong> Framework</p>
+
+          <p>Where <strong style="color: {{ color }}">W</strong> stands for <strong style="color: {{ color }}">Whatever works for you</strong> MVVM or MVC</p>
+
+          <form name="myForm" novalidate>
+            <input type="text" required name="color_in" ng-model="color" value="{{ color }}" />
+            <span style="color:red" ng-show="myForm.color_in.$error.required">Please enter color code..</span>
+          </form>
+        </section>
+
+        <section>
+          <h3>Behind the scenes: view</h3>
+
+          <pre><code class="html full" data-noescape>&lt;section ng-controller=&quot;Colorizer&quot;&gt;
+  &lt;h3&gt;Lets start with Angular&lt;/h3&gt;
+
+  &lt;p&gt;Superheroic JavaScript &lt;strong style=&quot;color: { color }&quot;&gt;MVW&lt;/strong&gt; Framework&lt;/p&gt;
+
+  &lt;p&gt;Where &lt;strong style=&quot;color: { color }&quot;&gt;W&lt;/strong&gt; stands for
+  &lt;strong style=&quot;color: { color }&quot;&gt;Whatever works for you
+  &lt;/strong&gt; MVVM or MVC&lt;/p&gt;
+
+  &lt;form name=&quot;myForm&quot; novalidate&gt;
+    &lt;input type=&quot;text&quot; required name=&quot;color_in&quot; ng-model=&quot;color&quot; value=&quot;{ color }&quot; /&gt;
+    &lt;span style=&quot;color:red&quot; ng-show=&quot;myForm.color_in.$error.required&quot;&gt;Please enter color code..&lt;/span&gt;
+  &lt;/form&gt;
+&lt;/section&gt;</code></pre>
+
+          <p>Puzzle, which ng-tag is missing?</p>
+        </section>
+
+        <section>
+          <p>Actually - <strong>None</strong> <span class="fragment">in this case</span></p>
+
+          <img class="fragment" src="img/troll.jpg" height="250px" alt="troll face"/>
+        </section>
+
+        <section>
+          <h3>Behind the scenes: controller</h3>
+
+          <pre><code class="javascript full">function Colorizer($scope) {
+  $scope.color = &quot;#AA0&quot;; // model initialization
+}
+
+angular
+  .module('app', [])
+  .controller('Colorizer', Colorizer);</code></pre>
+        </section>
+
+        <section>
+          <h3>Building components</h3>
+
+          <p>The most important aspect of any framework, is how I can build components - building blocks</p>
+          <p>In <strong>Angular</strong> that is a directive..</p>
+        </section>
+
+        <section>
+          <h3>Directives</h3>
+
+          <color-picker default="#AA0" />
+        </section>
+
+        <section>
+          <h3>Behind the scenes: view</h3>
+
+          <pre><code class="html">&lt;color-picker default=&quot;#AA0&quot; /&gt;</code></pre>
+
+          <p>Looks clean, reusable and simple right?</p>
+
+          <img src="img/thumbs.png" alt="thumbs up" />
+        </section>
+
+        <section>
+          <h3>Behind the scenes: directive</h3>
+
+          <pre><code class="javascript full">function ColorPickerDirective() {
+  return {
+    restrict: 'E',
+    replace: true,
+    scope: { default: '@' },
+    template: '&lt;form name=&quot;myForm&quot; novalidate&gt;' +
+      '&lt;span style=&quot;color: {{ color }}&quot;&gt;Choose a color&lt;/span&gt; ' +
+      '&lt;input type=&quot;text&quot; required name=&quot;color_in&quot; ng-model=&quot;color&quot; value=&quot;{{ color }}&quot; /&gt;' +
+      '&lt;span style=&quot;color:red&quot; ng-show=&quot;myForm.color_in.$error.required&quot;&gt;Please enter color code..&lt;/span&gt;' +
+      '&lt;/form&gt;',
+    controller: function ($scope) {
+      $scope.color = $scope.default;
+    }
+  };
+}
+
+angular
+  .module('app', [])
+  .directive('colorPicker', ColorPickerDirective);</code></pre>
+        </section>
+
+        <section>
+          <h3>React</h3>
+
+          <div id="color-picker"></div>
+
+          <p>In react, everything is a building block - <strong>component</strong>, nothing else</p>
+        </section>
+
+        <section>
+          <p>Behind the scenes:</p>
+
+          <pre><code class="html">&lt;div id=&quot;color-picker&quot;&gt;&lt;/div&gt;</code></pre>
+
+          <pre><code class="javascript full">var ColorPicker = React.createClass({
+  getInitialState: function() {
+    return {color: this.props.default || '#AA0'};
+  },
+
+  handleChange: function(event) {
+    this.setState({color: event.target.value});
+  },
+
+  render: function() {
+    var style = {color: this.state.color};
+    var errorStyle = {color: 'red'};
+    var error;
+    if (this.state.color.length === 0) {
+      error = &lt;span style={errorStyle}&gt;Please enter color code..&lt;/span&gt;;
+    }
+    return &lt;form noValidate&gt;
+      &lt;span style={style}&gt;Choose a color&lt;/span&gt;
+      &lt;input type=&quot;text&quot; required defaultValue={this.state.color} onChange={this.handleChange} /&gt;
+      {error}
+    &lt;/form&gt;
+  }
+});
+
+React.render(&lt;ColorPicker /&gt;, document.getElementById('color-picker'));</code></pre>
+        </section>
+
+        <section>
+          <p>It is simple to compose components</p>
+
+          <div id="with-button"></div>
+
+          <pre><code class="javascript full">var WithGithubButton = React.createClass({
+  render: function() {
+    return &lt;div&gt;
+      &lt;ColorPicker default=&quot;green&quot; /&gt;
+      &lt;a href=&quot;https://github.com/DATA-DOG&quot; className=&quot;hvr-float-shadow&quot;&gt;find us on Github&lt;/a&gt;
+    &lt;/div&gt;
+  }
+});
+
+React.render(&lt;WithGithubButton /&gt;, document.getElementById('with-button'));</code></pre>
+        </section>
+
+        <section>
+          <h3>React native</h3>
+
+          <p>Since <strong>React</strong> can execute rendering in a separate thread, the performance for mobile
+          world is awkward and <strong>React native</strong> addresses that.</p>
+        </section>
+
+        <section>
+          <h3>Material design</h3>
+
+          <p>It is an initiative from google, see reference: <a href="http://www.google.com/design/spec/material-design/introduction.html">
+          http://www.google.com/design/spec/material-design/introduction.html</a></p>
+
+          <ul>
+            <li>Angular - <a href="https://material.angularjs.org/#/">https://material.angularjs.org</a></li>
+            <li>React - <a href="http://callemall.github.io/material-ui/#/">http://callemall.github.io/material-ui</a></li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Conclusion</h3>
+
+          <img src="img/do-it-yourself.jpg" alt="do it yourself" height="300px" />
+        </section>
+
+        <section>
+          <p>But if you insist for my opinion?</p>
+
+          <ul>
+            <li>React - is more modular.</li>
+            <li>React - does not bloat your html with tag attributes.</li>
+            <li>Angular - is easier to integrate into an application.</li>
+            <li>React - is not as <strong>smart</strong> as Angular and though, is closer to standard HTML.</li>
+            <li>Angular - is hard to debug, there aren't straight forward error messages.</li>
+            <li>Angular - is not friendly with <strong>requirejs, browserify</strong> - React is based on it.</li>
+            <li>Angular - is more complex than React.</li>
+          </ul>
+
+          <p>I would choose to develop my next application with <strong>React</strong></p>
+        </section>
+
+        <section>
+          <h3>Thank you</h3>
+
+          <p>Any Questions?</p>
+          <img src="img/eyes-out.jpg" alt="gopher eye balls out" height="300px"/>
+
+          <p>Slides are available at: <a href="http://slides.gediminasm.org">slides.gediminasm.org</a></p>
+          <p>Powered by: <a href="http://lab.hakim.se/reveal-js/">Revealjs</a>
+        </section>
+
+      </div>
+
+    </div>
+
+    <script src="../revealjs/lib/js/head.min.js"></script>
+    <script src="../revealjs/js/reveal.min.js"></script>
+    <script src="js/angular.js"></script>
+    <script src="js/react.js"></script>
+    <script src="js/jsx.js"></script>
+
+    <script type="text/jsx">
+var ColorPicker = React.createClass({
+  getInitialState: function() {
+    return {color: this.props.default || '#AA0'};
+  },
+
+  handleChange: function(event) {
+    this.setState({color: event.target.value});
+  },
+
+  render: function() {
+    var style = {color: this.state.color};
+    var errorStyle = {color: 'red'};
+    var error;
+    if (this.state.color.length === 0) {
+      error = <span style={errorStyle}>Please enter color code..</span>;
+    }
+    return <form noValidate>
+      <span style={style}>Choose a color</span>
+      <input type="text" required defaultValue={this.state.color} onChange={this.handleChange} />
+      {error}
+    </form>
+  }
+});
+
+React.render(<ColorPicker />, document.getElementById('color-picker'));
+
+var WithGithubButton = React.createClass({
+  render: function() {
+    return <div>
+      <ColorPicker default="green" />
+      <a href="https://github.com/DATA-DOG" className="hvr-float-shadow">find us on Github</a>
+    </div>
+  }
+});
+
+React.render(<WithGithubButton />, document.getElementById('with-button'));
+    </script>
+    <script>
+
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+  controls: true,
+  progress: true,
+  mouseWheel: false,
+  rollingLinks: false,
+  history: true,
+  center: true,
+
+  theme: 'sky', // available themes are in /css/theme
+  transition: 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+  // Optional libraries used to extend on reveal.js
+  dependencies: [
+    { src: '../revealjs/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+    { src: '../revealjs/plugin/highlight/highlight.js', async: false, callback: function() {
+      hljs.initHighlightingOnLoad();
+    }},
+    { src: '../revealjs/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+    { src: '../revealjs/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+  ]
+});
+
+function ColorizerController($scope) {
+  $scope.color = "#AA0"; // initial
+}
+
+function ColorPickerDirective() {
+  return {
+    restrict: 'E',
+    replace: true,
+    scope: { default: '@' },
+    template: '<form name="myForm" novalidate>' +
+      '<span style="color: {{ color }}">Choose a color</span> ' +
+      '<input type="text" required name="color_in" ng-model="color" value="{{ color }}" />' +
+      '<span style="color:red" ng-show="myForm.color_in.$error.required">Please enter color code..</span>' +
+      '</form>',
+    controller: function ($scope) {
+      $scope.color = $scope.default;
+    }
+  };
+}
+
+angular
+  .module('app', [])
+  .directive('colorPicker', ColorPickerDirective)
+  .controller('Colorizer', ColorizerController);
+    </script>
+
+  </body>
+</html>
