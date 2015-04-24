@@ -66,6 +66,27 @@
     <div class="reveal">
       <div class="slides">
         <section>
+          <h3>Whos the dude talking?</h3>
+
+          <img class="no-border" width="200px" src="img/gopher.png" alt="Me" />
+
+          <p><small>
+            <a href="http://gediminasm.org">Gediminas Morkevičius</a> aka
+            <a href="http://twitter.com/l3pp4rd">@l3pp4rd</a>
+          </small></p>
+
+          <ul>
+            <li>A hardcore - <strong>ViM, Arch Linux, dwm</strong> user</li>
+            <li><strong>PHP, GO, C</strong> - coder</li>
+            <li>And I share my stuff - <a href="https://github.com/l3pp4rd">github.com/l3pp4rd</a></li>
+          </ul>
+
+          <a href="http://datadog.lt" target="_blank">
+            <img class="work-at" src="img/datadog.png" height="70" alt="Data-Dog" />
+          </a>
+        </section>
+
+        <section>
           <h3>Trending web technologies</h3>
 
           <p>Or we can cut this down to <strong>Angular</strong> and <strong>React</strong></p>
@@ -89,24 +110,17 @@
         </section>
 
         <section>
-          <h3>Whos the dude talking?</h3>
+          <h3>And Golang</h3>
 
-          <img class="no-border" width="200px" src="img/gopher.png" alt="Me" />
+          <div>
+            <span class="intro">
+              <img class="intro-item no-border" src="img/golang.png" alt="golang" />
+              <img class="intro-vs no-border" src="img/vs.png" alt="vs"/>
+              <img class="intro-item no-border" src="img/question.png" alt="question"/>
+            </span>
+          </div>
 
-          <p><small>
-            <a href="http://gediminasm.org">Gediminas Morkevičius</a> aka
-            <a href="http://twitter.com/l3pp4rd">@l3pp4rd</a>
-          </small></p>
-
-          <ul>
-            <li>A hardcore - <strong>ViM, Arch Linux, dwm</strong> user</li>
-            <li><strong>PHP, GO, C</strong> - coder</li>
-            <li>And I share my stuff - <a href="https://github.com/l3pp4rd">github.com/l3pp4rd</a></li>
-          </ul>
-
-          <a href="http://datadog.lt" target="_blank">
-            <img class="work-at" src="img/datadog.png" height="70" alt="Data-Dog" />
-          </a>
+          <p>Without any competition? There isn't any more pragmatic language except <strong>C</strong></p>
         </section>
 
         <section>
@@ -120,11 +134,9 @@
         </section>
 
         <section>
-          <p>Both, would be quite hard to migrate from one to eachother</p>
+          <p><strong>Angular</strong>, <strong>React</strong> and <strong>GO</strong> are fun to work with..</p>
 
           <img src="img/white_kids.jpg" height="400px" alt="white kids" />
-
-          <p class="fragment">It seems these guys had much fun anyways :)</p>
         </section>
 
         <section ng-controller="Colorizer">
@@ -132,12 +144,12 @@
 
           <img class="no-border" width="150px" src="img/angular.png" alt="angular"/>
 
-          <p>Superheroic JavaScript <strong style="color: {{ color }}">MVW</strong> Framework</p>
+          <p>Superheroic JavaScript <strong ng-style="style">MVW</strong> Framework</p>
 
-          <p>Where <strong style="color: {{ color }}">W</strong> stands for <strong style="color: {{ color }}">Whatever works for you</strong> MVVM or MVC</p>
+          <p>Where <strong ng-style="style">W</strong> stands for <strong ng-style="style">Whatever works for you</strong> MVVM or MVC</p>
 
           <form name="myForm" novalidate>
-            <input type="text" required name="color_in" ng-model="color" value="{{ color }}" />
+            <input type="text" required name="color_in" ng-model="style.color" value="{{ style.color }}" />
             <span style="color:red" ng-show="myForm.color_in.$error.required">Please enter color code..</span>
           </form>
         </section>
@@ -145,35 +157,27 @@
         <section>
           <h3>Behind the scenes: view</h3>
 
-          <pre><code class="html full" data-noescape>&lt;section ng-controller=&quot;Colorizer&quot;&gt;
-  &lt;h3&gt;Lets start with Angular&lt;/h3&gt;
+          <pre><code class="full">&#x3C;section ng-controller=&#x22;Colorizer&#x22;&#x3E;
+&#x3C;h3&#x3E;Lets start with Angular&#x3C;/h3&#x3E;
 
-  &lt;p&gt;Superheroic JavaScript &lt;strong style=&quot;color: { color }&quot;&gt;MVW&lt;/strong&gt; Framework&lt;/p&gt;
+&#x3C;img class=&#x22;no-border&#x22; width=&#x22;150px&#x22; src=&#x22;img/angular.png&#x22; alt=&#x22;angular&#x22;/&#x3E;
 
-  &lt;p&gt;Where &lt;strong style=&quot;color: { color }&quot;&gt;W&lt;/strong&gt; stands for
-  &lt;strong style=&quot;color: { color }&quot;&gt;Whatever works for you
-  &lt;/strong&gt; MVVM or MVC&lt;/p&gt;
+&#x3C;p&#x3E;Superheroic JavaScript &#x3C;strong ng-style=&#x22;style&#x22;&#x3E;MVW&#x3C;/strong&#x3E; Framework&#x3C;/p&#x3E;
 
-  &lt;form name=&quot;myForm&quot; novalidate&gt;
-    &lt;input type=&quot;text&quot; required name=&quot;color_in&quot; ng-model=&quot;color&quot; value=&quot;{ color }&quot; /&gt;
-    &lt;span style=&quot;color:red&quot; ng-show=&quot;myForm.color_in.$error.required&quot;&gt;Please enter color code..&lt;/span&gt;
-  &lt;/form&gt;
-&lt;/section&gt;</code></pre>
+&#x3C;p&#x3E;Where &#x3C;strong ng-style=&#x22;style&#x22;&#x3E;W&#x3C;/strong&#x3E; stands for &#x3C;strong ng-style=&#x22;style&#x22;&#x3E;Whatever works for you&#x3C;/strong&#x3E; MVVM or MVC&#x3C;/p&#x3E;
 
-          <p>Puzzle, which ng-tag is missing?</p>
-        </section>
-
-        <section>
-          <p>Actually - <strong>None</strong> <span class="fragment">in this case</span></p>
-
-          <img class="fragment" src="img/troll.jpg" height="250px" alt="troll face"/>
+&#x3C;form name=&#x22;myForm&#x22; novalidate&#x3E;
+  &#x3C;input type=&#x22;text&#x22; required name=&#x22;color_in&#x22; ng-model=&#x22;style.color&#x22; value=&#x22;{ style.color }&#x22; /&#x3E;
+  &#x3C;span style=&#x22;color:red&#x22; ng-show=&#x22;myForm.color_in.$error.required&#x22;&#x3E;Please enter color code..&#x3C;/span&#x3E;
+&#x3C;/form&#x3E;
+&#x3C;/section&#x3E;</code></pre>
         </section>
 
         <section>
           <h3>Behind the scenes: controller</h3>
 
           <pre><code class="javascript full">function Colorizer($scope) {
-  $scope.color = &quot;#AA0&quot;; // model initialization
+  $scope.style = {color: &#x22;#AA0&#x22;}; // initialize model
 }
 
 angular
@@ -183,6 +187,8 @@ angular
 
         <section>
           <h3>Building components</h3>
+
+          <img class="no-border" height="250px" src="img/components.jpg" alt="components"/>
 
           <p>The most important aspect of any framework, is how I can build components - building blocks</p>
           <p>In <strong>Angular</strong> that is a directive..</p>
@@ -288,6 +294,8 @@ React.render(&lt;WithGithubButton /&gt;, document.getElementById('with-button'))
         <section>
           <h3>React native</h3>
 
+          <img src="img/react-native.jpg" alt="react native" height="250px" />
+
           <p>Since <strong>React</strong> can execute rendering in a separate thread, the performance for mobile
           world is awkward and <strong>React native</strong> addresses that.</p>
         </section>
@@ -302,6 +310,20 @@ React.render(&lt;WithGithubButton /&gt;, document.getElementById('with-button'))
             <li>Angular - <a href="https://material.angularjs.org/#/">https://material.angularjs.org</a></li>
             <li>React - <a href="http://callemall.github.io/material-ui/#/">http://callemall.github.io/material-ui</a></li>
           </ul>
+        </section>
+
+        <section>
+          <h3>Golang</h3>
+
+          <p>It is not a rocket science, it is the simplest language out there. Think about <strong>C</strong>
+          and it's success over the years. It is the most stable modern language.</p>
+        </section>
+
+        <section>
+          <h3>Demo</h3>
+
+          <p><strong>golang</strong> and <strong>angular</strong> demo</p>
+
         </section>
 
         <section>
@@ -411,7 +433,7 @@ Reveal.initialize({
 });
 
 function ColorizerController($scope) {
-  $scope.color = "#AA0"; // initial
+  $scope.style = {color: "#AA0"}; // initialize model
 }
 
 function ColorPickerDirective() {
