@@ -1,7 +1,7 @@
-You do not need a framework
+Why we use golang
 Introduction to golang
-26 Nov 2015
-Tags: golang, go, datadog, meetup, kaunas
+10 Sep 2014
+Tags: golang, go, datadog, intro
 
 Gediminas Morkevicius
 Senior *Gopher* at, DATA-DOG
@@ -11,11 +11,11 @@ http://gediminasm.org
 
 * You will see a lot of this guy.. sorry if it hurts your feelings
 
-.image you-do-not-need-a-framework/img/plush.jpg
+.image img/plush.jpg
 
 * So why
 
-.image why-we-use-golang/img/datadog.png
+.image img/datadog.png
 
 has started to use **GO* as a secondary language
 
@@ -29,7 +29,7 @@ has started to use **GO* as a secondary language
 
 * And squint-eyed gopher friend of course
 
-.image why-we-use-golang/img/honey.jpg
+.image img/honey.jpg
 
 * What is it good for?
 
@@ -42,21 +42,21 @@ has started to use **GO* as a secondary language
 
 Don't we?
 
-.image why-we-use-golang/img/omg.jpg 300 _
+.image img/omg.jpg 300 _
 
 Why not just use *GO* for all daemons. Its lighter than Java or C++
 
 * Lets see some code
 
-.image why-we-use-golang/img/kittens.jpg
+.image img/kittens.jpg
 
 * Daemon using HTTP API to listen for jobs
 
-.play why-we-use-golang/daemon.go
+.play daemon.go
 
 * Concurrent result producers through channel
 
-.play why-we-use-golang/concurrency1.go
+.play concurrency1.go
 
 * Build your application for any platform
 
@@ -74,7 +74,7 @@ For convinience, supervisord utility can be used to watch applications.
 
 * Handling multiple channels
 
-.play why-we-use-golang/channels.go
+.play channels.go
 
 * Interfaces
 
@@ -90,11 +90,11 @@ to know that such interface exists.
 
 * Stringer example
 
-.play why-we-use-golang/stringer.go
+.play stringer.go
 
 * An interface can be returned by functions
 
-.play why-we-use-golang/iface.go
+.play iface.go
 
 * Composition
 
@@ -124,7 +124,7 @@ Given, we have a package which exports a **Car*
 
 * Composition
 
-.play why-we-use-golang/composition.go
+.play composition.go
 
 * Marshalers
 
@@ -152,17 +152,17 @@ Given we have some structures defined in our package:
 
 * Marshalers
 
-.play why-we-use-golang/json.go
+.play json.go
 
 * Trust me
 
-.image why-we-use-golang/img/trustme.jpg 300 _
+.image img/trustme.jpg 300 _
 
 It is a great deal to use *GO*
 
 * Actually it drives people nuts
 
-.image why-we-use-golang/img/datadog-gophers.jpg 500 _
+.image img/datadog-gophers.jpg 500 _
 
 * Lithuanian gopher user group
 

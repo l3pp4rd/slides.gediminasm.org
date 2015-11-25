@@ -1,0 +1,243 @@
+You do not need a framework
+use standard or component libraries
+26 Nov 2015
+Tags: golang, go, datadog, meetup, kaunas
+
+Gediminas Morkevicius
+Senior *Gopher* at, DATA-DOG
+gediminas.morkevicius@gmail.com
+http://gediminasm.org
+@l3pp4rd
+
+* You can also identify me by this image
+
+.image img/plush.jpg
+
+And I work at
+
+.image img/datadog.png
+
+
+
+* Where some of the teams are gophers
+
+.image img/datadog-gophers.jpg 500 _
+
+
+
+* Today
+
+- I'll try to show how powerfull is *go* standard library.
+- Why frameworks are not necessary.
+- Why you should prefer small libraries over frameworks.
+
+
+
+* If coffee does not help anymore
+
+Take my advice
+
+.image img/frazzle-guy.jpg 450 _
+
+Instead of looking into the *void*. Try *GO*
+
+
+
+* Lets start with HTTP library
+
+.play http/c1/main.go
+
+
+
+* Chaining handlers is all you need
+
+.code http/c2/main.go /^func Timing/,/^$/
+
+
+
+* Chain middleware
+
+.play http/c2/main.go /^func hello/,/^func Timing/
+
+You can create and chain any interface, *http.Handler* in this case
+
+
+
+* Use powerful router only if you need to
+
+.play http/c3/main.go /^func product/,/^func Timing/
+
+Because, complex algorithms are best with huge *n*, and in most cases *n* is small.
+Your *APIs* usually top 5-50 routes, not more.
+
+
+
+* You can predefine middleware chain
+
+.code http/c4/main.go /^var/,/$/
+
+And use or extend it:
+
+.code http/c4/main.go /^func main/,/^\}$/ HLaaa
+
+
+
+* You can customize your handler to manage errors
+
+.code http/c5/main.go /^type ErrorHandler/,/^\}$/ HLbbb
+
+.play http/c5/main.go /^func hello/,/^\}$/
+
+
+
+* You can make a custom error type
+
+.code http/c6/main.go /^type HTTPError/,/\z/
+
+The hello handler now looks like:
+
+.code http/c6/main.go /^func hello/,/^\}$/
+
+
+
+* Add error to JSON transformation
+
+.code http/c6/main.go /JSON\(/,/^\}$/
+
+
+
+* And update your error handler wrapper to check interface type
+
+.play http/c6/main.go /^func HandleErr/,/^\}$/
+
+I think we made a new "REST" framework, didn't we?
+
+
+
+* What is next on our white board?
+
+.image img/gopher-board.jpg _ 700
+
+
+
+* People are so used to frameworks, they just need one
+
+.image img/http-reddit.png 550 _
+
+
+
+* We can chain http.Client too
+
+.code client/main.go /^type Client/,/\z/
+
+
+
+* Add a simple middleware
+
+.code client/main.go /^func Timing/,/^\}$/
+
+Et voilà
+
+.play client/main.go /^func main/,/^\}$/
+
+
+
+* We can also do the same with io.Writer
+
+.code writer/main.go /^func Leveled/,/^\}$/
+
+The same chainable interface, but *io.Writer* instead
+
+
+
+* Lets see leveled error log
+
+.play writer/main.go /^func main/,/^\}$/
+
+
+
+* So ...
+
+.image img/google-why-golang.png _ 800
+
+There is so much controversion?
+
+  - I think people are just afraid of what they do not understand or not used to
+
+
+
+* Lets see actual numbers
+
+.image img/go-vs-php2.png 500 _
+
+
+
+* What about last 90 days
+
+.image img/go-vs-php3.png 500 _
+
+What does it say about PHP?
+
+
+
+* It says that
+
+.image img/boring.jpg 500 _
+
+They do not spend time learning PHP on weekends, because it is so boring *dude*
+
+
+
+* Or maybe these are needle - haystack victims
+
+.image img/needle-haystack.png 580 _
+
+
+
+* Anyway - Go brings the fun back
+
+.image img/fun-back.jpg 500 _
+
+
+
+* Testing
+
+If you love *Behat*
+
+.image img/behat.png 150 _
+
+It feels like at home with *Godog*
+
+.image img/godog.png 150 _
+
+
+
+* Did you know
+
+That you can extend *types* of package in your test files?
+
+.code http/c6/error_test.go /^func \(e/,/^\}$/
+
+Those assertion libraries are not that useful
+
+
+* And running a test
+
+.code http/c6/error_test.go /^func Test/,/^\}$/
+
+.image img/test.png 150 _
+
+
+
+* Library packages
+
+A great library - does not have any external dependencies.
+
+
+
+* Lithuanian gopher user group
+
+.link http://gophers.lt gophers.lt
+
+Follow the news and next events
+
