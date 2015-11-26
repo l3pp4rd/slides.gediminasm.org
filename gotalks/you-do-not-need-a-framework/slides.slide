@@ -200,6 +200,23 @@ They do not spend time learning PHP on weekends, because it is so boring *dude*
 
 
 
+* It is easy to write pipes
+
+.code pipe/main.go /^func main/,/^\}$/
+
+Transforms *json* to *csv*
+
+.code pipe/sample.json
+
+
+
+* Lets try it out
+
+.image img/pipe.png _ 1000
+
+
+
+
 * Testing
 
 If you love *Behat*
@@ -232,6 +249,10 @@ Those assertion libraries are not that useful
 * Library packages
 
 A great library - does not have any external dependencies.
+
+Keep you libraries clean and make *gophers* happy!
+
+.image img/gopher-it.jpg 300 _
 
 
 
