@@ -1,0 +1,550 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>GIT basics</title>
+
+    <meta name="description" content="Git tutorial local presentation">
+    <meta name="author" content="Gediminas Morkevicius">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="../revealjs/css/reveal.css" />
+    <link rel="stylesheet" href="../revealjs/css/theme/sky.css" id="theme" />
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="../revealjs/lib/css/zenburn.css">
+
+    <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+    <script>
+      document.write( '<link rel="stylesheet" href="../revealjs/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="../revealjs/lib/js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+
+    <div class="reveal">
+
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+
+        <section>
+          <h2>Git basics</h2>
+
+          <img src="imgs/push-force.jpg" alt="push force" height="280px" />
+
+          <p><strong>git push</strong> but don't use the force Luke!</p>
+        </section>
+
+        <section>
+          <h2>Agenda</h2>
+
+          <ol>
+            <li>Save time and configure dude</li>
+            <li>Baby steps</li>
+            <li>Working with topic branches</li>
+            <li>Understanding <strong>rebase</strong> and <strong>merge</strong> difference</li>
+            <li>Hotfixes and security patches</li>
+            <li>The dark side of <strong>git rebase</strong></li>
+          </ol>
+        </section>
+
+        <section>
+          <section>
+            <h3>Save time and configure dude</h3>
+
+            <pre><code>vim ~/.gitconfig</code></pre>
+          </section>
+
+          <section>
+            <p>Some colors, so the status output looks better</p>
+
+            <pre><code class="ini full">[color]
+ui = true
+
+[color "branch"]
+current = yellow reverse
+local = yellow
+remote = green
+
+[color "diff"]
+meta = yellow
+frag = magenta
+old = red
+new = green
+
+[color "status"]
+added = green
+changed = yellow
+untracked = red</code></pre>
+          </section>
+
+          <section>
+            <p>Editor and mergetool `apt-get install meld` if you are not <strong>vim</strong> friendly</p>
+
+            <pre><code class="ini full">[diff]
+tool = vimdiff
+
+[merge]
+tool = vimdiff
+
+[core]
+# gedit if you prefer
+editor = vim
+# default patterns to ignore, .idea and etc.
+excludesfile = ~/.gitignore</code></pre>
+          </section>
+
+          <section>
+            <p>Useful rebase behavior</p>
+
+            <pre><code class="ini full">[pull]
+# when doing 'git pull', rebase instead of merging
+rebase = true
+
+[push]
+# 'git push' will push the current branch to its tracking branch
+# the usual default is to push all branches
+default = tracking
+
+[rebase]
+# stash, rebase, pop - since git v2.6.0
+autostash = true
+
+[github]
+# associate to github account
+user = l3pp4rd</code></pre>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h3>Baby steps</h3>
+
+            <img src="imgs/baby-steps.jpg" alt="baby steps" height="280px" />
+
+            <p><strong>Ze shell</strong> is powerful, use it Luke!</p>
+          </section>
+
+          <section>
+            <p>Given we have a git repository</p>
+
+            <pre><code class="sh">
+              git clone https://github.com/DATA-DOG/godog.git
+            </code></pre>
+          </section>
+
+          <section>
+            <p>Reset our master to previous commit and make some changes.
+            We will assume that someone made a commit to master while we were developing</p>
+
+            <pre><code class="sh full">git reset --hard \
+  $(git log --pretty=oneline | head -n 2 | tail -n 1 | awk '{print $1}')
+echo 'datadog' >> README.md
+touch newfile
+echo 'mod' >> LICENSE
+git add LICENSE
+git status</code></pre>
+          </section>
+
+          <section>
+            <p>You should see:</p>
+
+            <img src="imgs/stat0.png" alt="status" height="400px" />
+          </section>
+
+          <section>
+            <p>If git version is 2.6 or higher and configuration was adjusted as shown before.</p>
+
+            <p>Running <strong>git pull</strong> would:</p>
+
+            <ol>
+              <li class="fragment">git first would check that there are tracked and staged changes, so it would stash it</li>
+              <li class="fragment">git transparently would run <strong>git fetch</strong> first, to know the origin state</li>
+              <li class="fragment">it would find that origin is ahead by <strong>1</strong> commit and as configured, run rebase.</li>
+              <li class="fragment">then it would stash pop tracked changes</li>
+            </ol>
+          </section>
+
+          <section>
+            <img src="imgs/stat1.png" alt="status" height="500px" />
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h3>Working with topic branches</h3>
+
+            <img src="imgs/keep-calm-and-git-rebase.png" alt="status" height="280px" />
+          </section>
+
+          <section>
+            <p>Again given we have a <strong>feature</strong> branch, behind <strong>master</strong></p>
+
+            <pre><code class="sh full">git checkout -b feature \
+  $(git log --pretty=oneline | head -n 2 | tail -n 1 | awk '{print $1}')
+echo 'datadog' >> README.md
+git commit -a -m 'updated readme'</code></pre>
+
+            <p class="fragment">At this stage our <strong>feature</strong> branch has diverged from master with one commit behind
+            master and one new commit</p>
+          </section>
+
+          <section>
+            <p>And <strong>Povilas</strong> asks us to make a release - merge the feature</p>
+
+            <p class="fragment">We should first, rebase our branch on master:</p>
+
+            <pre class="fragment"><code class="sh">
+              git pull --rebase origin master
+            </code></pre>
+
+            <p class="fragment">And only then <strong>merge</strong> - why?</p>
+          </section>
+
+          <section>
+            <img src="imgs/because-i-say-so.jpg" alt="because I say so" height="280px" />
+
+            <p class="fragment">which brings me to another topic...</p>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h3>rebase and merge difference</h3>
+
+            <img src="imgs/merge-vs-rebase.jpg" alt="merge vs rebase" height="400px" />
+          </section>
+
+          <section>
+            <p>An ugly git process example</p>
+
+            <img src="imgs/ugly-history.png" alt="ugly git history" height="500px" />
+          </section>
+
+          <section>
+            <p>A nice git process example</p>
+
+            <img src="imgs/nice-history.png" alt="nice git history" height="280px" />
+          </section>
+
+          <section>
+            <p>The outcome if you have many merge commits in your topic branches</p>
+
+            <ol>
+              <li class="fragment">An <strong>ugly</strong> history</li>
+              <li class="fragment">A rebase conflict per merge commit in case if you decide to rebase your ugly branch</li>
+              <li class="fragment">Someone ripping your eyeballs out..</li>
+            </ol>
+
+            <img class="fragment" src="imgs/eyeballs.jpg" alt="nice git history" height="200px" />
+          </section>
+
+          <section>
+            <p><strong>merge</strong> is good and required, but for.. <span class="fragment"><strong>rebased</strong> topic branches or patches</span></p>
+
+            <p class="fragment">Which brings me to another topic.. hotfixes and security patches</p>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h3>Hotfixes and security patches</h3>
+
+            <p>Lets take <strong>symfony</strong> as an example</p>
+
+            <img src="imgs/sf-branches.png" alt="symfony project branches" height="350px" />
+          </section>
+
+          <section>
+            <p>Lets say we have found a bug, which was there since the begiging</p>
+
+            <p>How to patch all releases with this hotfix?</p>
+
+            <pre class="fragment"><code class="sh full">git clone https://github.com/symfony/symfony.git
+cd symfony
+git checkout 2.7
+echo 'hotfix' >> README.md
+git commit -a -m 'security fix RFC434-3465'
+git tag -a v2.7.10 -m 'security patch'</code></pre>
+          </section>
+
+          <section>
+            <p>Merge the patch up to master</p>
+
+            <pre class="fragment"><code class="sh full">git checkout 2.8
+git merge 2.7
+git tag -a v2.8.3 -m 'security patch'
+git checkout 3.0
+git merge 2.8
+git tag -a v3.0.3 -m 'security patch'
+git checkout master
+git merge 3.0
+git push --all origin # ooops</code></pre>
+          </section>
+
+          <section>
+            <p>Now a glipse to remotes, since I cannot push to symfony I'll use my repository</p>
+
+            <pre><code class="sh full">git remote add 'myrepo' 'git@github.com:l3pp4rd/symfony.git'
+git push --all 'myrepo'
+git push 'myrepo' --tags</code></pre>
+
+            <img src="imgs/sf-branches2.png" alt="symfony project branches" height="350px" />
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h3>And for dessert</h3>
+
+            <img src="imgs/dessert.jpg" alt="dessert" height="280px" />
+
+            <p class="fragment">The dark side of <strong>git rebase</strong></p>
+          </section>
+
+          <section>
+            <p>How to prevent <strong>THIS</strong> from reaching your <strong>git master</strong></p>
+
+            <pre><code>git log --pretty=oneline --abbrev-commit</code></pre>
+
+            <img src="imgs/ugly_commits.png" alt="ugly commits" />
+
+            <p><strong>rebase</strong> your topic branches</p>
+          </section>
+
+
+          <section>
+            <h3>Example</h3>
+
+            <pre><code class="full sh">mkdir ~/project && cd ~/project
+git init
+touch LICENSE
+git add LICENSE
+git commit -am 'initial commit - set license'
+git remote add origin https://github.com/user/project.git
+git checkout -b feature/project-bootstrap</code></pre>
+
+            <p>After a while...</p>
+
+            <img src="imgs/usual_commits.png" alt="usual commits" />
+
+            <p>Do you want this to go into <strong>master</strong> production stream?</p>
+          </section>
+
+          <section>
+            <h3>Lets rebase</h3>
+
+            <p>Interactively rebase 5 commits from HEAD</p>
+
+            <pre><code>git rebase --interactive HEAD~5</code></pre>
+
+            <img src="imgs/rebase.png" alt="rebase" />
+          </section>
+
+          <section>
+            <img src="imgs/manage_commits_in_rebase.png" alt="manage commits in rebase" />
+
+            <p>At this point we can choose what to do with commits. Rebase will rewind
+            the chosen number of commits and modify them accordingly to prefered changes.</p>
+          </section>
+
+          <section>
+            <p>Initially rebase will stop to rename the first commit, we rename it properly:</p>
+
+            <img src="imgs/rename_first.png" alt="rename first commit" />
+
+            <p>Next, rebase will stop on "boostrap project" wich will have two commits squashed</p>
+
+            <img src="imgs/squash.png" alt="squashed commits" />
+          </section>
+
+          <section>
+            <p>Now if we had pushed our commits to git repository in any branch name, we could reference
+            these commits with their hashes. This way it could look like:</p>
+
+            <img src="imgs/squash_sample_with_refs.png" alt="Squash sample with references" />
+
+            <p>Since we haven't, we can just leave those as extra commit messages</p>
+
+            <img src="imgs/squashed.png" alt="squashed commit message" />
+          </section>
+
+          <section>
+            <p>Finally, it will stop to rename "add feature x" commit,
+            it is not clear what feature we have added, lets fix it as well:</p>
+
+            <img src="imgs/rename_feature_commit.png" alt="Rename add feature commit" />
+
+            <p>When we save and close it, rebase will finish</p>
+          </section>
+
+          <section>
+            <p>And instead of...</p>
+
+            <img src="imgs/usual_commits.png" alt="usual commits" />
+
+            <p>We have:</p>
+
+            <img src="imgs/nice_commits.png" alt="nice looking commits" />
+
+            <p>Which history log do you choose to see in production?</p>
+          </section>
+
+          <section>
+            <p>Before merging it back to master - make sure you are up to date</p>
+
+            <pre><code class="sh">git fetch
+git rebase origin/master</code></pre>
+          </section>
+
+          <section>
+            <p>There are cases, when you may want to split a commit,
+            consider a situation:</p>
+
+            <img src="imgs/split_this.png" alt="Need to split" />
+
+            <p>So what we should do ? - <strong>rebase!</strong></p>
+
+            <pre><code>git rebase -i HEAD~4</code></pre>
+          </section>
+
+          <section>
+            <p>Set <strong>edit</strong> for commit, which we want to split</p>
+
+            <img src="imgs/split_rebase.png" alt="Edit commit to split during rebase" />
+
+            <p>Rebase will rewind, pick the commit for edit and pause.
+            Now lets reset one commit from the current HEAD</p>
+
+            <img src="imgs/stop_to_edit.png" alt="Rebase stops to edit" />
+
+            <pre><code>git reset HEAD~</code></pre>
+          </section>
+
+          <section>
+            <p>Lets see what we have in <strong>staging area</strong>:</p>
+
+            <pre><code>git status</code></pre>
+
+            <img src="imgs/split_status.png" alt="Staging area status" />
+          </section>
+
+          <section>
+            <p>Add the first commit, which includes doctrine2 orm.
+            We will use <strong>git add --patch</strong> so we stage only a specific change.</p>
+
+            <pre><code>git add --patch composer.json</code></pre>
+
+            <img src="imgs/add_patch.png" alt="Add using patch" />
+          </section>
+
+          <section>
+            <p>Hit <strong>e</strong> to edit hunk</p>
+
+            <img src="imgs/add_hunk.png" alt="Add hunk" />
+
+            <p>Now save and close it. We should have only needed changes staged.</p>
+
+            <pre><code>git commit -m 'include doctrine2 orm into project'</code></pre>
+          </section>
+
+          <section>
+            <p>Next, we have a front controller integration:</p>
+
+            <pre><code>git add src/MyApp/FrontController.php public/*
+git commit -m 'create front controller'</code></pre>
+
+            <p>Further more, lets commit phpunit</p>
+
+            <pre><code>git add phpunit.xml.dist tests</code></pre>
+
+            <p>And again patch a composer.json change:</p>
+
+            <pre><code>git add -p composer.json</code></pre>
+
+          </section>
+
+          <section>
+            <p>Hit <strong>e</strong> to edit hunk</p>
+
+            <img src="imgs/add_hunk_phpunit.png" alt="Add hunk for phpunit" />
+
+            <p>Now save and close it. We should have only needed changes staged.</p>
+
+            <pre><code>git commit -m 'bootstrap phpunit tests'</code></pre>
+          </section>
+
+          <section>
+            <p>And finally we have only behat stuff left.</p>
+
+            <pre><code>git add features composer.json
+git commit -m 'bootstrap behat mink functional tests'
+git rebase --continue</code></pre>
+
+            <p>Thats it! Now we have:</p>
+
+            <img src="imgs/after_split.png" alt="Commits after split rebase" />
+          </section>
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## Thank You
+
+            So use the **force** Luke and **git rebase**
+
+            You can revisit these slides on [slides.gediminasm.org](http://slides.gediminasm.org)
+
+            [Gediminas Morkevičius](http://gediminasm.org) [@l3pp4rd](http://twitter.com/l3pp4rd)
+
+            powered by: [RevealJs](http://lab.hakim.se/reveal-js/)
+          </script>
+        </section>
+      </div>
+
+    </div>
+
+    <script src="../revealjs/lib/js/head.min.js"></script>
+    <script src="../revealjs/js/reveal.js"></script>
+
+    <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        mouseWheel: false,
+        rollingLinks: false,
+        history: true,
+        center: true,
+
+        theme: 'sky', // available themes are in /css/theme
+        transition: 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: '../revealjs/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../revealjs/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../revealjs/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../revealjs/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: '../revealjs/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: '../revealjs/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+          // { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+          // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+        ]
+      });
+
+    </script>
+
+  </body>
+</html>
