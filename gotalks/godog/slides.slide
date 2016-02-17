@@ -1,0 +1,113 @@
+Acceptance and integration testing with GO
+17 Feb 2016
+Tags: golang, go, datadog, meetup, godog, BDD, testing
+
+Gediminas Morkevicius
+Senior *Gopher* at, DATA-DOG
+gediminas.morkevicius@gmail.com
+http://gediminasm.org
+@l3pp4rd
+
+
+
+* You can also identify me by this image
+
+.image img/plush.jpg
+
+And I work at
+
+.image img/datadog.png
+
+.html styles.html
+
+
+
+* Where some of them wish to be gophers
+
+.image img/datadog-gophers.jpg 500 _
+
+
+
+* Today
+
+- I'll speak about testing in *go* language.
+- Introduction to *godog*
+- TDD and BDD examples
+
+
+
+* Maybe this rings the bell?
+
+We want this feature done *ASAP!*
+
+
+
+* Yeah right.. doesn't it sound like?
+
+.image img/just_do_it.jpg 500 _
+
+
+
+* Or maybe you heard this?
+
+Lets do this feature, we will write tests later..
+
+
+
+* Yeah right.. we know how it ends, don't we?
+
+.image img/legacy-code.jpg 500 _
+
+
+
+* The lesson learned
+
+Well tested code - is never a legacy code.
+
+People aren't afraid to make changes or refactor, when they know it is tested.
+
+
+
+* Where do we begin - Godog
+
+.image img/godog.png
+
+*godog* is a BDD framework like *cucumber* or *behat*
+
+
+
+* Imagine
+
+you need an *API* to list employees of your fictional company - Yippee.
+
+There is *gherkin* language for feature definitions.
+
+
+
+* Define a feature
+
+.html features/api/employees.html
+
+
+
+* When you run it
+
+*godog* features/api/employees.feature
+
+.image img/run/initial.png 500 _
+
+
+
+* And it should give you snippets to implement steps
+
+.image img/run/snippets.png 500 _
+
+
+* Lithuanian gopher user group
+
+.link http://gophers.lt gophers.lt
+
+Follow the news and next events
+
+And you should really subscribe and follow [[http://golangweekly.com/][http://golangweekly.com/]]
+Also, check the archives. And visit [[https://twitter.com/search?q=%23golang&src=tyah][#golang]] channel on twitter.
