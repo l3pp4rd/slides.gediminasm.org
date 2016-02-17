@@ -1,0 +1,14 @@
+
+<div class="code">
+<pre><code class="go">func apiContext(s *godog.Suite) {
+  api := &amp;apiFeature{}
+
+  s.BeforeScenario(api.reset)
+
+  s.Step(`^there are employees:$`, api.thereAreEmployees)
+  s.Step(`^I send "(GET|POST|PUT|DELETE)" request to "([^"]*)"$`, api.iSendrequestTo)
+  s.Step(`^the response code should be (\d+)$`, api.theResponseCodeShouldBe)
+  s.Step(`^the response should match json:$`, api.theResponseShouldMatchJSON)
+}</code></pre>
+
+</div>

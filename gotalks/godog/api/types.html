@@ -1,0 +1,24 @@
+<div class="code">
+<pre><code class="go">package api
+
+import (
+  "database/sql"
+  "encoding/json"
+  "fmt"
+  "net/http"
+)
+
+type user struct {
+  Firstname string `json:"firstname"`
+  Lastname  string `json:"lastname"`
+}
+
+type API struct {
+  db *sql.DB
+}
+
+func New(db *sql.DB) *API {
+  return &amp;API{db: db}
+}</code></pre>
+
+</div>

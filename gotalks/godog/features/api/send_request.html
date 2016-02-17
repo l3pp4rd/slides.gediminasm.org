@@ -1,0 +1,28 @@
+
+<div class="code">
+<pre><code class="go">func (a *apiFeature) iSendrequestTo(method, endpoint string) (err error) {
+  req, err := http.NewRequest(method, endpoint, nil)
+  if err != nil {
+    return
+  }
+
+  // handle panic
+  defer func() {
+    switch t := recover().(type) {
+    case string:
+      err = fmt.Errorf(t)
+    case error:
+      err = t
+    }
+  }()
+
+  switch endpoint {
+  case "/users":
+    a.api.users(a.resp, req)
+  default:
+    err = fmt.Errorf("unknown endpoint: %s", endpoint)
+  }
+  return
+}</code></pre>
+
+</div>

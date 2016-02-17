@@ -24,3 +24,11 @@ Feature: list yippee employees
   Scenario: should not allow POST method
     When I send "POST" request to "/users"
     Then the response code should be 405
+
+  Scenario: should require authentication for protected resources
+    When I send "GET" request to "/protected"
+    Then the response code should be 401
+
+  Scenario: should require authentication for protected resources
+    When I send "GET" request to "/protected" as "user"
+    Then the response code should be 200

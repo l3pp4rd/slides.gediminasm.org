@@ -1,0 +1,29 @@
+
+<div class="code">
+<pre><code class="go">type apiFeature struct {
+  resp   *httptest.ResponseRecorder
+  api    *API
+  dbMock sqlmock.Sqlmock
+}
+
+func (a *apiFeature) reset(interface{}) {
+  db, mock, err := sqlmock.New()
+  if err != nil {
+    panic(err)
+  }
+
+  a.resp = httptest.NewRecorder()
+  a.api = New(db)
+  a.dbMock = mock
+}
+
+func (a *apiFeature) thereAreEmployees(users *gherkin.DataTable) error {
+  rows := sqlmock.NewRows([]string{"firstname", "lastname"})
+  for _, row := range users.Rows {
+    rows.AddRow(row.Cells[0].Value, row.Cells[1].Value)
+  }
+  a.dbMock.ExpectQuery("SELECT (.*) FROM users").WillReturnRows(rows)
+  return nil
+}</code></pre>
+
+</div>

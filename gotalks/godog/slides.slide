@@ -30,9 +30,9 @@ And I work at
 
 * Today
 
-- I'll speak about testing in *go* language.
+- I'll speak about BDD testing in *go* language.
 - Introduction to *godog*
-- TDD and BDD examples
+- And examples
 
 
 
@@ -103,11 +103,88 @@ There is *gherkin* language for feature definitions.
 .image img/run/snippets.png 500 _
 
 
-* Lithuanian gopher user group
 
-.link http://gophers.lt gophers.lt
+* Implement steps as you expect it should work
 
-Follow the news and next events
+.html features/api/there_are_employees.html
 
-And you should really subscribe and follow [[http://golangweekly.com/][http://golangweekly.com/]]
-Also, check the archives. And visit [[https://twitter.com/search?q=%23golang&src=tyah][#golang]] channel on twitter.
+
+
+* Send request step as we imagine
+
+.html features/api/send_request.html
+
+
+
+* And response matching steps
+
+.html features/api/response_matchers.html
+
+
+
+* Register steps into godog context
+
+.html features/api/register_steps.html
+
+All these steps can be reused for any number of scenarios. So make it as *general* as possible.
+
+
+
+* We are still missing the application source code
+
+.html api/types.html
+
+
+
+* Method to read users from DB
+
+.html api/read_users.html
+
+
+
+* Handler to get user list
+
+.html api/get_users.html
+
+
+
+* Lets run godog again
+
+.image img/run/success.png 500 _
+
+
+
+* Bad request method scenario
+
+.html features/api/bad_method.html
+
+.image img/run/bad_method.png 350 _
+
+
+
+* Lets add a protected resource
+
+Given we need authorization to resource
+
+.html features/api/auth.html
+
+Add a necessary step to set the basic auth header
+
+
+
+* Basic auth validation
+.html api/auth.html
+
+
+
+* The result
+
+.image img/run/result.png 550 _
+
+
+* Does it look complex?
+
+Having these steps, may be just enough to functionally test your *API* application.
+And have readable feature definitions in one place.
+Even your manager can understand the behavior described.
+

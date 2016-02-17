@@ -1,0 +1,27 @@
+<div class="code">
+<pre><code class="go">func (a *API) users(w http.ResponseWriter, req *http.Request) {
+  if req.Method != "GET" {
+    http.Error(w, "Method not allowed", 405)
+    return
+  }
+
+  users, err := a.readUsers()
+  if err != nil {
+    http.Error(w, fmt.Sprintf("failed to read users from db: %s", err), 500)
+    return
+  }
+
+  response := struct {
+    Users []*user `json:"users"`
+  }{Users: users}
+
+  data, err := json.Marshal(&amp;response)
+  if err != nil {
+    http.Error(w, fmt.Sprintf("failed to marshal users: %s", err), 500)
+    return
+  }
+  w.Header().Set("Content-Type", "application/json")
+  w.Write(data)
+}</code></pre>
+
+</div>
