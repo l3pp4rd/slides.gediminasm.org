@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>Things I fucked UP</title>
+
+    <meta name="description" content="Things I screwed in software development career" />
+    <meta name="author" content="Gediminas Morkevicius" />
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <link rel="stylesheet" href="../revealjs/css/reveal.css" />
+    <link rel="stylesheet" href="../revealjs/css/theme/sky.css" id="theme" />
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="../revealjs/lib/css/zenburn.css" />
+
+    <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+    <script>
+      document.write( '<link rel="stylesheet" href="../revealjs/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print" />' );
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="../revealjs/lib/js/html5shiv.js"></script>
+    <![endif]-->
+    <style>
+    #work-at {
+      border: 0;
+      -webkit-box-shadow: none;
+      box-shadow: none !important;
+      background:none;
+      margin: 0;
+      padding-top: 15px;
+    }
+    .reveal pre code.full {
+      max-height: 500px;
+      max-width: 1000px;
+    }
+    .reveal pre code.wide {
+      width: 1200px;
+    }
+    .reveal img.no-border {
+      border: 0;
+      -webkit-box-shadow: none;
+      box-shadow: none !important;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <h3>Who's to blame?</h3>
+
+          <p>
+            <small><a href="http://gediminasm.org">Gediminas Morkevičius</a> aka <a href="http://twitter.com/l3pp4rd">@l3pp4rd</a></small>
+          </p>
+
+          <img src="img/me2-small.jpg" alt="Me" />
+
+          <a href="http://datadog.lt" target="_blank">
+            <img id="work-at" src="img/datadog.png" height="70px" alt="Data-Dog" />
+          </a>
+        </section>
+
+        <section>
+          <h3>Yes! I screwed things</h3>
+
+          <img src="img/dog.jpg" height="400px" alt="Dog on couch" />
+        </section>
+
+        <section>
+          <h3>Fail recipe #1</h3>
+
+          <pre><code>mysql -u root database</code></pre>
+
+          <p class="fragment">On your <strong>localhost</strong> - development.</p>
+          <p class="fragment">And on another shell - <strong>production</strong></p>
+        </section>
+
+        <section>
+          <p>It is easy to mix the shells when running..</p>
+
+          <img class="fragment" src="img/trollface.jpg" height="300px" alt="Troll face" />
+
+          <pre class="fragment"><code>DELETE * FROM users</code></pre>
+        </section>
+
+        <section>
+          <p>How to prevent this from happening?</p>
+
+          <ol>
+            <li class="fragment">Use <strong>readonly</strong> user for production database.</li>
+            <li class="fragment"><strong>Never</strong> use DELETE or UPDATE statements when connected to production.</li>
+          </ol>
+        </section>
+
+        <section>
+          <h3>Fail recipe #2</h3>
+
+          <p>Composer modules</p>
+
+          <pre class="fragment"><code class="json">{
+  "require": {
+    "symfony/symfony": "~2.7.0",
+    "symfony/monolog-bundle": "~2.7",
+    "symfony/swiftmailer-bundle": "~2.3",
+
+    "my-company/payments":"~1.0"
+  }
+}</code></pre>
+        </section>
+
+        <section>
+          <p>To prevent downloading <strong>vendor</strong> packages on deployment, we are building a release archive</p>
+
+          <pre><code class="javascript">gulp.task('archive', function(cb) {
+  spawn.exec('./bin/archive', function(err, stdout, stderr) {
+    if (err) {
+      gutil.log(gutil.colors.red('error'), ' =&gt; ', stdout);
+    } else {
+      gutil.log(gutil.colors.cyan('package'), ' =&gt; ', stdout);
+    }
+    cb(err);
+  })
+});
+
+gulp.task('package', function () {
+  runSequence('build', 'composer-minimize', 'composer-optimize', 'archive', 'composer-install', function (err) {
+    if (err) gutil.log(gutil.colors.red('error'), ' =&gt; ', err);
+  });
+});</code></pre>
+
+        </section>
+
+        <section>
+          <p>It is a very high probability that developer, tampers with vendor sources..</p>
+
+          <code>vim vendor/my-company/payments</code>
+
+          <p class="fragment">And it just went to production</p>
+
+          <img class="fragment" src="img/soccer.jpg" height="300px" alt="Fail" />
+        </section>
+
+        <section>
+          <p>A fix was applied..</p>
+
+          <pre class="fragment"><code class="javascript">gulp.task('composer-minimize', function(cb) {
+  // and ensure that tampered vendors are reset!
+  spawn.exec('rm -rf vendor/{my-company} &amp;&amp; composer install --no-scripts --no-dev', function(err, stdout, stderr) {
+    cb(err);
+  });
+});</code></pre>
+        </section>
+
+        <section>
+          <h3>Fail recipe #3</h3>
+
+          <p class="fragment">Transaction management</p>
+
+        </section>
+
+      </div>
+
+    </div>
+
+    <script src="../revealjs/lib/js/head.min.js"></script>
+    <script src="../revealjs/js/reveal.js"></script>
+
+    <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        mouseWheel: false,
+        rollingLinks: false,
+        history: true,
+        center: true,
+
+        theme: 'sky', // available themes are in /css/theme
+        transition: 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: '../revealjs/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          // { src: '../revealjs/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          // { src: '../revealjs/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../revealjs/plugin/highlight/highlight.js', async: false, callback: function() {
+            hljs.initHighlightingOnLoad();
+          }},
+          { src: '../revealjs/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: '../revealjs/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+          // { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+          // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+        ]
+      });
+
+    </script>
+
+  </body>
+</html>
