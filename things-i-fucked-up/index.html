@@ -38,7 +38,7 @@
       padding-top: 15px;
     }
     .reveal pre code.full {
-      max-height: 500px;
+      max-height: 600px;
       max-width: 1000px;
     }
     .reveal pre code.wide {
@@ -55,6 +55,12 @@
     <div class="reveal">
       <div class="slides">
         <section>
+          <h3>Yes! I screwed things</h3>
+
+          <img src="img/dog.jpg" height="400px" alt="Dog on couch" />
+        </section>
+
+        <section>
           <h3>Who's to blame?</h3>
 
           <p>
@@ -63,15 +69,15 @@
 
           <img src="img/me2-small.jpg" alt="Me" />
 
+          <ul>
+            <li>I code with - <strong>PHP, GO, Java, JavaScript, C</strong></li>
+            <li>And I'm hardcore - <strong>ViM, Arch Linux, DWM</strong> user</li>
+            <li>I share my stuff at<a href="https://github.com/l3pp4rd">github.com/l3pp4rd</a></li>
+          </ul>
+
           <a href="http://datadog.lt" target="_blank">
             <img id="work-at" src="img/datadog.png" height="70px" alt="Data-Dog" />
           </a>
-        </section>
-
-        <section>
-          <h3>Yes! I screwed things</h3>
-
-          <img src="img/dog.jpg" height="400px" alt="Dog on couch" />
         </section>
 
         <section>
@@ -166,18 +172,122 @@ gulp.task('package', function () {
         </section>
 
         <section>
+          <p>There are few things you always need to know about databases</p>
+          <p class="fragment">Serialization deadlocks on <strong>MySQL</strong> is one of them</p>
+
+          <img class="fragment" src="img/deadlock.png" height="400px" alt="Fail" />
+        </section>
+
+        <section>
           <h3>Fail recipe #4</h3>
 
           <p class="fragment">Unreadable and unmaintanable code</p>
         </section>
 
         <section>
+          <p>Nested <strong>if</strong> statements. Do you see a <strong>bug</strong> here?</p>
+
+          <pre><code class="php full">function signupAction(Request $request)
+{
+    $form = $this-&gt;createForm(new SignupType(), $user = new User());
+    $form-&gt;handleRequest($request);
+    if ($form-&gt;isValid()) {
+        $same = $this-&gt;repo('AppBundle:User')-&gt;findOneBy(['email' =&gt; $user-&gt;getEmail()]);
+        if (null !== $same) {
+            if ($same-&gt;isConfirmed()) {
+                $this-&gt;formError($form-&gt;get('email'), "already confirmed");
+            } else {
+                $this-&gt;get('mail')-&gt;user($same, 'activate');
+            }
+        } else {
+            $user-&gt;regenerateConfirmationToken();
+            $this-&gt;persist($user);
+            $this-&gt;flush();
+
+            $this-&gt;get('mail')-&gt;user($same, 'activate');
+        }
+        return $this-&gt;redirect($this-&gt;generateUrl('app_user_login'));
+    }
+    return ['form' =&gt; $form-&gt;createView()];
+}</code></pre>
+        </section>
+
+        <section>
+          <p>How about now?</p>
+
+          <pre><code class="php full">function signupAction(Request $request)
+{
+    $form = $this-&gt;createForm(new SignupType(), $user = new User());
+    $form-&gt;handleRequest($request);
+    if (!$form-&gt;isValid()) {
+        return ['form' =&gt; $form-&gt;createView()];
+    }
+    $same = $this-&gt;repo('AppBundle:User')-&gt;findOneBy(['email' =&gt; $user-&gt;getEmail()]);
+    if (null !== $same and $same-&gt;isConfirmed()) {
+        $this-&gt;formError($form-&gt;get('email'), "already confirmed");
+    }
+    if (null !== $same) {
+        $this-&gt;get('mail')-&gt;user($same, 'activate');
+        return $this-&gt;redirect($this-&gt;generateUrl('app_user_login'));
+    }
+    $user-&gt;regenerateConfirmationToken();
+    $this-&gt;persist($user);
+    $this-&gt;flush();
+
+    $this-&gt;get('mail')-&gt;user($same, 'activate');
+    $this-&gt;addFlash('success', 'Activation email was sent');
+    return $this-&gt;redirect($this-&gt;generateUrl('app_user_login'));
+}</code></pre>
+        </section>
+
+        <section>
           <h3>Fail recipe #5</h3>
 
           <div class="fragment">
-            <p>I've badly prepared for this presentation</p>
+            <p>File session storage - does not <strong>scale</strong></p>
 
             <img src="img/facepalm.png" height="400px" alt="Fail" />
+          </div>
+        </section>
+
+        <section>
+          <h3>Fail recipe #6</h3>
+
+          <div class="fragment">
+            <p>Be careful with <strong>IP tables</strong></p>
+
+            <img src="img/fail.jpg" height="400px" alt="Fail" />
+          </div>
+        </section>
+
+        <section>
+          <p>Cannot SSH anymore. Server is a blackbox</p>
+
+          <pre><code>iptables -F
+iptables -P INPUT DROP
+iptables -P OUTPUT DROP
+iptables -P FORWARD DROP</code></pre>
+        </section>
+
+        <section>
+          <h3>Fail recipe #7</h3>
+
+          <div class="fragment">
+            <p><strong>chmod -R 777</strong></p>
+
+            <img src="img/chmod.jpg" height="400px" alt="Fail" />
+          </div>
+        </section>
+
+        <section>
+          <h3>Fail recipe #8</h3>
+
+          <div class="fragment">
+            <p>Late <strong>Friday</strong> releases</p>
+
+            <img src="img/friday.jpg" height="400px" alt="Fail" />
+
+            <p class="fragment"><strong>die(var_dump())</strong> on weekend</p>
           </div>
         </section>
 
