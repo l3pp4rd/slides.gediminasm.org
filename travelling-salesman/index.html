@@ -100,7 +100,11 @@
         <section>
           <p>We are developing sofware for grocery supply chain</p>
 
-          <p>Which compared to <strong>Maxima</strong> in baltic states</p>
+          <div class=fragment">
+            <p>Which compared to <strong>Maxima</strong> in baltic states</p>
+
+            <img class="no-border" src="img/maxima.jpg" height="300px" alt="Maxima"/>
+          </div>
 
           <p class="fragment">is at least <strong>5</strong> times bigger</p>
 
@@ -133,9 +137,10 @@
 
           <ol>
             <li>Speed at specific hour</li>
-            <li>Blocked or restricted roads, public events</li>
+            <li>Blocked or restricted roads or zones, public events</li>
             <li>Right hand turns</li>
             <li>Types of roads, size</li>
+            <li>Unexpected <strong>time at door</strong> time spent</li>
           </ol>
         </section>
 
@@ -151,6 +156,24 @@
         </section>
 
         <section>
+          <h4>Scheduling</h4>
+
+          <p>What do we schedule?</p>
+        </section>
+
+        <section>
+          <p>Grocery and other deliveries</p>
+
+          <img class="no-border" src="img/grocery-delivery.jpg" height="400px" alt="Grocery delivery"/>
+        </section>
+
+        <section>
+          <p>Warehouse distribution</p>
+
+          <img class="no-border" src="img/warehouse.jpg" height="400px" alt="Warehouse distribution"/>
+        </section>
+
+        <section>
           <p>Imagine a schedule..</p>
 
           <img class="no-border" src="img/schedule.png" height="600px" alt="Schedule"/>
@@ -162,6 +185,51 @@
           <p class="fragment">Every drop may be allocated to a time slot</p>
 
           <img class="no-border" src="img/schedule-slots.png" height="600px" alt="Schedule"/>
+        </section>
+
+        <section>
+          <p>main scheduling operations</p>
+
+          <ol>
+            <li class="fragment"><strong>GET</strong> available slots</li>
+            <li class="fragment"><strong>POST</strong> slot reservation</li>
+            <li class="fragment"><strong>PATCH</strong> slot reservation</li>
+            <li class="fragment"><strong>DELETE</strong> slot reservation</li>
+            <li class="fragment"><strong>GET</strong> schedule itinerary</li>
+          </ol>
+        </section>
+
+        <section>
+          <h4>Optimization</h4>
+
+          <p>Currently we have around several methods of optimization</p>
+
+          <p class="fragment">customized ILP algorithm, but everywhere there are trade offs</p>
+          <p class="fragment">cannot lock actively updated schedule for long running optimization</p>
+          <p class="fragment">probably every depot should have a different kind of optimization</p>
+        </section>
+
+        <section>
+          <p>Maybe Ant colony optimization algorithms</p>
+
+          <img class="no-border" src="img/aco.png" height="300px" alt="ACO"/>
+
+          <p class="fragment">there are many interesting things we will try</p>
+        </section>
+
+        <section>
+          <p>Hopefully producing similar results</p>
+
+          <img class="no-border" src="img/routing.jpg" height="400px" alt="Results"/>
+        </section>
+
+        <section>
+          <h3>Thank you</h3>
+
+          <img src="img/questions.jpg" class="no-border" height="300" alt="Questions?" />
+
+          <p>Slides are available at: <a href="http://slides.gediminasm.org">slides.gediminasm.org</a></p>
+          <p>Powered by: <a href="http://lab.hakim.se/reveal-js/">Revealjs</a>
         </section>
       </div>
 
