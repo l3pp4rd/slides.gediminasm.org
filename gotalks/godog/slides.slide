@@ -10,181 +10,40 @@ http://gediminasm.org
 
 
 
-* You can also identify me by this image
-
-.image img/plush.jpg
-
-And I work at
-
-.image img/datadog.png
-
-.html styles.html
-
-
-
-* Where some of them wish to be gophers
+* Working at
 
 .image img/datadog-gophers.jpg 500 _
 
+.html styles.html
 
 
 * Today
 
 - I'll speak about BDD testing in *go* language.
-- Introduction to *godog*
-- And examples
+- And introduce you to *godog*
+- Hoping you are already familiar with *cucumber* and *gherkin*
 
+.image img/cucumber.svg _ 600
 
+Cucumber merges specification and test documentation into one cohesive whole.
 
-* Maybe this rings the bell?
 
-We want this feature done *ASAP!*
 
+* Gherkin
 
+Gherkin is the language that Cucumber understands. It is a Business Readable,
+Domain Specific Language that lets you describe software’s behaviour without
+detailing how that behaviour is implemented.
 
-* Yeah right.. doesn't it sound like?
 
-.image img/just_do_it.jpg 500 _
 
+* Lets write our first product basket feature
 
+.html features/basket.html
 
-* Or maybe you heard this?
-
-Lets do this feature, we will write tests later..
-
-
-
-* Yeah right.. we know how it ends, don't we?
-
-.image img/legacy-code.jpg 500 _
-
-
-
-* The lesson learned
-
-Well tested code - is never a legacy code.
-
-People aren't afraid to make changes or refactor, when they know it is tested.
-
-
-
-* Where do we begin - Godog
-
-.image img/godog.png
-
-*godog* is a BDD framework like *cucumber* or *behat*
-
-
-
-* Imagine
-
-you need an *API* to list employees of your fictional company - Yippee.
-
-There is *gherkin* language for feature definitions.
-
-
-
-* Define a feature
-
-.html features/api/employees.html
-
-
-
-* When you run it
-
-*godog* features/api/employees.feature
-
-.image img/run/initial.png 500 _
-
-
-
-* And it should give you snippets to implement steps
-
-.image img/run/snippets.png 500 _
-
-
-
-* Implement steps as you expect it should work
-
-.html features/api/there_are_employees.html
-
-
-
-* Send request step as we imagine
-
-.html features/api/send_request.html
-
-
-
-* And response matching steps
-
-.html features/api/response_matchers.html
-
-
-
-* Register steps into godog context
-
-.html features/api/register_steps.html
-
-All these steps can be reused for any number of scenarios. So make it as *general* as possible.
-
-
-
-* We are still missing the application source code
-
-.html api/types.html
-
-
-
-* Method to read users from DB
-
-.html api/read_users.html
-
-
-
-* Handler to get user list
-
-.html api/get_users.html
-
-
-
-* Lets run godog again
-
-.image img/run/success.png 500 _
-
-
-
-* Bad request method scenario
-
-.html features/api/bad_method.html
-
-.image img/run/bad_method.png 350 _
-
-
-
-* Lets add a protected resource
-
-Given we need authorization to resource
-
-.html features/api/auth.html
-
-Add a necessary step to set the basic auth header
-
-
-
-* Basic auth validation
-.html api/auth.html
-
-
-
-* The result
-
-.image img/run/result.png 550 _
 
 
 * Does it look complex?
 
-Having these steps, may be just enough to functionally test your *API* application.
-And have readable feature definitions in one place.
 Even your manager can understand the behavior described.
 
