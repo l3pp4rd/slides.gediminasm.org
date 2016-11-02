@@ -64,8 +64,8 @@
           <img src="imgs/cap.png" alt="CAP" height="300px" />
 
           <ul class="fragment">
-            <li><strong>CA</strong> - RDBMS</li>
-            <li><strong>CP</strong> - MongoDB, Redis, MemcachedDB, VoltDB, BigTable</li>
+            <li><strong>CA</strong> - RDBMS (undistributed)</li>
+            <li><strong>CP</strong> - MongoDB, Redis, MemcachedDB, VoltDB, BigTable, ETCD</li>
             <li><strong>AP</strong> - CouchDB, Cassandra, Riak, Couchbase</li>
           </ul>
         </section>
@@ -88,10 +88,10 @@
           <h2>RDBMS and NoSQL key differences</h2>
 
           <ul>
-            <li>Normalization vs Denormalization (there is no need for SQL for this reason)</li>
+            <li>Normalization vs Denormalization (there is no need of SQL for this reason)</li>
             <li>Atomic update only per document, no ACID transactions. No atomic move operations.</li>
-            <li>In most cases - eventual consistency</li>
-            <li>NoSQL databases usually scales well horizontally, without sacrificing performance</li>
+            <li>SQL sacrifices throughput when masters are scaled</li>
+            <li>NoSQL databases usually scales well horizontally, without sacrificing performance.</li>
             <li>SQL doesn't scale infinitely</li>
           </ul>
         </section>
@@ -100,8 +100,8 @@
           <p>When should you consider NoSQL</p>
 
           <ul>
-            <li>Big data, metrics, notifications</li>
-            <li>High throughput, no need for consistent reads</li>
+            <li>Big data, metrics, notifications, sensor data</li>
+            <li>In cases when your system cannot fit in RDBMS anymore</li>
           </ul>
 
           <p class="fragment">Most web applications could run with <strong>sqlite</strong></p>
