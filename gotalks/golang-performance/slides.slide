@@ -1,0 +1,87 @@
+Intro to GO performance
+25 Jan 2017
+Tags: golang, go, datadog, meetup, performance, http, benchmark
+
+Gediminas Morkevicius
+Senior *Gopher* at, DATA-DOG
+gediminas.morkevicius@gmail.com
+http://gediminasm.org
+@l3pp4rd
+
+
+* Who am I
+
+The dude who codes *go* with *ViM*
+
+.image img/vim-go.png 500 _
+
+
+
+* Working at
+
+.image img/datadog-gophers.jpg 500 _
+
+.html styles.html
+
+
+
+* Today
+
+- I'll speak about *go* performance, what matters most about it.
+- Will walk through some web server implementation examples and benchmarks.
+- A little about GC performance.
+
+
+
+* General Performance
+
+It depends, can achieve close to *C++* results in some cases where concurrency can be involved.
+It also allows to manage the memory on your own. But again, it depends.
+
+
+
+* Compilation performance
+
+This matters a lot, if you ever compiled large *C++* projects.
+
+.image img/compile-perf.png 400 _
+
+*jujud* has *625* dependent packages and takes around *54* seconds to build on go *1.7*
+
+GOPATH=$(pwd) go list -f '{{ join .Deps "\n" }}' github.com/juju/juju/cmd/jujud | wc -l
+
+
+
+* What matters most
+
+- How fast you can achieve good enough results.
+- How reliable and maintainable is your software.
+- How simple is to deploy it.
+- How simple is to trace the performance issues in case if it matters.
+
+But you should know the boundaries of programming languages. What most you can expect from it.
+
+
+
+* GC performance
+
+.image img/gc-latency.jpg 500 _
+
+
+
+* GC performance compared
+
+I remember having *300ms* pauses with versions before *1.5**.
+
+Compared to other languages:
+
+- go - *4ms*
+- oCaml - *4ms*
+- swift - *4ms*
+- haskell - *58ms*
+- java - *153ms*
+
+Examples are from https://github.com/spion/hashtable-latencies which measured large hashtable GC
+performance in worst case. For typical programs these are better.
+
+NOTE, go 1.8 devel was tested
