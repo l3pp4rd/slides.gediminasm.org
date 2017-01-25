@@ -62,6 +62,25 @@ GOPATH=$(pwd) go list -f '{{ join .Deps "\n" }}' github.com/juju/juju/cmd/jujud 
 But you should know the boundaries of programming languages. What most you can expect from it.
 
 
+* Lets take a http server as an example
+
+.code router/main.go
+
+
+* Performance
+
+I will quote Rob Pike.
+
+Fancy algorithms are slow when n is small, and n is usually small.
+Fancy algorithms have big constants.
+Until you know that n is frequently going to be big, don't get fancy.
+
+
+* Standard http handler to solve our problem
+
+.code std/c2/main.go /^type Mux/,/end$/
+
+
 
 * GC performance
 
