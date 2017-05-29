@@ -215,7 +215,7 @@ In software, there is no best decision - only *better* or *worse*.
 
 
 
-* Resources
+* Some links
 
 .link https://12factor.net/ Twelve Factor App
 .link https://medium.com/@jlouis666/how-to-build-stable-systems-6fe9dcf32fc4 How to build stable systems
@@ -223,7 +223,7 @@ In software, there is no best decision - only *better* or *worse*.
 
 
 
-* Resources 2
+* About languages
 
 Learn at least few programming languages.
 
@@ -232,4 +232,13 @@ Learn at least few programming languages.
 Make some challenges for your self, develop something challenging your skills.
 
 Distributed and fault tolerant systems are hard.
+
+
+
+* Some talks about architecture
+
+.link https://aphyr.com/posts/343-scala-days-2017-jepsen-keynote Something to be aware about databases
+.link https://www.youtube.com/watch?v=STKCRSUsyP0 Event Driven Architecture
+.link https://www.infoq.com/presentations/Simple-Made-Easy Simple Made Easy
+.link https://www.youtube.com/watch?v=wgdBVIX9ifA Microservices
 
