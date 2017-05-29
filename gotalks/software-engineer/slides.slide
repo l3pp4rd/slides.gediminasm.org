@@ -20,10 +20,11 @@ I'm your dear colleague.
 
 * Agenda
 
-- Lets define what is - a great software engineer?
-- How to grow your engineering skills?
-- How to be hero?
-- Why should I care?
+- Lets define what is - great software engineer?
+- How to be a hero?
+- What engineering skills should we learn?
+- Challenge yourself with some tasks.
+- Some resources for learning stuff.
 
 
 
@@ -111,9 +112,124 @@ When there aren't any nice girls around, watching you do it!
 
 Was there any chance, that you could have prevented something bad from happening?
 
+.image imgs/not-my-fault.jpg 400 _
 
 
 
-* That is not my responsibility skill
 
+* Guess you got my point
+
+Lets move on to some engineering skills.
+
+
+
+* Software engineer should know some stuff
+
+- Learn queues - Rabbit MQ, NSQ, Nats, Kafka
+- Learn databases - MongoDB, RDBMS, Spanner, CockroachDB, Graph databases
+- Learn *CAP* theorem. See https://jepsen.io/analyses
+- Learn about transactions and consistency *ACID*
+- Learn various software for metrics, like statsd or https://prometheus.io/
+- Learn microservices and *OpenTracing*
+- Learn how to deploy software *kubernetes*, *mesos*, *ansible*.
+
+This is only a *needle* in the *haystack*.
+
+
+
+* What about self Confidence
+
+.image imgs/chart.jpg 400 _
+
+
+
+* Systems design and Architecture
+
+- What is this?
+- What skills apply here?
+
+
+
+* Lets make a challenge and design a System
+
+Given *DATA-DOG* decides to build *SAS* for employee monitoring:
+
+- Each employee computer should be monitored.
+- When they are staring or finishing actively using a computer.
+- Including web traffic, how much time they are spending on *delfi.lt*, *9gag.com* and etc.
+- The tool reports statistics to a central service, which provides a dashboard for an organization admins.
+- The tool on each employee computer, should often be updated with new features.
+
+
+
+* Programming language
+
+What should we choose for this software? Why?
+
+
+
+* Database
+
+What should we choose and why?
+
+
+
+* MVP - minimal viable product
+
+What should it be in this situation?
+
+
+
+* What about security?
+
+Should this tool encrypt sent data? Why?
+
+
+
+* How can we make a reliable system?
+
+- Data consistency, how should we store it?
+- Scaling services
+- How we deploy it?
+
+Given we scale at 10000 companies and 500 employees each.
+
+
+
+* Why is this important?
+
+You may say, well I'm not a software architect.
+
+But you still have to make decisions, even on dumb projects.
+
+And each decision matters, it may create or reduce work.
+
+
+
+* As a great engineer
+
+- You have to learn a lot.
+- Experience a lot of good and bad designs in order to make better decisions.
+
+In software, there is no best decision - only *better* or *worse*.
+
+
+
+* Resources
+
+.link https://12factor.net/ Twelve Factor App
+.link https://medium.com/@jlouis666/how-to-build-stable-systems-6fe9dcf32fc4 How to build stable systems
+.link https://hackernoon.com/senior-engineers-reduce-risk-5ab2adc13c97 Senior engineers reduce risk
+
+
+
+* Resources 2
+
+Learn at least few programming languages.
+
+*PHP* is not a language to solve all possible problems.
+
+Make some challenges for your self, develop something challenging your skills.
+
+Distributed and fault tolerant systems are hard.
 
