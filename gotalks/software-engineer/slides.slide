@@ -215,6 +215,29 @@ In software, there is no best decision - only *better* or *worse*.
 
 
 
+* You should know when not to write code
+
+It is far worse to write something, which could be avoided at all.
+
+
+
+* You should always know what your Goals are
+
+Knowing why you do stuff and the way you do it - is important.
+Because the value is not in the amount of code, but in value it gives.
+
+
+
+* The code is not an Art work
+
+Just make it simple, stupid and understandable for everyone.
+Clever code is always harder to maintain and extend on.
+
+- Choose composition over inheritance.
+- Choose explicit over implicit. AOP is a grave example.
+
+
+
 * Some links
 
 .link https://12factor.net/ Twelve Factor App
