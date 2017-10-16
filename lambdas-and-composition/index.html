@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>Lambdas & Composition</title>
+
+    <meta name="description" content="Lambdas & Composition" />
+    <meta name="author" content="Gediminas Morkevicius" />
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <link rel="stylesheet" href="../revealjs/css/reveal.css" />
+    <link rel="stylesheet" href="../revealjs/css/theme/sky.css" id="theme" />
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="../revealjs/lib/css/zenburn.css" />
+
+    <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+    <script>
+      document.write( '<link rel="stylesheet" href="../revealjs/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print" />' );
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="../revealjs/lib/js/html5shiv.js"></script>
+    <![endif]-->
+    <style>
+    #work-at {
+      border: 0;
+      -webkit-box-shadow: none;
+      box-shadow: none !important;
+      background:none;
+      margin: 0;
+      padding-top: 15px;
+    }
+    .reveal pre code.full {
+      max-height: 600px;
+      max-width: 1000px;
+    }
+    .reveal pre code.wide {
+      width: 1200px;
+    }
+    .reveal img.no-border {
+      border: 0;
+      -webkit-box-shadow: none;
+      box-shadow: none !important;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <h3>Who's the dude talking</h3>
+
+          <p>
+            <small><a href="http://gediminasm.org">Gediminas Morkevičius</a> aka <a href="http://twitter.com/l3pp4rd">@l3pp4rd</a></small>
+          </p>
+
+          <img class="no-border" src="img/vim-go.png" height="200px" alt="Me" />
+
+          <ul>
+            <li>I code with - <strong>GO, Java, C</strong></li>
+            <li>Less with <strong>PHP, javascript</strong></li>
+            <li>Hardcore - <strong>ViM, Arch Linux, DWM, St</strong> user</li>
+            <li>Fan of <a href="http://suckless.org/">suckless.org</a> tools</li>
+            <li>I share my stuff at <a href="https://github.com/l3pp4rd">github.com/l3pp4rd</a></li>
+          </ul>
+        </section>
+
+        <section>
+          <p><strong>I work at DATA-DOG</strong></p>
+
+          <a href="http://datadog.lt" target="_blank">
+            <img id="work-at" src="img/datadog.png" height="100px" alt="Data-Dog" />
+          </a>
+        </section>
+
+        <section>
+          <p><strong>And in partnership with Satalia</strong></p>
+
+          <a href="https://www.satalia.com/">
+            <img class="no-border" src="img/satalia.png" height="300px" alt="Satalia"/>
+          </a>
+
+          <p class="fragment">We solve <strong>hard</strong> problems</p>
+        </section>
+
+        <section>
+          <p><strong>I'm also the author of a few open source projects</strong></p>
+
+          <a href="https://www.satalia.com/">
+            <img class="no-border" src="img/os.png" height="500px" alt="Open Source"/>
+          </a>
+        </section>
+
+        <section>
+          <p><strong>And a member of Cucumber team</strong></p>
+
+          <a href="https://cucumber.io">
+            <img class="no-border" src="img/cucumber.svg" height="200px" alt="Cucumber"/>
+          </a>
+
+          <p class="fragment">I maintain cucumber implementation for <strong>golang</strong></p>
+        </section>
+
+        <section>
+          <p><strong>We've all went to school</strong></p>
+
+          <p>And most likely only a few got a chance, to learn from great teachers</p>
+
+          <p>Write a correct answer, without understanding the reason, meaning or value</p>
+        </section>
+
+        <section>
+          <p>Have you read <strong>Stream</strong> implementation in <strong>Java 8</strong> standard library?</p>
+
+          <p>This is a great example of how we can leverage lambdas and their composition</p>
+        </section>
+
+        <section>
+          <p>Have you seen <strong>Rich Hickey`s</strong> talk <a href="https://www.infoq.com/presentations/Simple-Made-Easy">Simple Made Easy</a>?</p>
+
+          <p>I'll talk about a small part of it <strong>Inheritance and Composition</strong></p>
+        </section>
+
+        <section>
+          <h3>Thank you</h3>
+
+          <img src="img/questions.jpg" class="no-border" height="300" alt="Questions?" />
+
+          <p>Slides are available at: <a href="http://slides.gediminasm.org">slides.gediminasm.org</a></p>
+          <p>Powered by: <a href="http://lab.hakim.se/reveal-js/">Revealjs</a>
+        </section>
+      </div>
+
+    </div>
+
+    <script src="../revealjs/lib/js/head.min.js"></script>
+    <script src="../revealjs/js/reveal.js"></script>
+
+    <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        mouseWheel: false,
+        rollingLinks: false,
+        history: true,
+        center: true,
+
+        theme: 'sky', // available themes are in /css/theme
+        transition: 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: '../revealjs/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          // { src: '../revealjs/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          // { src: '../revealjs/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../revealjs/plugin/highlight/highlight.js', async: false, callback: function() {
+            hljs.initHighlightingOnLoad();
+          }},
+          { src: '../revealjs/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: '../revealjs/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+          // { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+          // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+        ]
+      });
+
+    </script>
+
+  </body>
+</html>
