@@ -111,9 +111,90 @@
         <section>
           <p><strong>We've all went to school</strong></p>
 
-          <p>And most likely only a few got a chance, to learn from great teachers</p>
+          <p>And most likely only a few got a chance, to learn from great teachers.</p>
 
-          <p>Write a correct answer, without understanding the reason, meaning or value</p>
+          <p>All we needed is to write a correct answer, without understanding the reason, meaning or value it brings.</p>
+        </section>
+
+        <section>
+          <p>Even worse in software development</p>
+
+          <blockquote cite="https://twitter.com/ccerdadiaz">
+          "Programming is a practical art where you first learn to write and then, hopefully, you learn to read."
+          </blockquote>
+        </section>
+
+        <section>
+          <p>Today I'll show how we compose optimization strategy lambdas in order
+          to solve <strong>Vehicle routing problem</strong></p>
+
+          <p class="fragment">But before that, lets describe what kind of problem it is.</p>
+        </section>
+
+        <section>
+          <h4>Vehicle routing problem</h4>
+
+          <img class="no-border" src="img/vrp.png" height="350px" alt="VRP"/>
+
+          <p class="fragment">In math, it is defined as <strong>NP-hard</strong> problem.</p>
+          <p class="fragment">Meaning - if you have <strong>10</strong> customers.</p>
+          <p class="fragment">You have <strong>10!</strong> possible combinations - <strong>3628800</strong>.</p>
+        </section>
+
+        <section>
+          <p>Usually, there are constraints:</p>
+
+          <ol>
+            <li>Time slots for customers.</li>
+            <li>Vehicle capacity.</li>
+            <li>Driver duty time.</li>
+            <li>Driver breaks on the road or at specific location.</li>
+            <li>Vehicles can pick or deliver items, or both at the same time.</li>
+          </ol>
+
+          <p class="fragment">All these constraints may reduce a number of combinations.</p>
+        </section>
+
+        <section>
+          <p>But if you have <strong>4000</strong> or more customers for your <strong>fleet</strong> to manage.</p>
+
+          <p class="fragment">The only option there is - <strong>various optimization heuristics</strong></p>
+
+          <p class="fragment">I will name a few most common and show some examples.</p>
+        </section>
+
+        <section>
+          <h4>Solution construction heuristics</h4>
+
+          <img class="no-border" src="img/best-insert.png" height="350px" alt="Best insert"/>
+
+          <p class="fragment">The best position is determined by cost - whether time or distance.</p>
+        </section>
+
+        <section>
+          <h4>Local search optimization</h4>
+
+          <img class="no-border" src="img/local-search.png" height="350px" alt="Local search optimization"/>
+
+          <p class="fragment">Trying to swap or move customers and seeing whether the change produces better cost.</p>
+        </section>
+
+        <section>
+          <h4>Large neighborhood search</h4>
+
+          <img class="no-border" src="img/lns.png" height="350px" alt="Local search optimization"/>
+
+          <p class="fragment">Destroy a portion of solution and try to reconstruct.</p>
+        </section>
+
+        <section>
+          <p>Now lets see it in action</p>
+        </section>
+
+        <section>
+          <h4>Inheritance or Composition</h4>
+
+          <p>Which one is better?</p>
         </section>
 
         <section>
