@@ -38,7 +38,7 @@
       padding-top: 15px;
     }
     .reveal pre code.full {
-      max-height: 600px;
+      max-height: 500px;
       max-width: 1000px;
     }
     .reveal pre code.wide {
@@ -132,6 +132,42 @@
         </section>
 
         <section>
+          <p>But before we begin, is everyone familiar with <strong>@FunctionalInterface</strong>?</p>
+
+          <pre><code class="java full">@FunctionalInterface
+public interface Retry&lt;T&gt; {
+
+  Optional&lt;T&gt; action() throws Exception;
+
+  default Retry&lt;T&gt; attempts(int num) {
+    return () -&gt; {
+      Optional&lt;T&gt; result;
+      int tried = 0;
+      do {
+        result = action();
+        if (result.isPresent()) {
+          return result;
+        }
+        tried++;
+        System.out.println(String.format("Retrying %d time..", tried));
+      } while (tried &lt; num);
+      return result;
+    };
+  }
+
+  default Retry&lt;T&gt; backoff(Duration delay) {
+    return () -&gt; {
+      Optional&lt;T&gt; result = action();
+      if (!result.isPresent()) {
+        TimeUnit.NANOSECONDS.sleep(delay.getNano());
+      }
+      return result;
+    };
+  }
+}</code></pre>
+        </section>
+
+        <section>
           <h4>Vehicle routing problem</h4>
 
           <img class="no-border" src="img/vrp.png" height="350px" alt="VRP"/>
@@ -192,21 +228,9 @@
         </section>
 
         <section>
-          <h4>Inheritance or Composition</h4>
-
-          <p>Which one is better?</p>
-        </section>
-
-        <section>
           <p>Have you read <strong>Stream</strong> implementation in <strong>Java 8</strong> standard library?</p>
 
           <p>This is a great example of how we can leverage lambdas and their composition</p>
-        </section>
-
-        <section>
-          <p>Have you seen <strong>Rich Hickey`s</strong> talk <a href="https://www.infoq.com/presentations/Simple-Made-Easy">Simple Made Easy</a>?</p>
-
-          <p>I'll talk about a small part of it <strong>Inheritance and Composition</strong></p>
         </section>
 
         <section>
